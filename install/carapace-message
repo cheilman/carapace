@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+#
+# Echo a message with indentation
+#
+
+autoload colors && colors
+
+if [[ "${1#*bold}" != "$1" ]]; then
+    # bold
+    color=$fg_bold[${1#bold}]
+else
+    color=$fg_no_bold[$1]
+fi
+
+message=${@:2}
+
+if [ -z "${CARAPACE_INDENT}" ]; then
+    echo "${color}${message}${reset_color}"
+else
+    echo "${CARAPACE_INDENT}" "${color}${message}${reset_color}"
+fi
+

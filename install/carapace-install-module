@@ -1,0 +1,215 @@
+#!/usr/bin/env zsh
+#
+# Install a carapace module.
+#
+# Usage: carapace-install-module <module directory> <generated files directory>
+#
+
+set -e
+
+#
+# Setup
+#
+
+export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+TRAPEXIT() {
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+}
+
+moduledir="$1"
+generated="$2"
+modulename="${${moduledir:t}:2}"
+
+#carapace-message "boldgrey" "Dir: $moduledir"
+#carapace-message "boldgrey" "Gen: $generated"
+#carapace-message "boldgrey" "Mod: $modulename"
+
+#
+# Functions
+#
+
+# Usage: <src> <dst> [comment character (defaults to #)]
+append-to() {
+    local source_file="$(readlink -f $1)"
+    local dest_file="$2"
+    local commentchar="${3:-#}"
+
+    if [ ! -r "$source_file" ]; then
+        carapace-message "boldred" "Error in append-to '$1'"
+        return 1
+    fi
+
+    cat >> $dest_file <<EOF
+${commentchar}
+${commentchar} Included from: $modulename
+${commentchar}     ($source_file)
+${commentchar}
+EOF
+
+    cat $source_file >> $dest_file
+    echo >> $dest_file
+    echo >> $dest_file
+}
+
+# contains(string, substring)
+# http://stackoverflow.com/a/8811800
+#
+# Returns 0 if the specified string contains the specified substring,
+# otherwise returns 1.
+contains() {
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"
+    then
+        return 0    # $substring is in $string
+    else
+        return 1    # $substring is not in $string
+    fi
+}
+
+# Remove symlinks that point into non-existant files from this module
+remove_broken_symlink_to_this_module() {
+    local link="$1"
+    local actual="$(readlink "$link")"
+
+    # Symlink, and the target doesn't exist
+    if [ -L "$link" -a ! -e "$link" ]; then
+        # See if it contains this module
+        contains "$actual" "$moduledir" && (
+            carapace-message "magenta" "- $link"
+            #rm -f "$link"
+        )
+    fi
+}
+
+#
+# Execute install script
+#
+
+if [ -x "${moduledir}/install" ]; then
+    ${moduledir}/install "$generated"
+    err=$?
+
+    if [ $err -ne 0 ]; then
+        carapace-message "boldbrown" "Skipping '$modulename' becase of install check: $err"
+        exit $err
+    fi
+elif [ -e "${moduledir}/install" ]; then
+    carapace-message "brown" "Warning, '$modulename' has an install file that is NOT executable."
+fi
+
+#
+# Append zshrc
+#
+
+append-to "${moduledir}/zshrc" "${generated}/generated-zshrc"
+
+#
+# Install bin files
+#
+
+if [ -d "${moduledir}/bin" ]; then
+    for i in ${moduledir}/bin/*; do
+        carapace-redirect "$i" "$HOME/bin/carapace/${i:t}"
+    done
+fi
+
+#
+# Remove missing bin files
+#
+
+# Make sure it isn't empty or it prints errors
+if [ -n "$(ls -A $HOME/bin/carapace/)" ]; then
+    for i in $HOME/bin/carapace/*; do
+        if [ -L "$i" ]; then
+            remove_broken_symlink_to_this_module "$i"
+        fi
+    done
+fi
+
+#
+# Install dotfiles
+#
+
+if [ -d "${moduledir}/dotfiles" ]; then
+    for i in ${moduledir}/dotfiles/*; do
+        carapace-redirect "$i" "$HOME/.${i:t}"
+    done
+fi
+
+#
+# Remove missing dotfiles
+#
+
+for i in $HOME/.*; do
+    if [ -L "$i" ]; then
+        remove_broken_symlink_to_this_module "$i"
+    fi
+done
+
+#
+# Install config files
+#
+
+if [ -d "${moduledir}/config" ]; then
+    for i in ${moduledir}/config/*; do
+        target="$HOME/.config/{$i:t}"
+
+        if [ ! -d "$i" ]; then
+            # Our source is a normal file, always set it up
+            carapace-redirect "$i" "$target"
+        else
+            # Our source is a directory...
+            if [ -d "$target" ]; then
+                # Target is also a directory.  Symlink the contents
+                for j in ${i}/*; do
+                    carapace-redirect "$j" "$target/${j:t}"
+                done
+            elif [ ! -e "$target" ]; then
+                # Target does not exist, link the whole directory
+                carapace-redirect "$i" "$target"
+            else
+                # Target exists, but was not a directory... error?!
+                carapace-message "boldred" "! mismatch between config '$i', target not a directory."
+            fi
+        fi
+    done
+fi
+
+#
+# Remove missing config files
+#
+
+for i in $HOME/.config/* $HOME/.config/*/*; do
+    if [ -L "$i" ]; then
+        remove_broken_symlink_to_this_module "$i"
+    fi
+done
+
+#
+# Handle special files
+#
+
+for i in crontab gitconfig profile ssh_config; do
+    if [ -r "${moduledir}/special/$i" ]; then
+        append-to "${moduledir}/special/$i" "${generated}/generated-$i"
+    fi
+done
+
+if [ -r "${moduledir}/special/vimrc" ]; then
+    append-to "${moduledir}/special/vimrc" "${generated}/generated-vimrc" '"'
+fi
+
+#
+# All done!
+# Append module name as a success!
+#
+
+carapace-message "boldgreen" "$modulename installed successfully"
+
+if [ -z "$CARAPACE_MODULES" ]; then
+    export CARAPACE_MODULES="${modulename}"
+else
+    export CARAPACE_MODULES="${CARAPACE_MODULES},${modulename}"
+fi

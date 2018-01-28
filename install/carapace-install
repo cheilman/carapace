@@ -1,0 +1,122 @@
+#!/usr/bin/env zsh
+#
+# Generate and install all the Carapace files
+#
+set -e
+
+#
+# Prepare
+#
+
+export CARAPACE=$(dirname "${0:a:h}")
+
+if [ ! -d "$CARAPACE" ]; then
+    >&2 echo "Unable to find carapace folder!"
+    exit 1
+fi
+
+export PATH="$CARAPACE/install:$PATH"
+export CARAPACE_GENERATED="$CARAPACE/generated"
+export CARAPACE_MODULES=""
+export CARAPACE_INDENT=""
+
+carapace-message "boldcyan" "Carapace Installation Starting..."
+export CARAPACE_INDENT=" >"
+carapace-message "cyan" "using source folder '$CARAPACE'"
+
+# Create bin folder
+mkdir -p "$HOME/bin/carapace" &> /dev/null || :
+
+#
+# Functions
+#
+
+#
+# Install our installation file
+#
+
+carapace-redirect "$CARAPACE/install/carapace-install" "$HOME/bin/carapace/carapace-install"
+
+#
+# Clear out the generated folder
+#
+
+# TODO: We could generate files in one place and then "atomic"-ish replace them
+# TODO: With this setup we have a period in time where the files don't exist...
+
+carapace-message "cyan" "clearing old generated files"
+if [ -d "$CARAPACE_GENERATED" ]; then
+    rm -f $CARAPACE_GENERATED/* >& /dev/null || :
+fi
+
+#
+# Start by creating the boilerplate/headers for the generated files
+#
+
+carapace-message "cyan" "setting up generated file boilerplate"
+for i in crontab gitconfig profile ssh_config zshrc; do
+    cp $CARAPACE/docs/templates/$i-template $CARAPACE_GENERATED/generated-$i
+
+    echo "#" >> $CARAPACE_GENERATED/generated-$i
+    echo "# Generated: $(date -u)" >> $CARAPACE_GENERATED/generated-$i
+    echo "#" >> $CARAPACE_GENERATED/generated-$i
+    echo >> $CARAPACE_GENERATED/generated-$i
+done
+
+( # vimrc
+    cp $CARAPACE/docs/templates/vimrc-template $CARAPACE_GENERATED/generated-vimrc
+
+    echo "\"" >> $CARAPACE_GENERATED/generated-vimrc
+    echo "\" Generated: $(date -u)" >> $CARAPACE_GENERATED/generated-vimrc
+    echo "\"" >> $CARAPACE_GENERATED/generated-vimrc
+    echo >> $CARAPACE_GENERATED/generated-vimrc
+)
+
+
+#
+# Now start checking modules
+#
+
+(
+    carapace-message "cyan" "evaluating modules"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    cd $CARAPACE/modules
+    for i in *; do
+        if [ -d "$i" ]; then
+            carapace-message "boldblue" "processing module $i"
+
+            # Install from inside the module
+            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || (
+                carapace-message "boldred" "$i module failed!"
+            )
+        fi
+    done
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+)
+
+#
+# Link up our generated files
+#
+
+carapace-redirect "$CARAPACE_GENERATED/generated-gitconfig" "$HOME/.gitconfig"
+carapace-redirect "$CARAPACE_GENERATED/generated-profile" "$HOME/.profile"
+carapace-redirect "$CARAPACE_GENERATED/generated-ssh_config" "$HOME/.ssh/config"
+carapace-redirect "$CARAPACE_GENERATED/generated-vimrc" "$HOME/.vimrc"
+
+# Zshrc links to the script that updates Carapace first
+carapace-redirect "$CARAPACE/zshrc-update" "$HOME/.zshrc"
+
+#
+# Install crontab
+#
+
+crontab "$CARAPACE_GENERATED/generated-crontab"
+
+#
+# Should be all good!
+#
+
+export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+carapace-message "boldcyan" "Carapace Installation Complete!"
