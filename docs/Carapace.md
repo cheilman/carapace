@@ -10,6 +10,7 @@ It's like a shell, okay?
     |- generated/
     |- backup/
     |- docs/
+    |   |- templates/
     |- zshrc
     |- profile
 ~/.host/
@@ -42,7 +43,11 @@ If installation would overwrite any existing files (usually with symlinks), the 
 
 ### Docs
 
-Carapace system documentation is stored in this folder, along with documentation that will be symlinked or copied on install (such as crontab headers and `.host` readmes).
+Carapace system documentation is stored in this folder.
+
+#### Docs/Templates
+
+Documentation that will be symlinked or copied on install (such as crontab headers and `.host` readmes).
 
 ### zshrc
 
@@ -71,3 +76,13 @@ CARAPACE_MODULES | A comma separated list of modules (minus the numeric prefix) 
 
 Installation
 ------------
+
+### Generated Files
+
+The following files will be generated in `$HOME/.carapace/generated`:
+
+- generated-crontab
+- generated-profile
+- generated-sshconfig
+- generated-vimrc
+- generated-zshrc

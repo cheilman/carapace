@@ -56,13 +56,17 @@ This folder contains specially handled configuration files.  Specifically:
 
 Module `crontab` files will be appended to the generated Carapace-wide `generated-crontab` file, and then installed using `crontab`.
 
+#### gitconfig
+
+Module `gitconfig` files will be appended to the generated Carapae-wide `generated-gitconfig` file, and then symlinke to `$HOME/.gitconfig`.
+
 #### profile
 
 Module `profile` files will be appended to the generated Carapace-wide `generated-profile` file, and executed whenever `$HOME/.profile` is.
 
-#### sshconfig
+#### ssh_config
 
-Module `sshconfig` files will be appended to the generated Carapace-wide `generated-sshconfig` file, and symlinked to `$HOME/.ssh/config`.
+Module `ssh_config` files will be appended to the generated Carapace-wide `generated-ssh_config` file, and symlinked to `$HOME/.ssh/config`.
 
 #### vimrc
 
