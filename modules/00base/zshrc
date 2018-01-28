@@ -1,0 +1,94 @@
+#!zsh
+
+#
+# Set timezone
+#
+
+# Allow it to be overridden at the host
+if [ -r "$HOME/.host/timezone" ]; then
+    . "$HOME/.host/timezone"
+else
+    export TZ='America/New_York'
+fi
+
+#
+# Load system-level environment stuff
+#
+
+if [ -f /etc/environment ]; then
+    for line in $( cat /etc/environment ) ; do
+        export $line
+    done
+fi
+
+#
+# Path Helper Functions
+#
+
+# Add to the end of the path.  Doesn't check for duplicates
+add_path_back ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$PATH" ]]; then
+            export PATH="$PATH:$*"
+        else
+            export PATH="$*"
+        fi
+    fi  
+}
+
+# Add to the beginning of the path.  Doesn't check for duplicates
+add_path_front ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$PATH" ]]; then
+            export PATH="$*:$PATH"
+        else
+            export PATH="$*"
+        fi
+    fi  
+}
+
+#
+# Set up some paths
+#
+
+export PATH=""
+
+add_path_back "/usr/local/bin"
+add_path_back "/usr/bin"
+add_path_back "/bin"
+add_path_back "/usr/local/sbin"
+add_path_back "/usr/sbin"
+add_path_back "/sbin"
+add_path_back "/usr/X11R6/bin"
+add_path_back "/usr/X11/bin"
+add_path_back "$HOME/programs/games"
+add_path_back "/usr/games"
+
+#
+# Colors
+#
+
+autoload colors
+colors
+
+#
+# Color definitions (taken from Color Bash Prompt HowTo).
+# Some colors might look different of some terminals.
+# For example, I see 'Bold Red' as 'orange' on my screen,
+# hence the 'Green' 'BRed' 'Red' sequence I often use in my prompt.
+#
+
+for COLOR in Black Red Green Yellow Blue Magenta Cyan White; do
+    eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
+    eval B$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+    eval On_$COLOR='%{$bg[${(L)COLOR}]%}'
+done
+eval RESET='%{$reset_color%}'
+
+# Colors are ${Color} or ${BColor} for bold.
+NC=${RESET}
+
+ALERT=${BWhite}${On_Red} # Bold White on red background
+
