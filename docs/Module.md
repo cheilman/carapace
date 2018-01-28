@@ -18,6 +18,7 @@ mymod/
  |- dotfiles/
  |- special/
  |- install
+ |- update
  |- zshrc
 ```
 
@@ -81,6 +82,7 @@ An optional script that is executed on Carapace installations or upgrades.  It s
     - Building/installing/updating a go program
     - Installing apt packages
     - etc.
+- It is important that if this module requires external updates (such as a git repository), that the install script run those updates.
 
 What does the module installation process look like?
 ----------------------------------------------------
