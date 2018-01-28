@@ -1,10 +1,13 @@
-# Carapace Modules
+Carapace Modules
+================
 
-## What makes up a module?
+What makes up a module?
+-----------------------
 
 A module is a releated collection of scripts, binaries, configuration, etc.  Files are managed in a specific way:
 
-## Module Structure
+Module Structure
+----------------
 
 All files and folders are optional.
 
@@ -79,7 +82,15 @@ An optional script that is executed on Carapace installations or upgrades.  It s
     - Installing apt packages
     - etc.
 
-## What does the module installation process look like?
+What does the module installation process look like?
+----------------------------------------------------
 
-Please reference the higher-level Carapace documentation.
-
+1. If the `install` file exists, execute it, along with the path to the generated files folder.
+    1. If the exit code is non-zero, skip this module
+2. If the `install` file was successful, or did not exist, continue with module installation
+3. Append the `zshrc` file to the `generated-zshrc` file.
+4. Symlink all the `bin/` files to the correct location
+5. Symlink all the `dotfiles/` files to the correct location (following the [description in that section](#dotfiles)).
+6. Symlink all the `config/` files to the correct location (following the [description in that section](#config)).
+7. Process each of the `special/` files [as necessary](#special).
+8. Add the module name to the list of installed modules (see [Environment Variables](Carapace.md#Environment-Variables) section in the [Carapace documentation](Carapace.md))
