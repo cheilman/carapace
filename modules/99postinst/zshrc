@@ -6,6 +6,12 @@
 
 [[ $- == *i* ]] && stty -ixon
 
+#
+# Force my bin folders to be first
+#
+
+add_path_front "$HOME/bin/carapace"
+add_path_front "$HOME/bin"
 
 #################
 # Shell Options #

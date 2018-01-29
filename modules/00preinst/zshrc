@@ -55,6 +55,8 @@ add_path_front ()
 
 export PATH=""
 
+add_path_back "$HOME/bin"
+add_path_back "$HOME/bin/carapace"
 add_path_back "/usr/local/bin"
 add_path_back "/usr/bin"
 add_path_back "/bin"
