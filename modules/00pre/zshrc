@@ -22,6 +22,11 @@ if [ -f /etc/environment ]; then
 fi
 
 #
+# Autoload Functions
+#
+autoload -U is-at-least
+
+#
 # Path Helper Functions
 #
 
@@ -34,7 +39,7 @@ add_path_back ()
         else
             export PATH="$*"
         fi
-    fi  
+    fi
 }
 
 # Add to the beginning of the path.  Doesn't check for duplicates
@@ -46,7 +51,7 @@ add_path_front ()
         else
             export PATH="$*"
         fi
-    fi  
+    fi
 }
 
 #

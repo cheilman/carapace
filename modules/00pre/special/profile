@@ -1,0 +1,37 @@
+#!zsh
+
+#
+# Set timezone
+#
+
+export TZ='America/New_York'
+
+#
+# Editor/Pager
+#
+
+export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
+
+#
+# Path
+#
+
+if [ -n "$HOME" ]; then
+    export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
+fi
+
+#
+# TTY settings
+#
+
+# Disable ^S/^Q flow control
+[[ $- == *i* ]] && stty -ixon
+
+#
+# Keyboard settings
+#
+
+# Disable caps lock key
+[ -x "`which setxkbmap 2>/dev/null`" ] && setxkbmap -option caps:none
