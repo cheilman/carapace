@@ -11,8 +11,7 @@ It's like a shell, okay?
     |- backup/
     |- docs/
     |   |- templates/
-    |- zshrc
-    |- profile
+    |- zshrc-update
 ~/.host/
     |- config/
     |- zshrc-pre
@@ -49,13 +48,9 @@ Carapace system documentation is stored in this folder.
 
 Documentation that will be symlinked or copied on install (such as crontab headers and `.host` readmes).
 
-### zshrc
+### zshrc-update
 
 This is the script that will be run on each login (symlinked to `$HOME/.zshrc`).  It checks for Carapace updates, and then executes the generated zshrc file.
-
-### profile
-
-This is symlinked into the main `$HOME/.profile` and calls out to the generated profile file.
 
 ### `$HOME/.host` Files
 
