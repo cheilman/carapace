@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+#
+# Update the Carapace system and re-install
+#
+set -e
+
+#
+# Prepare
+#
+
+export CARAPACE=$(dirname "${0:a:h}")
+
+if [ ! -d "$CARAPACE" ]; then
+    >&2 echo "Unable to find carapace folder!"
+    exit 1
+fi
+
+export PATH="$CARAPACE/install:$PATH"
+
+#
+# Update
+#
+
+carapace-message "boldcyan" "Carapace Update Starting..."
+( cd $CARAPACE && git pull )
+carapace-message "boldcyan" "Carapace Update Finished"
+
+#
+# Reinstall
+#
+
+carapace-install

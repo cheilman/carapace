@@ -24,6 +24,8 @@ carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
 carapace-message "cyan" "using source folder '$CARAPACE'"
 
+exit 1
+
 # Create bin folder
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 
@@ -32,10 +34,11 @@ mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 #
 
 #
-# Install our installation file
+# Install our installation and update files
 #
 
 carapace-redirect "$CARAPACE/install/carapace-install" "$HOME/bin/carapace/carapace-install"
+carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapace-update"
 
 #
 # Clear out the generated folder

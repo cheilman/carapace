@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+#
+# Prepare to execute the Carapace generated zshrc script
+#
+
+export CARAPACE=$(dirname "${0:a:h}")
+
+#
+# We'll want to see if we need to switch zsh executables
+#
+
+# TODO: Switch running zsh
+
+#
+# Check for new updates
+#
+
+update_freq="9 days"
+update_timestamp="$CARAPACE/generated/carapace-update-timestamp"
+update_timestamp_now="${update_timestamp}_now"
+
+# Make sure file exists
+if [ ! -e "$update_timestamp" ]; then
+    touch -d "-$update_freq" "$update_timestamp"
+fi
+
+# Check to see if we need to update
+touch "$update_timestamp_now"
+if [ "$update_timestamp_now" -nt "$update_timestamp" ]; then
+    # Need to update
+    touch -d "+$update_freq" "$update_timestamp"
+    $CARAPACE/install/carapace-update
+fi
+
+#
+# Execute
+#
+
+. $CARAPACE/generated/generated-zshrc
