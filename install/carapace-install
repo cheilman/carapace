@@ -24,8 +24,6 @@ carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
 carapace-message "cyan" "using source folder '$CARAPACE'"
 
-exit 1
-
 # Create bin folder
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 
@@ -98,6 +96,29 @@ done
 
     export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
 )
+
+#
+# Finalize zshrc
+#
+
+# Clear module-level variables
+cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
+#############################
+# Module Inclusion Finished #
+#############################
+
+EOF
+
+# Clear module-level variables
+cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
+
+#
+# Clearing module variables
+#
+export CARAPACE_CURRENT_MODULE=""
+export CARAPACE_CURRENT_MODULE_PATH=""
+
+EOF
 
 #
 # Link up our generated files

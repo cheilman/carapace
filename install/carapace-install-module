@@ -29,11 +29,12 @@ modulename="${${moduledir:t}:2}"
 # Functions
 #
 
-# Usage: <src> <dst> [comment character (defaults to #)]
-append-to() {
+# Usage: <src> <dst> <comment character> <extra header text>
+append-helper() {
     local source_file="$(readlink -f $1)"
     local dest_file="$2"
-    local commentchar="${3:-#}"
+    local commentchar="$3"
+    local extraheader="$4"
 
     if [ ! -r "$source_file" ]; then
         carapace-message "boldred" "Error in append-to '$1'"
@@ -41,15 +42,45 @@ append-to() {
     fi
 
     cat >> $dest_file <<EOF
-${commentchar}
-${commentchar} Included from: $modulename
-${commentchar}     ($source_file)
-${commentchar}
+${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+${commentchar}###
+${commentchar}### Included from: $modulename
+${commentchar}###     ($source_file)
+${commentchar}###
 EOF
 
+if [ -n "${extraheader}" ]; then
+    cat >> $dest_file <<EOF
+${extraheader}
+${commentchar}###
+EOF
+fi
+
+    echo >> $dest_file
     cat $source_file >> $dest_file
     echo >> $dest_file
-    echo >> $dest_file
+
+    cat >> $dest_file <<EOF
+${commentchar}###
+${commentchar}### End include from: $modulename
+${commentchar}###
+${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+EOF
+}
+
+# Usage: <src> <dst> [comment character (defaults to #)]
+append-to() {
+    append-helper "$1" "$2" "${3:-#}"
+}
+
+# Usage: <src> <dst>
+# Also sets some module-level variables, assumes you can do shell commands
+append-to-zshrc() {
+    append-helper "$1" "$2" "#" \
+"#### Carapace module variables
+export CARAPACE_CURRENT_MODULE=\"$modulename\"
+export CARAPACE_CURRENT_MODULE_PATH=\"$moduledir\""
 }
 
 # contains(string, substring)
@@ -103,13 +134,13 @@ fi
 # Append zshrc
 #
 
-append-to "${moduledir}/zshrc" "${generated}/generated-zshrc"
+[ -r "${moduledir}/zshrc" ] && append-to-zshrc "${moduledir}/zshrc" "${generated}/generated-zshrc"
 
 #
 # Install bin files
 #
 
-if [ -d "${moduledir}/bin" ]; then
+if [ -d "${moduledir}/bin" -a -n "$(ls -A ${moduledir}/bin 2> /dev/null)" ]; then
     for i in ${moduledir}/bin/*; do
         carapace-redirect "$i" "$HOME/bin/carapace/${i:t}"
     done
@@ -120,7 +151,7 @@ fi
 #
 
 # Make sure it isn't empty or it prints errors
-if [ -n "$(ls -A $HOME/bin/carapace/)" ]; then
+if [ -n "$(ls -A $HOME/bin/carapace/ 2> /dev/null)" ]; then
     for i in $HOME/bin/carapace/*; do
         if [ -L "$i" ]; then
             remove_broken_symlink_to_this_module "$i"
@@ -132,7 +163,7 @@ fi
 # Install dotfiles
 #
 
-if [ -d "${moduledir}/dotfiles" ]; then
+if [ -d "${moduledir}/dotfiles" -a -n "$(ls -A ${moduledir}/dotfiles 2> /dev/null)" ]; then
     for i in ${moduledir}/dotfiles/*; do
         carapace-redirect "$i" "$HOME/.${i:t}"
     done
@@ -152,7 +183,7 @@ done
 # Install config files
 #
 
-if [ -d "${moduledir}/config" ]; then
+if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)"  ]; then
     for i in ${moduledir}/config/*; do
         target="$HOME/.config/{$i:t}"
 

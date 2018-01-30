@@ -76,6 +76,13 @@ Module `vimrc` files will be appended to the generated Carapace-wide `generated-
 
 Module `zshrc` files will be appended to the generated Carapace-wide `generated-zshrc` file, and executed whenever `$HOME/.zshrc` is.
 
+Two environment variables will be available to you:
+
+- `CARAPACE_CURRENT_MODULE` -- The name of the current module
+- `CARAPACE_CURRENT_MODULE_PATH` -- The path to the current module's folder
+
+Remember that relative paths likely won't work correctly, as your code will be executing from the generated file.  Use the `CARAPACE_CURRENT_MODULE_PATH` to locate other files from your module.  Also note that these environment variables won't persist after your zshrc script execution, so they will either be wrong or unavailable if you try to use them later (such as in functions).
+
 ### install
 
 An optional script that is executed on Carapace installations or upgrades.  It should be idempotent enough to be run on every upgrade without causing problems.  The install script serves two purposes:
@@ -100,3 +107,20 @@ What does the module installation process look like?
 6. Symlink all the `config/` files to the correct location (following the [description in that section](#config)).
 7. Process each of the `special/` files [as necessary](#special).
 8. Add the module name to the list of installed modules (see [Environment Variables](Carapace.md#Environment-Variables) section in the [Carapace documentation](Carapace.md))
+
+How can I communicate to the user during installation?
+------------------------------------------------------
+
+The `carapace-message` executable will echo a message to the user.  You can also color messages.
+
+Usage: `carapace-message <color> <message>`
+
+Color is either one of the following, or `bold` and one of the following:
+
+- black, red, green, yellow, blue, magenta, cyan, white
+
+Examples:
+
+- `carapace-message "cyan" "Hello world!"`
+- `carapace-message "boldgreen" "Everything is a-okay!"`
+- `carapace-message "boldred" "We're hosed!"`
