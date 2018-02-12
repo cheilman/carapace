@@ -28,7 +28,7 @@ To-Do
     - [X] git
     - [X] git1.7.10         # rolled into git
     - [ ] go
-    - [ ] hhighlighter
+    - [X] hhighlighter
     - [ ] i3
     - [ ] images
     - [ ] is
