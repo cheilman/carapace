@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Put a string centered in the middle of a line
+#
+# based on: https://unix.stackexchange.com/a/267730
+#
+
+cols="${OVERRIDE_COLS-$(tput cols)}"
+text="$1"
+padchar="${2--}"
+
+if [ -z "$padchar" -o "$padchar" == " " ]; then
+    padding="$(printf '%0.1s' \ {1..500})"
+else
+    padding="$(printf '%0.1s' ${padchar}{1..500})"
+fi
+
+printf '%*.*s %s %*.*s\n' 0 "$(((cols-2-${#text})/2))" "$padding" "$text" 0 "$(((cols-1-${#1})/2))" "$padding"
+

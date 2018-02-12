@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+#
+# Identify files (if we can)
+#
+
+#
+# Load goodies
+#
+if [ -z "$CAHHOME" ]; then
+    export CAHHOME="`$HOME/.find-cahhome`"
+fi
+
+. $CAHHOME/script-init
+
+#
+# Figure out the file type and identify it
+#
+
+id_file() {
+    local filename="$*"
+    local lowfile="${filename:l}"
+
+    echo "File:"
+    file "$filename" | sed -e's/^/  /'
+
+    # ImageMagick identify
+    case "$lowfile" in
+        *(png|jpg|jpeg|tiff))
+            echo "Identify:"
+            identify "$filename" | sed -e's/^/  /'
+            ;;
+    esac
+
+    # ffprobe
+    case "$lowfile" in
+        *(3gp|aa|aac|aiff|alaw|apng|avi|bin|dv|dvd|ffm|flac|flv|gif|h261|h263|h264|ico|mjpeg|mov|mp4|mpeg|ogg|rm|mp3|swf|vp8|wav|webm))
+            echo "FFProbe:"
+            AV_LOG_FORCE_COLOR="true" ffprobe -hide_banner "$filename" 2>&1 | sed -e's/^/  /'
+            ;;
+    esac
+}
+
+for i in $*; do
+    if [ -r "$i" ]; then
+        echo "$i:"
+        id_file "$i" | sed -e's/^/  /'
+    else
+        if [ -e "$i" ]; then
+            echo "$i: File not readable."
+        else
+            echo "$i: File not found."
+        fi
+    fi
+done

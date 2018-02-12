@@ -1,0 +1,77 @@
+#!/usr/bin/env python
+#
+# Print stdin in a box.
+#
+
+import fileinput
+import argparse
+
+RESET="\033[0m"
+BOXHORIZ="~"
+BOXVERT="|"
+
+#
+# Parse arguments
+#
+
+parser = argparse.ArgumentParser(description="Dump stdin/file text into a pretty box.")
+
+parser.add_argument('-t', '--title', action='store', default=None, dest='title', help='Title of the box')
+parser.add_argument('-c', '--color', action='store', default='\033[34;1m', dest='color', help='Color of the box')
+parser.add_argument('-w', '--width', action='store', default=0, dest='width', type=int, help='Override the detected width (default is based on input line length)')
+parser.add_argument('-s', '--spacing', action='store', default=1, dest='spacing', type=int, help='Whitespace inside the box')
+
+args = parser.parse_args()
+
+#
+# Load all the text and figure out width
+#
+lines = []
+maxinputwidth = 0
+
+for line in fileinput.input([]):
+    # fucking tabs, had to hex encode and print to find that bug
+    l = line.rstrip().replace('\t', '        ')
+
+    lines.append(l)
+    if len(l) > maxinputwidth:
+        maxinputwidth = len(l)
+
+if args.width > 0:
+    # Override by args
+    maxinputwidth = args.width
+
+#
+# Box configuration
+#
+
+# Two for the vert cars, two for the spacing
+boxwidth = maxinputwidth + 2 * args.spacing + 2 * len(BOXVERT)
+
+#
+# Print the header
+#
+
+header_title = ""
+if args.title:
+    header_title = " " + args.title + " "
+
+print str.format("{color}{title:{fill}^{width}}{reset}", color=args.color, reset=RESET, fill=BOXHORIZ, width=boxwidth, title=header_title)
+
+#
+# Print the text
+#
+for line in lines:
+    vert=str.format("{color}{vert}{reset}", color=args.color, vert=BOXVERT, reset=RESET)
+    prefix=str.format("{vert}{padding:<{padwidth}}", vert=vert, padding=" ", padwidth=args.spacing)
+    suffix=str.format("{padding:<{padwidth}}{vert}", vert=vert, padding=" ", padwidth=args.spacing)
+
+    text=str.format("{line:<{width}}", line=line, width=maxinputwidth)
+
+    print prefix + text + suffix
+
+#
+# Print the footer
+#
+print "%s%s%s" % (args.color, "".center(boxwidth, BOXHORIZ), RESET)
+

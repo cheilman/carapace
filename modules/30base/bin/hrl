@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Put a huge horizintal rule across the screen
+#
+
+echo -en "\e[1;36m"
+hr \=
+
+if [ -z "$*" ]; then
+    hr \~
+else
+    echo "$*"
+fi
+
+hr \=
+echo -en "\e[0m"
+

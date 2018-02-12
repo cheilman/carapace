@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -o xtrace
+
+nmcli r all off
+sleep 5s
+nmcli r all on
+sleep 2s
+nmcli d wifi rescan
+sleep 2s
+nmcli d wifi list
+nmcli d connect wlo1
+
+

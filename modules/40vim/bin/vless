@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+#
+# Use Vim as a less-substitute
+#
+
+# Figure out where Vim's macros live
+local macros
+if [ -z "$VIMRUNTIME" ]; then
+    local vimruntime=`vim '-nNesc:let&verbose=1|let&viminfo=""|echo $VIMRUNTIME|qall!' 2>&1`
+    macros="$vimruntime/macros"
+else
+    macros="$VIMRUNTIME/macros"
+fi
+
+# Execute
+$macros/less.sh
+

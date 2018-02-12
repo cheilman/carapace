@@ -1,0 +1,50 @@
+#!/usr/bin/zsh
+#
+# Sleep for a random amount of seconds
+#
+# Usage: randsleep [max seconds [min seconds]]
+#
+
+set -e
+
+max_sleep=30
+min_sleep=1
+
+case "$#" in
+    1)
+        max_sleep=$1
+        rand_sleep=$[max_sleep - min_sleep + 1]
+        ;;
+    2)
+        max_sleep=$1
+        min_sleep=$2
+        ;;
+    *)
+        ;;
+esac
+
+if [ $max_sleep -le 1 ]; then
+    >&2 echo "Max sleep must be greater than 1."
+    exit 1
+fi
+
+if [ $min_sleep -lt 1 ]; then
+    >&2 echo "Min sleep must be at least 1."
+    exit 2
+fi
+
+rand_sleep=$[max_sleep - min_sleep + 1]
+
+if [ $rand_sleep -gt 0 ]; then
+    sleep_secs=$[RANDOM % rand_sleep + min_sleep]
+else
+    sleep_secs=$min_sleep
+fi
+
+echo "min_sleep=$min_sleep"
+echo "max_sleep=$max_sleep"
+echo "rand_sleep=$rand_sleep"
+echo "sleep_secs=$sleep_secs"
+
+sleep ${sleep_secs}s
+

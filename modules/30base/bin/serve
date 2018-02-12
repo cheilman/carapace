@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+#
+# Start a HTTP server in the current directory.  Will run through 10 ports to find an open one.
+#
+
+port=${1:-9876}
+counter=0
+
+until [[ $counter -gt 9 ]]; do
+    echo $counter
+    error=`python -m SimpleHTTPServer $(( port + counter )) 3>&1 1>&2 2>&3 3>&-`
+
+    errcode=$?
+    if [[ $errcode -eq 130 ]]; then
+        echo "Exiting because of manual cancellation (ctrl-c)"
+        exit 0
+    fi
+
+    echo $error | grep "Address already in use" &> /dev/null
+    if [ $? -eq 0 ]; then
+        # Continue, trying again
+        counter=$(( counter + 1 ))
+    else
+        echo $error
+        exit $errcode
+    fi
+done
+
+echo "No open ports found from [$port..$(( port + counter )))"
+exit 1

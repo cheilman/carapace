@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+#
+# Show system uptime in milliseconds.
+# NOTE: Only has resolution of tens of milliseconds...
+#
+
+echo $(( `cat /proc/uptime | cut -d\  -f 1` * 1000 )) | tr -d '.'

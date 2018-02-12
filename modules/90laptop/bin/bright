@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+#
+# Adjust brightness
+#
+
+/usr/bin/xbacklight -inc 10

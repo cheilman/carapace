@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+#
+# Invoke hiptext with the correct font path
+#
+
+hiptext_binary --font="$HOME/bin/carapace/DejaVuSansMono.ttf" $*
+
+echo $?
+

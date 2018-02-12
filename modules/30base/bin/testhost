@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+# vim: filetype=zsh
+#
+# See if a host is up and available
+#
+
+local skipping=0
+if [ "$1" = "-p" ]; then
+    skipping=1
+    shift
+fi
+
+local target="$1"
+shift
+
+if [ -z "$target" ]; then
+    >&2 echo "Must provide a hostname to test!"
+    exit 2
+fi
+
+# Test host exists
+which host &> /dev/null
+if [ $? -eq 0 ]; then
+    # 'host' command exists
+    host -W 2 $target &> /dev/null
+    if [ $? -ne 0 ]; then
+        >&2 echo "Host '$target' cannot be resolved."
+        exit 1
+    fi
+fi
+
+if [ $skipping -eq 0 ]; then
+# Test host is up
+    ping -c 1 -w 1 -W1 $target &> /dev/null
+    if [ $? -ne 0 ]; then
+        >&2 echo "Host '$target' is not responding to ping."
+        exit 1
+    fi
+fi
+
+# All good

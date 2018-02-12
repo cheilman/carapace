@@ -12,7 +12,7 @@ To-Do
 - [X] Basic implementation
 - [X] Update support
 - [X] Add pre/post configuration from base module
-- [ ] Finish adding base module content
+- [X] Finish adding base module content
 - Work on migrating existing modules:
     - [ ] amazon
     - [ ] ansi

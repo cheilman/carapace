@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+#
+# Select an area and screenshot it
+#
+
+dir="$HOME/tmp"
+
+if [ ! -d "$dir" ]; then
+    dir="$HOME/Pictures"
+fi
+
+if [ ! -d "$dir" ]; then
+    dir="$HOME"
+fi
+
+if [ ! -d "$dir" ]; then
+    >&2 echo "Failed to find a directory to write to."
+    exit 1
+fi
+
+file="$dir/screenshot-`id -un`-`date "+%Y%m%d-%H%M%S"`.png"
+
+# WHY?!?! https://github.com/mate-desktop/mate-utils/issues/37
+/bin/sleep 0.5s
+
+gnome-screenshot -a -f "$file"
+

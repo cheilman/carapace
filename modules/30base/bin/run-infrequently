@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# Run a command, but only every so often.
+#
+# Usage: run-infrequently <timestamp file> <frequency> <command ...>
+#
+
+#
+# Verify args
+#
+
+timestamp_file=$1
+frequency=$2
+
+shift
+shift
+
+if [ -z "$timestamp_file" ]; then
+    >&2 echo "Timestamp file must be provided."
+    exit 1
+fi
+
+if [ -z "$frequency" ]; then
+    >&2 echo "Frequency must be provided."
+    exit 1
+fi
+
+command="$@"
+
+if [ -z "$command" ]; then
+    >&2 echo "No command given."
+    exit 1
+fi
+
+#
+# Do the processing
+#
+
+#echo "Running '$command' every '$frequency' based on file '$timestamp_file'"
+
+timestamp_file_now="${timestamp_file}_now"
+
+# Make sure timestamp file exists
+if ! [ -e $timestamp_file ]; then
+    touch -d "-$frequency" $timestamp_file
+fi
+
+# Check if it's time to execute
+touch $timestamp_file_now
+if [ $timestamp_file_now -nt $timestamp_file ]; then
+    touch -d "+$frequency" $timestamp_file
+
+    # Run the command
+    eval "$@"
+fi
+
+
+

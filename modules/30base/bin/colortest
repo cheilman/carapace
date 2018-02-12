@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# What do various colors look like on our screen.
+#
+
+autoload colors && colors
+
+echo "$fg[black]Black      $fg_bold[black]Bold Black $reset_color"
+echo "$fg[red]Red          $fg_bold[red]Bold Red $reset_color"
+echo "$fg[green]Green      $fg_bold[green]Bold Green $reset_color"
+echo "$fg[yellow]Yellow    $fg_bold[yellow]Bold Yellow $reset_color"
+echo "$fg[blue]Blue        $fg_bold[blue]Bold Blue $reset_color"
+echo "$fg[magenta]Magenta  $fg_bold[magenta]Bold Magenta $reset_color"
+echo "$fg[cyan]Cyan        $fg_bold[cyan]Bold Cyan $reset_color"
+echo "$fg[white]White      $fg_bold[white]Bold White $reset_color"
+echo
+echo "$bg[black]Black background"
+echo "$bg[red]Red background"
+echo "$bg[green]Green background"
+echo "$bg[yellow]Yellow background"
+echo "$bg[blue]Blue background"
+echo "$bg[magenta]Magenta background"
+echo "$bg[cyan]Cyan background"
+echo "$bg[white]White background"

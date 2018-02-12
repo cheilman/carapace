@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# Run locate against the database of files in my home directory
+#
+
+#
+# Load goodies
+#
+if [ -z "$CAHHOME" ]; then
+    export CAHHOME="`$HOME/.find-cahhome`"
+fi
+
+. $CAHHOME/script-init
+
+#
+# Locate
+#
+
+PATH=$HOME/bin:$PATH
+
+locate -d $HOME/.home-dir-db $*
+
+exit $?
+

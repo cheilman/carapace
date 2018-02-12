@@ -1,0 +1,48 @@
+#!/usr/bin/env zsh
+#
+# Lock the screen (X)
+#
+
+background="111111"
+
+which i3lock &> /dev/null
+if [ $? -eq 0 ]; then
+    file=`tempfile --prefix lkscr --suffix .png`
+
+    dimensions=`xdpyinfo | grep dimensions | grep -Eo '[0-9]+x[0-9]+' | head -1`
+    echo d:$dimensions
+
+    # Figure out what file to use
+    filename="`randomLockImage`"
+    echo $filename
+
+    # We're preconverting now, so we don't have to worry about building it on-demand
+    cp $filename $file
+
+    identify $file 1>&2
+
+    i3lock -c $background -i $file
+    ret=$?
+    rm $file
+
+    exit $ret
+fi
+
+which gnome-screensaver-command &> /dev/null
+if [ $? -eq 0 ]; then
+    gnome-screensaver-command --lock
+    exit $?
+fi
+
+which xlock &> /dev/null
+if [ $? -eq 0 ]; then
+    xlock
+    exit $?
+fi
+
+which slock &> /dev/null
+if [ $? -eq 0 ]; then
+    slock
+    exit $?
+fi
+

@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+#
+# Notify based on last-run command
+#
+#
+# Usage: alert [<errorcode>] Message
+
+local err=$1
+local icon="terminal"
+local msg=""
+
+# See if err is a number (https://stackoverflow.com/a/808740)
+if [ "$err" -eq "$err" ] 2>/dev/null; then
+    if [ -z "$err" ]; then
+        # Nothing provided
+        err=0
+    else
+        # First is error code, rest is message
+        msg="${@:2}"
+    fi
+else
+    err=0
+
+    # All is msg
+    msg="${@}"
+fi
+
+if [ $err != 0 ]; then
+    icon="error"
+fi
+
+if [ -z "$msg" ]; then
+    msg="long running command finished"
+fi
+
+if [ $err -ne 0 ]; then
+    msg+=" (exit: $err)"
+fi
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]; then
+    # It's an ssh connection, don't try to connect to notify
+    echo
+    echo $msg
+    echo
+else
+    # Send to the GUI
+    notify-send --urgency=low -i "${icon}" "$msg"
+fi
+

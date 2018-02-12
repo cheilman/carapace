@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#
+# Bounce an interface
+#
+
+sudo ifconfig $* down
+
+if [ $? -ne 0 ]; then
+    echo Error bouncing interface
+    exit
+fi
+
+sleep 10s
+
+sudo ifconfig $* up
+

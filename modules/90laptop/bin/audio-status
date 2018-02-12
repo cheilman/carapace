@@ -1,0 +1,122 @@
+#!/usr/bin/env zsh
+#
+# Output a single line (per sink) for the status of audio output.
+# Allows "-d" or "--default-only" to only show the default sink.
+# Allows "-n" or "--no-names" to hide the sink name
+# Allows "-i" or "--no-index" to hide the sink index
+#
+
+show_name=1
+show_default_only=0
+show_index=1
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -n|--no-names)
+            show_name=0
+            ;;
+        -d|--default-only)
+            show_default_only=1
+            ;;
+        -i|--no-index)
+            show_index=0
+            ;;
+        *)
+            ;;
+    esac
+    shift # past arg/value
+done
+#echo "show_name: $show_name"
+#echo "show_default_only: $show_default_only"
+
+sinks=()
+
+default_sink=-1
+index=""
+name=""
+mute=""
+volume=""
+
+write_if_ready() {
+    if [[ ( -n "$index" ) && ( -n "$name" ) && ( -n "$mute" ) && ( -n "$volume" ) ]]; then
+        sink_line=""
+        if [ $show_index -eq 1 ]; then
+            sink_line+="$index: "
+        fi
+        if [ $show_name -eq 1 ]; then
+            sink_line+="$name "
+        fi
+        sink_line+="$volume% "
+        if [ $mute = "yes" ]; then
+            sink_line+="(muted)"
+        else
+            sink_line+="(unmuted)"
+        fi
+
+        #echo "Writing: $sink_line"
+
+        sinks+=("$sink_line")
+
+        # reset
+        index=""
+        name=""
+        mute=""
+        volume=""
+    fi
+}
+
+pacmd help >& /dev/null
+ext=$?
+if [ $ext -ne 0 ]; then
+    >&2 echo "No audio daemon running."
+    exit $ext
+fi
+
+pacmd list-sinks | while read line; do
+    echo $line | grep "index:" &> /dev/null
+    if [ $? -eq 0 ]; then
+        index=`echo $line | grep "index:" | grep -Eo '[[:digit:]]'`
+        # Maybe it's the default sink?
+        echo $line | grep "\* index:" &> /dev/null
+        if [ $? -eq 0 ]; then
+            default_sink="$index"
+        fi
+        #echo "index: $index"
+    fi
+
+    echo $line | grep "device.description =" &> /dev/null
+    if [ $? -eq 0 ]; then
+        name=`echo $line | cut -d\  -f3- | tr -d '"'`
+        #echo "name: $name"
+    fi
+
+    echo $line | grep "muted:" &> /dev/null
+    if [ $? -eq 0 ]; then
+        mute=`echo $line | cut -d: -f2 | tr -d ' '`
+        #echo "mute: $mute"
+    fi
+
+    echo $line | grep -E 'volume: (0|front)' &> /dev/null
+    if [ $? -eq 0 ]; then
+        # Just take first channel
+        volume=`echo $line | grep -Eo '[[:digit:]]+%' | head -1 | sed -e 's/.$//'`
+        #echo "volume: $volume"
+    fi
+
+    # Write it if we've got it
+    write_if_ready
+done
+
+if [ $show_default_only -eq 1 ]; then
+    # ZSH arrays are 1-indexed
+    if [ $default_sink -ge 0 ]; then
+        echo $sinks[(( $default_sink + 1 ))]
+    fi
+else
+    if [ $default_sink -ge 0 ]; then
+        echo "default: $default_sink"
+    fi
+    for i in $sinks; do
+        echo "$i"
+    done
+fi

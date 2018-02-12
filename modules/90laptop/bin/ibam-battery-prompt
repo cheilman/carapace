@@ -1,0 +1,134 @@
+#!/usr/bin/env zsh
+
+autoload colors && colors
+
+# Config
+fullchar="#"
+emptychar="."
+emergchar="!"
+chargingchar="+"
+
+# Make sure it exists
+ibam=`which ibam 2> /dev/null`
+if [ $? -ne 0 ]; then
+    exit
+elif [ ! -x "$ibam" ]; then
+    exit
+fi
+
+# Show anyway?
+verbose=0
+programmatic=0
+if [ "$*" = "-v" ]; then
+    verbose=1
+elif [ "$*" = "-p" ]; then
+    programmatic=1
+fi
+
+# Load fullness info
+ibam_output="$($ibam -a)"
+percent=`echo $ibam_output | grep "Battery percentage" | head -1 | sed -e "s/[^0-9]//g"`
+percent_tens=`echo $percent | sed -e "s/\([0-9]*\)[0-9]/\1/"`
+if [ -z "$percent_tens" ]; then
+    percent_tens=0
+fi
+
+# Maybe figure out charging info
+isCharging=0
+acpi=`which acpi 2> /dev/null`
+if [ $? -eq 0 ]; then
+    if [ -x "$acpi" ]; then
+        acpi_output="$(acpi)"
+        charging=`echo $acpi_output | grep "Charging"`
+        if [ -n "$charging" ]; then
+            # Change the character so we know we're plugged in
+            isCharging=1
+            emptychar=$chargingchar
+        fi
+    fi
+fi
+
+# Show bars for battery level
+function display_bars()
+{
+    if [ $percent_tens -lt 2 ]; then
+        local fullchar_c="$fg_bold[green]${fullchar}"
+        local emptychar_c="$fg_bold[red]${emergchar}"
+    elif [ $percent_tens -lt 4 ]; then
+        local fullchar_c="$fg_bold[green]${fullchar}"
+        local emptychar_c="$fg_bold[red]${emptychar}"
+    else
+        local fullchar_c="$fg_no_bold[green]${fullchar}"
+        local emptychar_c="$fg_no_bold[red]${emptychar}"
+    fi
+
+    for i in 1 3 5 7 9; do
+        if [ $i -le $percent_tens ]; then
+            echo -en $fullchar_c
+        else
+            echo -en $emptychar_c
+        fi
+    done
+
+    echo -en "$reset_color"
+}
+
+# Show time for battery
+function display_time_left()
+{
+    local batt_time="`echo $ibam_output | grep "Adapted battery time left" | head -1 | cut -d: -f 2-3 | sed -e "s/[ \t]//g"`"
+    local charge_time="`echo $ibam_output | grep "Adapted charge time left" | head -1 | cut -d: -f 2-3 | sed -e "s/[ \t]//g"`"
+
+    local color=""
+    if [ $percent_tens -lt 4 ]; then
+        color="$fg_bold[red]"
+    else
+        color="$fg_no_bold[green]"
+    fi
+
+    echo -en "$color"
+
+    if [ $isCharging -eq 1 ]; then
+        echo -en "$charge_time"
+    else
+        echo -en "$batt_time"
+    fi
+
+    echo -en "$reset_color"
+}
+
+# Figure out what to display
+if [ $programmatic -eq 0 ]; then
+    if [ $percent_tens -ge 10 ]; then
+        if [ $verbose -eq 0 ]; then
+            # Do nothing
+        else
+            # Show time remaining
+            display_time_left
+        fi
+    elif [ $percent_tens -lt 2 ]; then
+        # Show time remaining
+        display_time_left
+    else
+        # Just show the bars
+        display_bars
+
+        if [ $verbose -ne 0 ]; then
+            echo -n " $fg_no_bold[cyan]("
+            display_time_left
+            echo -n "$fg_no_bold[cyan])$reset_color"
+        fi
+
+        echo
+    fi
+else
+    display_bars && echo
+    display_time_left && echo
+    if [ $isCharging -eq 0 ]; then
+        echo "False"
+    else
+        echo "True"
+    fi
+    echo $percent_tens
+    echo $percent
+fi

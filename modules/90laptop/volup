@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+#
+# Adjust volume
+#
+
+voladj '+5%'
+audio-status -d
+

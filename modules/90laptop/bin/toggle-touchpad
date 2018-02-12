@@ -1,0 +1,17 @@
+#!/usr/bin/zsh
+# vim: filetype=zsh
+#
+# Enable/disable the touchpad altogether
+#
+
+# Figure out what the current value is and toggle it
+current=`synclient -l | grep TouchpadOff | sed -e 's/^.*=[ ]*\([0-9][0-9]*\).*$/\1/'`
+
+if [ $current -eq 0 ]; then
+    # Disable
+    synclient TouchpadOff=1
+else
+    # Enable
+    synclient TouchpadOff=0
+fi
+

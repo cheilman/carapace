@@ -1,0 +1,8 @@
+## Double comments will be removed from the generated file.
+## The generator will expand some variables.  So far the list is: $HOME
+##
+## m h  dom mon dow   command
+
+# Update our database of all the files in our home directory
+3 * * * * $HOME/bin/cahhome-update-database
+

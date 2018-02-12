@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+#
+# Find out what host a git repo is remotely tracking (first)
+#
+# TODO: Requires a port to be in the url
+#
+
+if [ ! -d .git ]; then
+    >&2 echo "Not in the top-level of a rit repository."
+    exit 2
+fi
+
+local fetchLine="`git remote -v | grep fetch | head -1`"
+
+if [ -z "$fetchLine" ]; then
+    >&2 echo "We're screwed!"
+    exit 3
+fi
+
+echo $fetchLine | grep @ &> /dev/null
+
+if [ $? -eq 0 ]; then
+    # Has username
+    echo $fetchLine | cut -d@ -f2 | cut -d: -f1
+else
+    echo $fetchLine | grep "//" &> /dev/null
+
+    if [ $? -eq 0 ]; then
+        # Has url-ish component
+        echo $fetchLine | cut -d/ -f3 | cut -d: -f1
+    else
+        # Maybe no username or anything else?
+        echo $fetchLine | sed -e 's/[ \t]\+/ /g' | cut -d\  -f 2 | cut -d: -f1
+    fi
+fi

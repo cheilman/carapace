@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+#
+# Adjust volume
+#
+
+/usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+audio-status -d
+
