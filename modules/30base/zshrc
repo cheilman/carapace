@@ -1,0 +1,255 @@
+#!zsh
+
+#
+# Re-add our bin folder(s) to the path
+#
+add_path_front "$HOME/usr/bin"
+add_path_front "$HOME/home/bin"
+add_path_front "$HOME/bin"
+
+#
+# Other paths that are probably unimportant
+#
+add_path_back "$HOME/programs/android/tools"
+add_path_back "$HOME/programs/android/platform-tools"
+add_path_back "$HOME/.host/bin"
+
+#
+# Autoload Functions
+#
+autoload -U compinit
+
+#
+# Completion configuration
+#
+
+zstyle ':completion:*' completer _expand _complete _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' use-compctl true
+
+#
+# Completion
+#
+autoload -U compinit
+compinit
+
+setopt COMPLETE_IN_WORD
+
+#
+# Set up some aliases
+# Some of these 'aliases' are functions to allow fancy arguments
+#
+
+# CAHHOME aliases
+alias cahhome_install="(cd $HOME && ./.cahhome/install)"
+
+# Fancy listing
+alias ls='ls --color=auto'
+alias lf='ls -F'
+alias la='ls -Fa'
+alias ll='ls -Flh'
+alias lla='ls -Flha'
+alias lll='ls -ltrh'
+
+# Grep stuff
+alias grep='grep --color=auto'
+
+which ag &> /dev/null
+if [ $? -eq 0 ]; then
+    # We have ag
+    rgrep()
+    {
+        ag -i "$@"
+    }
+else
+    # No ag
+    rgrep()
+    {
+        grep -Hid recurse "$@" .
+    }
+fi
+
+# Less
+export LESS="-fFiMRX -x4"
+alias less="less $LESS"     # redundant?
+
+# No-X Vim
+alias vim='vim -X'
+alias view='view -X'
+
+# Text processing
+alias trim='sed -e "s/[ \t]*//g"'
+ 
+# Don't try to autocorrect sudo commands
+alias sudo="nocorrect sudo"
+
+# Don't glob on common commands
+alias scp='noglob scp'
+
+# Sum stdin
+alias sum="awk '{sum+=\$1} END {printf \"%0.0f\\n\", sum}'"
+
+# Find out what's running on a (tcp) port
+onport()
+{
+    sudo lsof -w -n -i tcp:$*
+}
+
+# Fancier tail
+alias tl='less +F'
+
+# Open a file like you "double-clicked" on it
+alias click='xdg-open'
+
+# Don't try to be fancy in our ssh terminal
+# TODO: Maybe fix ssh terminals
+alias ssh='TERM=xterm ssh'
+
+# Get size of the terminal window
+alias termsize='echo $(tput cols)x$(tput lines)'
+
+# Run nicely
+alias n='nice -n 10'
+
+# Better less
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Give unique counts of output
+alias uu="sort | uniq -c | sort -n"
+
+#
+# Wifi related aliases
+#
+alias wifi-ssid='nmcli -f SSID device wifi list | grep -v SSID | sort | uniq'
+
+#
+# Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
+#
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# IP addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; autoalert
+# TODO: This almost never guesses the running command correctly
+alias autoalert='alert "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*autoalert$//'\'')"'
+
+#
+# Extract Function
+#
+# From: https://github.com/stoooops/dotfiles/blob/master/zsh.functions
+#
+function extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)  tar xjf $1      ;;  
+            *.tar.gz)   tar xzf $1      ;;  
+            *.bz2)      bunzip2 $1      ;;  
+            *.rar)      rar x $1        ;;
+            *.gz)       gunzip $1       ;;
+            *.tar)      tar xf $1       ;;
+            *.tbz2)     tar xjf $1      ;;  
+            *.tgz)      tar xzf $1      ;;  
+            *.zip)      unzip $1        ;;
+            *.Z)        uncompress $1   ;;  
+            *)          echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi  
+}
+
+#
+# Colorized man pages (from https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh)
+#
+
+function man() {
+        env \
+                LESS_TERMCAP_mb=$(printf "\e[1;34m") \
+                LESS_TERMCAP_md=$(printf "\e[1;34m") \
+                LESS_TERMCAP_me=$(printf "\e[0m") \
+                LESS_TERMCAP_se=$(printf "\e[0m") \
+                LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+                LESS_TERMCAP_ue=$(printf "\e[0m") \
+                LESS_TERMCAP_us=$(printf "\e[1;32m") \
+                PAGER="${commands[less]:-$PAGER}" \
+                _NROFF_U=1 \
+                PATH="$HOME/bin:$PATH" \
+                        man "$@"
+}
+
+#
+# Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
+#
+
+# simple calculator
+calc_f() {
+        local result=""
+        result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
+        #                                               └─ default (when `--mathlib` is used) is 20
+
+        if [[ "$result" == *.* ]]; then
+                # improve the output for decimal numbers
+                # add "0" for cases like ".5"
+                # add "0" for cases like "-.5"
+                # remove trailing zeros
+                printf "%s" "$result" |
+                sed -e 's/^\./0./'  \
+                        -e 's/^-\./-0./' \
+                        -e 's/0*$//;s/\.$//'
+        else
+                printf "%s" "$result"
+        fi
+        printf "\n"
+}
+
+alias calc='noglob calc_f'
+
+#
+# Command to get a file from URL
+#
+
+GET_CMD="`which kcurl 2> /dev/null`"
+if [ ! -x "$GET_CMD" ]; then
+    GET_CMD="`which curl`"
+fi
+if [ ! -x "$GET_CMD" ]; then
+    GET_CMD="`which wget`"
+fi
+
+export GET_CMD
+
+case "$GET_CMD" in
+    *curl)
+        # echo "curl based command ($GET_CMD)"
+        function cah_get() {
+            # So many -O's are a HACK to make it work when you pass multiple
+            # urls on the command line.  TODO: Make this better
+            $GET_CMD -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O --connect-timeout 30 --retry 5 --retry-delay 5 --retry-max-time 0 $*
+        }
+        ;;
+    *wget)
+        # echo "wget based command ($GET_CMD)"
+        function cah_get() {
+            $GET_CMD --tries=5 --timeout=30 --waitretry=5 $*
+        }
+        ;;
+    *)  
+        echo "unknown command ($GET_CMD)"
+        ;;
+esac
+
+alias get="noglob cah_get"
+

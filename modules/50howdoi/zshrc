@@ -1,0 +1,6 @@
+#!zsh
+
+# Use color for howdoi
+alias howdoi='howdoi --color '
+
+
