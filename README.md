@@ -17,9 +17,9 @@ To-Do
     - [ ] amazon
     - [X] ansi
     - [X] ansiweather
-    - [ ] atom
-    - [ ] chime
-    - [ ] clog
+    - [-] atom              # Not continuing with atom, as I use vscode now
+    - [-] chime             # Have a better chime option now
+    - [X] clog
     - [ ] crontab-template
     - [ ] docker
     - [ ] font

@@ -1,0 +1,16 @@
+# Clog Rules
+
+# Standard syslog entries.
+default rule /warn|Warn|WARN|debug|Debug|DEBUG/   --> yellow line
+default rule /error|Error|ERROR|ERR|severe/ --> red line
+default rule "critical"     --> bold red line
+default rule "critical"     --> blank
+default rule "ignore"       --> suppress
+
+# Apache access.log status codes
+
+apache rule / 2[0-9][0-9] / --> green match
+apache rule / 3[0-9][0-9] / --> yellow match
+apache rule / 4[0-9][0-9] / --> red match
+apache rule / 5[0-9][0-9] / --> bold red match
+
