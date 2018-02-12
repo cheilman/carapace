@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#
+# Grab/update the repo
+#
+
+repodir="ansiweather"
+repo="https://github.com/fcambus/ansiweather"
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# See if we're already installed
+if [ -d "${moduledir}/${repodir}" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
+fi
+
+
