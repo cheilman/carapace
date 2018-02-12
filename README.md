@@ -15,8 +15,8 @@ To-Do
 - [X] Finish adding base module content
 - Work on migrating existing modules:
     - [ ] amazon
-    - [ ] ansi
-    - [ ] ansiweather
+    - [X] ansi
+    - [X] ansiweather
     - [ ] atom
     - [ ] chime
     - [ ] clog

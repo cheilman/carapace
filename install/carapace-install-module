@@ -83,6 +83,13 @@ export CARAPACE_CURRENT_MODULE=\"$modulename\"
 export CARAPACE_CURRENT_MODULE_PATH=\"$moduledir\""
 }
 
+# Usage: <src> <dst>
+# Eliminates double-comment lines (##)
+# Expands some variables during append: $HOME
+append-with-expansion() {
+    append-helper <(sed -e '/^##.*$/d' $1 | sed -e "s#\$HOME#$HOME#g") "$2"
+}
+
 # contains(string, substring)
 # http://stackoverflow.com/a/8811800
 #
@@ -119,7 +126,7 @@ remove_broken_symlink_to_this_module() {
 #
 
 if [ -x "${moduledir}/install" ]; then
-    ${moduledir}/install "$generated"
+    ${moduledir}/install "$moduledir" "$generated"
     err=$?
 
     if [ $err -ne 0 ]; then
@@ -222,11 +229,15 @@ done
 # Handle special files
 #
 
-for i in crontab gitconfig profile ssh_config; do
+for i in gitconfig profile ssh_config; do
     if [ -r "${moduledir}/special/$i" ]; then
         append-to "${moduledir}/special/$i" "${generated}/generated-$i"
     fi
 done
+
+if [ -r "${moduledir}/special/crontab" ]; then
+    append-with-expansion "${moduledir}/special/crontab" "${generated}/generated-crontab"
+fi
 
 if [ -r "${moduledir}/special/vimrc" ]; then
     append-to "${moduledir}/special/vimrc" "${generated}/generated-vimrc" '"'
