@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+#
+# Select a random lock screen image related to current screen
+#
+
+imagesFolder="$HOME/.lockscreens"
+
+screenDims="`xrandr | grep ^Screen | grep current | cut -d, -f 2 | cut -d\  -f 3,5`"
+
+width=$( echo $screenDims | cut -d\  -f 1 )
+height=$( echo $screenDims | cut -d\  -f 2 )
+
+lockFile=$(randomImgDims "$imagesFolder" $width $height)
+
+echo $lockFile
+
