@@ -4,19 +4,10 @@
 #
 
 #
-# Load goodies
-#
-if [ -z "$CAHHOME" ]; then
-    export CAHHOME="`$HOME/.find-cahhome`"
-fi
-
-. $CAHHOME/script-init
-
-#
 # Locate
 #
 
-PATH=$HOME/bin:$PATH
+PATH=$HOME/bin:$HOME/bin/carapace:$PATH
 
 locate -d $HOME/.home-dir-db $*
 

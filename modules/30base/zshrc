@@ -44,9 +44,6 @@ setopt COMPLETE_IN_WORD
 # Some of these 'aliases' are functions to allow fancy arguments
 #
 
-# CAHHOME aliases
-alias cahhome_install="(cd $HOME && ./.cahhome/install)"
-
 # Fancy listing
 alias ls='ls --color=auto'
 alias lf='ls -F'

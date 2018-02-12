@@ -4,15 +4,6 @@
 #
 
 #
-# Load goodies
-#
-if [ -z "$CAHHOME" ]; then
-    export CAHHOME="`$HOME/.find-cahhome`"
-fi
-
-. $CAHHOME/script-init
-
-#
 # Figure out the file type and identify it
 #
 
