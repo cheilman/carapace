@@ -25,8 +25,8 @@ To-Do
     - [X] font              # never used this font anyway
     - [ ] fortunes
     - [ ] fzf
-    - [ ] git
-    - [ ] git1.7.10
+    - [X] git
+    - [X] git1.7.10         # rolled into git
     - [ ] go
     - [ ] hhighlighter
     - [ ] i3

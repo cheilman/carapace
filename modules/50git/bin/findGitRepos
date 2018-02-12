@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+#
+# Find git repos based on the GIT_REPO_SEARCH_PATH environment variable (if set)
+#
+# The two options are not identical, but should output similarly formatted results.
+#
+# Results are of the repository directory, not the .git directory (so /MyRepo not /MyRepo/.git),
+# and are sorted.
+#
+
+repoList=()
+
+if [ -z "$GIT_REPO_SEARCH_PATH" ]; then
+    # No repos set, use locate logic
+    for i in `home-locate -b '\.git' | grep -v 'https-COLON--SLASH--SLASH' | grep -v zgen | grep -v 'go/.cache' | grep -v 'go/src' | grep -v 'NetHack' | grep -v 'seti-syntax' | grep -v '/tmp/'` ; do
+        if [ -d $i ]; then
+            repoList+=($i)
+        fi
+    done
+else
+    # Use search path and depth from GIT_REPO_SEARCH_PATH (path:d,path:d,...)
+    typeset -A repos=( `echo $GIT_REPO_SEARCH_PATH | sed -e 's/[,:]/ /g'` )
+
+    for i in ${(k)repos}; do
+        if [ -d $i ]; then
+            repoList+=(`find -L "$i" -maxdepth $repos[$i] -type d -name .git 2> /dev/null`)
+        fi
+    done
+fi
+
+printf "%s/..\n" $repoList | xargs -n 1 realpath -s | sort
+

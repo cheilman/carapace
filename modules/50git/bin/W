@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+#
+# Recursively get information about git workspaces (short-style)
+# Uses the home-dir-db to quickly find all git repos in the home directory
+#
+# Filters some things out:
+#   - antigen repos
+#   - zgen
+#   - all go
+#       - eventually make this better, if i make go repos
+#
+
+for i in `findGitRepos`; do
+    (
+        cd $i
+        gitshortstatus
+    )
+done
+

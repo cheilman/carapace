@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+# Run a git command on every sub-folder that has a .git folder
+#
+
+for name in `find -name .git`; do
+    dir=`dirname $name`
+    repo=`basename $dir`
+
+    origwd="`pwd`"
+
+    cd $dir
+
+    echo
+    echo "----- $repo ----- "
+    git $*
+
+    cd $origwd
+done
+

@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+#
+# Go through a directory tree and display which
+# git branch all repositories are on and available branches
+#
+
+for name in `find -name .git | sort`; do
+    dir=`dirname $name`
+    repo=`basename $dir`
+    if [ $repo = "." ]; then
+        repo=`basename \`pwd\``
+    fi
+
+    origwd="`pwd`"
+
+    cd $dir
+
+    branch="`git branch --no-color 2> /dev/null | grep \* | cut -c3-`"
+    branches=""
+    branch_list=("${(@f)$(git branch | cut -b3-)}")
+    for i in $branch_list; do
+        if [ $i != $branch ]; then
+            if [ -z "$branches" ]; then
+                branches="$i"
+            else
+                branches="$branches, $i"
+            fi
+        fi
+    done
+
+    print -f "%40s:  %s" "$repo" "$branch"
+    if [ -z "$branches" ]; then
+        print -f "\n"
+    else
+        print -f " {%s}\n" "$branches"
+    fi
+
+    cd $origwd
+done

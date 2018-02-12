@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+#
+# Recursively get information about git workspaces (short-style)
+#
+
+local pi=`findup packageInfo`
+
+if [[ ( $? -eq 0 ) && ( -d "$pi" ) ]]; then
+    # Assume we can use workspace commands
+    cd "$pi" 2> /dev/null
+
+    rgitshortstatus
+    exit 0
+else
+    # Go to top-level git folder
+    local gf=`findup .git`
+    if [[ ( $? -eq 0 ) && ( -d "$gf" ) ]]; then
+        cd "$gf"
+
+        # Go down from here
+        rgitshortstatus
+        exit 0
+    fi
+fi
+
+>&2 echo "Failed to find a top-level folder to start from."
+>&2 echo "Not in a workspace or git repository?"
+exit 1

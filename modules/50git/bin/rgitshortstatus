@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+# Go through a directory tree and display the status of all git repositories
+#
+
+for name in `find -name .git | sort`; do
+    dir=`dirname $name`
+    repo=`basename $dir`
+    if [ $repo = "." ]; then
+        repo=`basename \`pwd\``
+    fi
+
+    origwd="`pwd`"
+
+    cd $dir
+
+    gitshortstatus
+
+    cd $origwd
+done

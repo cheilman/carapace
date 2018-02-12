@@ -1,0 +1,52 @@
+#!zsh
+
+#
+# Build a list of git repository start points.  path1:depth,path2:depth,path3:depth
+#
+
+export GIT_REPO_SEARCH_PATH=""
+
+add_git_repo_search_path() {
+    local repoPath="$1"
+    local searchDepth=$2
+
+    if [ -d "$repoPath" ]; then
+        if [ $searchDepth -gt 0 ]; then
+            if [ -z "$GIT_REPO_SEARCH_PATH" ]; then
+                export GIT_REPO_SEARCH_PATH="${repoPath}:${searchDepth}"
+            else
+                # See if it's already in the list
+                echo $GIT_REPO_SEARCH_PATH | grep -F "$repoPath:" &>/dev/null
+                if [ $? -ne 0 ]; then
+                    # Not found
+                    export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH},${repoPath}:${searchDepth}"
+                fi
+            fi
+        else
+            # >&2 echo "Depth must be greater than or equal to 1"
+        fi
+    else
+        # >&2 echo "Path '$repoPath' does not exist."
+    fi
+}
+
+#
+# Decent presets?
+#
+
+add_git_repo_search_path "$HOME/.cahhome" 5
+add_git_repo_search_path "$HOME/prj" 3
+add_git_repo_search_path "$HOME/workplace" 5
+add_git_repo_search_path "$HOME/go/src/github.com/cheilman" 3
+add_git_repo_search_path "$HOME/go/src/bitbucket.org/cheilman" 3
+add_git_repo_search_path "$HOME/H" 1
+
+#
+# Load repos from host config (if they exist)
+#
+
+if [ -f $HOME/.host/config/gitrepos ]; then
+    # TODO: Make this smarter, not just executing blindly.  Maybe just pipe each line to add_git_repo_search_path or something.
+    . $HOME/.host/config/gitrepos
+fi
+
