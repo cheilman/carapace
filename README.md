@@ -30,7 +30,7 @@ To-Do
     - [ ] go
     - [X] hhighlighter
     - [ ] i3
-    - [ ] images
+    - [X] images
     - [ ] is
     - [ ] kitty
     - [ ] latex
