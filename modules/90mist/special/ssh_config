@@ -1,0 +1,12 @@
+host mist
+    HostName mist.ater.org
+    User cheilman
+    TCPKeepAlive yes
+    ForwardX11 yes
+    ForwardX11Trusted yes
+    DynamicForward 5252
+    LocalForward 5353 mc.ater.org:8080
+    LocalForward 53588 taskwarrior.inthe.am:53589
+    LocalForward 53589 freecinc.com:53589
+    LocalForward 25565 198.100.147.41:25565
+

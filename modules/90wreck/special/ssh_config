@@ -1,0 +1,7 @@
+host wreck
+    HostName wreck.org
+    User heilman
+    TCPKeepAlive yes
+    ForwardX11 yes
+    ForwardX11Trusted yes
+

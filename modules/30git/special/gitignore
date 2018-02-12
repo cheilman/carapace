@@ -1,0 +1,20 @@
+#
+# Files to ignore
+#
+
+# Brazil stuff
+build
+
+# IntelliJ stuff
+*.iml
+.idea/
+.IntelliJ_dep_jars
+IntelliJ_dep_jars
+
+# Logs
+*.log
+logs
+
+# Vim junk
+.*.swp
+
