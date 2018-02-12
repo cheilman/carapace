@@ -1,0 +1,138 @@
+
+"" Color scheme
+set background=dark
+"colorscheme pablo
+"colorscheme koehler
+colorscheme desert
+
+"" My key mappings
+
+" set 'q' to format a line to 100 characters wide
+:map q :.!fmt -w 100
+" set 'Q' to format a paragraph to 100 characters wide
+:map Q :.;/^$/!fmt -w 100
+
+" set t to transpose the letter under the cursor
+" with the letter to its right
+:map t xph
+
+" Use :w!! to save a file with sudo
+cabbrev w!! w !sudo tee % >/dev/null
+
+"" Default options
+
+" Change vim behavior
+set nobackup
+set nocompatible
+
+" Indentation
+set autoindent
+set cindent
+
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+
+" Match braces, etc.
+set showmatch
+set matchtime=10
+
+" Edit behavior
+set backspace=2
+
+" Command History
+set history=50
+
+" UI
+set laststatus=2
+set ruler
+set scrolloff=1
+
+" Line wrapping
+set nolinebreak
+set textwidth=0
+set wrap
+set wrapmargin=0
+
+" Fancy searching
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+
+" Line numbers
+set number
+
+" Spelling
+set spelllang=en_US
+
+" Undo persist between vim invocations
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+
+" Ssshhhhhhh
+set noerrorbells
+set novisualbell
+
+" Add a vertical line to show where to stop typing
+"set colorcolumn=100
+":highlight ColorColumn ctermbg=blue guibg=blue
+
+"" Syntax Highlighting
+syntax on
+
+"" Add delete previous word
+:inoremap <C-h> <C-W>
+
+"" Disable mouse interaction (I hope)
+:set mouse=""
+:set mouse-=""
+inoremap <ScrollWheelUp> <Nop>
+inoremap <ScrollWheelDown> <Nop>
+nnoremap <ScrollWheelUp> <Nop>
+nnoremap <ScrollWheelDown> <Nop>
+onoremap <ScrollWheelUp> <Nop>
+onoremap <ScrollWheelDown> <Nop>
+vnoremap <ScrollWheelUp> <Nop>
+vnoremap <ScrollWheelDown> <Nop>
+
+"" Increment number
+:nnoremap <F3> ma:.,/^\s*$/g/^\d/exe "normal! \<C-A>"<CR>`a
+:nnoremap <F4> ma:.,/^\s*$/g/^\d/exe "normal! \<C-X>"<CR>`a
+
+"" Option toggling from http://vim.wikia.com/wiki/Quick_generic_option_toggling
+function MapToggle(key, opt)
+    let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+    exec 'nnoremap '.a:key.' '.cmd
+    exec 'inoremap '.a:key." \<C-O>".cmd
+endfunction
+command -nargs=+ MapToggle call MapToggle(<f-args>)
+
+" Toggle Display
+MapToggle <F9> number
+
+" Toggle behavior
+MapToggle <F2> paste
+:set pastetoggle=<F2>
+MapToggle <F11> ignorecase
+
+" Toggle features
+MapToggle <F5> spell
+
+"" Show filename in screen title
+""  from: http://vim.wikia.com/wiki/Automatically_set_screen_title
+""  from: Amazon envImprovement
+
+function! SetTitle()
+    if $TERM =~ "^screen"
+        let l:title = 'vi: ' . expand('%:t')
+        let l:truncTitle = strpart(l:title, 0, 15)
+
+        silent exe '!echo -e -n "\033k' . l:truncTitle . '\033\\"'
+    endif
+endfunction
+
+autocmd BufEnter,BufFilePost * call SetTitle()
+

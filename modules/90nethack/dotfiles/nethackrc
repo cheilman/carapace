@@ -1,0 +1,68 @@
+# Characters
+OPTIONS=align:neu
+#OPTIONS=align:cha
+OPTIONS=character:val
+#OPTIONS=character:bar
+#OPTIONS=character:mon
+#OPTIONS=character:sam
+#OPTIONS=character:wiz
+OPTIONS=gender:Female
+OPTIONS=race:hum
+#OPTIONS=race:dwa
+#OPTIONS=race:elf
+#OPTIONS=race:orc
+
+# Options
+OPTIONS=!autoopen
+OPTIONS=!legacy
+OPTIONS=!rest_on_space
+OPTIONS=autopickup
+OPTIONS=autoquiver
+OPTIONS=bones
+OPTIONS=catname:Maggie
+OPTIONS=checkpoint
+OPTIONS=checkspace
+OPTIONS=cmdassist
+OPTIONS=color
+OPTIONS=confirm
+OPTIONS=disclose:+i +a nv yg +c no
+OPTIONS=dogname:Gustopher
+OPTIONS=fixinv
+OPTIONS=fruit:goat
+OPTIONS=help
+#OPTIONS=hilite_hidden_stairs
+OPTIONS=hilite_pet
+#OPTIONS=hilite_status: hitpoints/30%/red/normal
+OPTIONS=horsename:Death
+OPTIONS=lit_corridor
+OPTIONS=menucolors
+OPTIONS=paranoid_confirmation:pray Remove attack
+OPTIONS=pettype:dog
+OPTIONS=pickup_types:$!?"=/
+OPTIONS=prayconfirm
+OPTIONS=pushweapon
+OPTIONS=safe_pet
+OPTIONS=scores:o 2a 10t
+#OPTIONS=showbuc
+OPTIONS=showexp
+OPTIONS=showscore
+OPTIONS=silent
+OPTIONS=sortpack
+OPTIONS=statushilites
+OPTIONS=time
+OPTIONS=tombstone
+OPTIONS=travel
+OPTIONS=verbose
+
+# https://nethackwiki.com/wiki/Menucolors
+MENUCOLOR="blessed"=cyan&bold
+MENUCOLOR="cursed"=orange&bold
+MENUCOLOR="uncursed"=green
+
+MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=underline
+MENUCOLOR="Amulet of Yendor named"=magenta                           # color only the real Amulet
+MENUCOLOR="gold piece"=yellow
+
+MENUCOLOR="[a-zA-Z] - [a-zA-Z ]+[ ]+[0-9]+\*[ ]+[a-z]+[ ]+[0-9]+%"=magenta  # forgotten spell
+# This version will work on NAO.
+# MENUCOLOR="[a-zA-Z ]+[ ]+[0-9]+\*[ ]+[a-z]+[ ]+[0-9]+%"=magenta  # forgotten spell
