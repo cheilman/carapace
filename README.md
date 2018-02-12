@@ -22,7 +22,7 @@ To-Do
     - [X] clog
     - [ ] crontab-template
     - [ ] docker
-    - [ ] font
+    - [X] font              # never used this font anyway
     - [ ] fortunes
     - [ ] fzf
     - [ ] git
