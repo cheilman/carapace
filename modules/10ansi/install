@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+# Grab/update the repo
+#
+
+ansirepo="https://github.com/fidian/ansi"
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# See if we're already installed
+if [ -d "${moduledir}/ansi" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/ansi" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}" && git clone --recurse-submodules "$ansirepo" ./ansi )
+fi
+
+
