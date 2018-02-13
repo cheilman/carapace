@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# Run strfile on every file in a folder
+#
+
+folder="$1"
+
+# Rebuild string data files
+which strfile &>/dev/null
+if [ $? -eq 0 -a -d "$folder" ]; then
+    (   
+        cd $folder
+        rm *.dat
+
+        for i in *; do
+            strfile $i &>/dev/null
+        done
+    ) &> /dev/null
+fi
+
+

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Run fortune on a folder, but only so often.  Also configurable for enable/disable.
+#
+
+folder="$1"
+configkey="$2"
+frequency="$3"
+header="${4-$configkey}"
+
+timestamp_file="$CAHHOME/generated/${configkey}-timestamp"
+
+which fortune &> /dev/null
+
+if [ $? -eq 0 -a -d "$folder" ]; then
+    run-infrequently "$timestamp_file" "$frequency" "fortune \"$folder/\" | boxprint --title=\"$header\""
+fi
+
