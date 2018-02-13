@@ -47,7 +47,7 @@ To-Do
     - [-] tinycareterminal  # Replaced by sysdash
     - [X] tmux
     - [X] vis
-    - [ ] vscode
+    - [X] vscode            # Not sure if this is going to work right or not
     - [X] z
     - [X] zgen
     - [X] zz_busybox

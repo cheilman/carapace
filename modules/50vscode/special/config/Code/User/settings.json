@@ -1,0 +1,47 @@
+{
+    "markdown.extension.orderedList.marker": "ordered",
+    "cSpell.checkLimit": 10240,
+    "cSpell.minWordLength": 3,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "window.zoomLevel": 0,
+    "cSpell.userWords": [
+        "COE",
+        "DJS",
+        "EOD",
+        "ETO",
+        "FUQ",
+        "Gitfarm",
+        "HOTW",
+        "LDM",
+        "MCM",
+        "SDE",
+        "harrigal",
+        "heilmanc",
+        "horizonte",
+        "mickolas",
+        "oncilla",
+        "performant",
+        "prioritizations",
+        "rcmill",
+        "recurse",
+        "ritesh",
+        "riteshah",
+        "sepidj"
+    ],
+    "bracketPairColorizer.forceIterationColorCycle": true,
+    "markdownlint.config": {
+        "header-style": { "style": "setext_with_atx"},
+        "ul-indent": { "indent": 4 },
+        "no-trailing-punctuation": { "punctuation": ".,;:!" },
+        "fenced-code-language": false,
+        "single-h1": false,
+        "no-bare-urls": false,
+        "ol-prefix": {
+            "style": "ordered"
+        }
+    },
+    "editor.detectIndentation": false,
+    "files.trimTrailingWhitespace": true,
+    "files.autoSave": "afterDelay"
+}
