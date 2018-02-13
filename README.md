@@ -36,7 +36,7 @@ To-Do
     - [X] latex
     - [ ] lyntin
     - [ ] presentations
-    - [ ] prompt
+    - [X] prompt
     - [ ] rainbowstream
     - [ ] recoll
     - [ ] restic
