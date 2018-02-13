@@ -45,7 +45,7 @@ To-Do
     - [X] sysdash
     - [ ] taskwarrior
     - [X] technic
-    - [ ] tinycareterminal
+    - [-] tinycareterminal  # Replaced by sysdash
     - [ ] tmux
     - [ ] update-template
     - [ ] vis
