@@ -37,7 +37,7 @@ To-Do
     - [ ] lyntin
     - [ ] presentations
     - [X] prompt
-    - [ ] rainbowstream
+    - [-] rainbowstream     # Not using this twitter thing anymore
     - [ ] recoll
     - [ ] restic
     - [ ] screen
