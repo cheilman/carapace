@@ -1,0 +1,8 @@
+#!zsh
+#
+# Show a fortune
+#
+
+timed-fortune "${CARAPACE_CURRENT_MODULE_PATH}/dotfiles/fortunes" "fortune" "1 day" "Fortune"
+
+

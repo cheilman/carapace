@@ -1,0 +1,543 @@
+"We build our computer (systems) the way we build our cities: over time, without a plan, on
+top of ruins."
+    - Ellen Ullman
+%
+"Debugging time increases as a square of the program's size."
+    - Chris Wenham (https://goo.gl/yxT6u3)
+%
+"The best technical design advice I've ever received is you will get it wrong, optimize for
+making your code easy to modify in the future."
+    - Caitie McCaffrey (https://goo.gl/i6yPsp)
+%
+"Debugging is twice as hard as writing the code in the first place. Therefore, if you write
+the code as cleverly as possible, you are, by definition, not smart enough to debug it."
+    - Brian W. Kernighan (https://goo.gl/rfJuVh)
+%
+"What one programmer can do in one month, two programmers can do in two months."
+    - Fred Brooks (CodeWidsom: https://goo.gl/Zw37fC)
+%
+"When debugging, novices insert corrective code; experts remove defective code."
+    - Richard Pattis (https://goo.gl/UDyc1f)
+%
+"Programming is like kicking yourself in the face, sooner or later your nose will bleed."
+    - Kyle Woodbury (https://goo.gl/ziazcZ)
+%
+"A user interface should be so simple that a beginner in an emergency can understand it within ten
+seconds."
+    - Ted Nelson (https://goo.gl/weFLsG)
+%
+"Don't document the problem, fix it."
+    - Atli Björgvin Oddsson (https://goo.gl/WbKVcJ)
+%
+"Every great developer you know got there by solving problems they were unqualified to solve
+until they actually did it."
+    - Patrick McKenzie (https://goo.gl/uvJyPM)
+%
+"Truth can only be found in one place; the code."
+    - Robert C. Martin (https://goo.gl/sNRpUA)
+%
+The 8 Fallacies of Distributed Computing
+
+1. The network is reliable
+2. Latency is zero
+3. Bandwidth is infinite
+4. The network is secure
+5. Topology doesn’t change
+6. There is one administrator
+7. Transport cost is zero
+8. The network is homogeneous
+        - Peter Deutsch (https://goo.gl/1yiKg2)
+%
+"Theory is when you know something, but it doesn’t work. Practice is when something works,
+but you don’t know why. Programmers combine theory and practice: Nothing works and they
+don’t know why."
+        - Unknown (https://goo.gl/xNbQgj)
+%
+"The most amazing achievement of the computer software industry is its continuing cancellation
+of the steady and staggering gains made by the computer hardware industry."
+        - Henry Petroski (https://goo.gl/CbvGGY)
+%
+"Complexity kills. It sucks the life out of developers, it makes products difficult to plan,
+build and test, it introduces security challenges and it causes end-user and administrator
+frustration."
+    - Ray Ozzie (https://goo.gl/yt8M1f)
+%
+"The first 90% of the code accounts for the first 90% of the development time. The remaining
+10% of the code accounts for the other 90% of the development time."
+    - Tom Cargill (https://goo.gl/pgeP2v)
+%
+"There are two ways of constructing a software design. One way is to make it so simple that
+there are obviously no deficiencies. And the other way is to make it so complicated that
+there are no obvious deficiencies."
+    - C.A.R. Hoare (https://goo.gl/gSpwWV)
+%
+"When to use iterative development? You should use iterative development only on projects
+that you want to succeed."
+    - Martin Fowler (https://goo.gl/5KzRA2)
+%
+"Learning to code makes kids feel empowered, creative, and confident."
+    - Susan Wojcicki (https://goo.gl/ovFa1t)
+%
+"Computers are good at following instructions, but not at reading your mind."
+    - Donald Knuth (https://goo.gl/WwrTzR)
+%
+"Missing requirements are the hardest requirements errors to correct."
+    - Robert L. Glass (https://goo.gl/6yKA6j)
+%
+"Any fool can write code that a computer can understand. Good programmers write code
+that humans can understand."
+    - Martin Fowler (https://goo.gl/Y1TfKw)
+%
+"The purpose of software engineering is to control complexity, not to create it."
+    - Dr. Pamela Zave (https://goo.gl/XxC7F6)
+%
+"It is not that uncommon for the cost of an abstraction to outweigh the benefit it delivers. Kill
+one today!"
+    - John Carmack (https://goo.gl/nyskJ4)
+%
+"We sort of understood abstractly the idea that there are only two kinds of software projects:
+failures and future legacy horrors."
+    - Peter Weinberger (https://goo.gl/n8nwgL)
+%
+"When you want to do something differently from the rest of the world, it’s a good idea to
+look into whether the rest of the world knows something you don’t."
+    - Unknown (https://goo.gl/uy1jN5)
+%
+"Be curious. Read widely. Try new things. I think a lot of what people call intelligence
+boils down to curiosity."
+    - Aaron Swartz (https://goo.gl/ERF6KQ)
+%
+"There is no problem in computer science that can't be solved using another level of
+indirection. But that usually will create another problem."
+    - David Wheeler (https://goo.gl/QdRxk4)
+%
+"When you’re working in somebody else’s module, though, you’d better use his or her
+conventions. It’s part of learning to work with others."
+    - Ray Ozzie (https://goo.gl/8Erjrn)
+%
+"The longer it takes for a bug to surface, the harder it is to find."
+    - Roedy Green (https://goo.gl/hsNjVV)
+%
+"Encapsulation is important, but the reason why it is important is more important. Encapsulation
+helps us reason about our code."
+    - Michael Feathers (https://goo.gl/fdLVWp)
+%
+I recommend coding if you enjoy aggressively alternating between feeling like the dumbest and
+the smartest person alive.
+    - Justin Mezzell (https://goo.gl/7bqeQ7)
+%
+"It’s not at all important to get it right the first time. It’s vitally important to get
+it right the last time."
+    - The Pragmatic Programmer
+    - Andrew Hunt & David Thomas (https://goo.gl/XXiUP3)
+%
+The best debugger ever made is a good night's sleep.
+    - Sasha Laundy (https://goo.gl/q4WJ9i)
+%
+"The three most dangerous things in the world are a programmer with a soldering iron, a hardware
+type with a program patch, and a user with an idea."
+    - Rick Cook (https://goo.gl/6ZofoA)
+%
+I've said this countless times at Mozilla. Announce an intent to do something and you get
+indifference or stop energy.  Build a prototype and you will get great feedback and patches.
+    - Ted Mielczarek (https://goo.gl/svyUjt)
+%
+"A distributed system is one in which the failure of a computer you didn’t even know existed
+can render your own computer unusable."
+    - Leslie Lamport (https://goo.gl/C9dWbK)
+%
+"Talk is cheap. Show me the code."
+    - Linus Torvalds (https://goo.gl/hXoJW1)
+%
+Eagleson's Law: Any code of your own that you haven't looked at for six or more months might
+as well have been written by someone else.
+    - https://goo.gl/7GHoV9
+%
+"In software, we rarely have meaningful requirements.  Even if we do, the only measure of
+success that matters is whether our solution solves the customer’s shifting idea of what
+their problem is."
+    - Jeff Atwood (https://goo.gl/1FVT28)
+%
+"I have yet to see any problem, however complicated, which, when you looked at it in the right
+way, did not become still more complicated."
+    - Paul Anderson (https://goo.gl/Aufrhq)
+%
+"Your code has two users: the computer, and every other person who has to work with what
+you wrote."
+    - @sjmog1 (https://goo.gl/hnr7vW)
+%
+"No matter how slow you are writing clean code, you will always be slower if you make a mess."
+    - Uncle Bob Martin (https://goo.gl/z3tVBS)
+%
+"In the end, regardless of where you are on the development hierarchy, keep coding. It’s where
+you’re most valuable."
+    - The Developer's Code (https://goo.gl/zikbXP)
+%
+"A good design is not the one that correctly predicts the future, it’s one that makes adapting
+to the future affordable."
+    - Venkat Subramaniam (https://goo.gl/fqKNFe)
+%
+"A Fallacy of Software: If it works, and we don't change anything, it will keep working."
+    - Jessica Kerr (https://goo.gl/vRq6g6)
+%
+"In carpentry, you measure twice and cut once. In software development, you never measure and
+make cuts until you run out of time."
+    - Adam Morse (https://goo.gl/1QTiQr)
+%
+"The only way to learn a new programming language is by writing programs in it."
+    - Dennis Ritchie (https://goo.gl/QzSZz4)
+%
+"Simple doesn’t mean stupid. Thinking that it does, does."
+    - Paul Krugman (https://goo.gl/DNrB9v)
+%
+"There is nothing more unproductive than to build something efficiently that should not have
+been built at all."
+    - Milt Bryce (https://goo.gl/eKSAKT)
+%
+"Don’t worry about what anyone else is going to do. The best way to predict the future is to
+invent it."
+    - Alan Kay (https://goo.gl/frTvaV)
+%
+"Programming is not about typing, it's about thinking."
+    - Rich Hickey (https://goo.gl/pHkh8g)
+%
+"Software development takes immense intellectual effort.  Even the best programmers can rarely
+sustain that level of effort for more than a few hours a day.  Beyond that, they need to rest
+their brains a bit, which is why they always seem to be surfing the Internet or playing games
+when you barge in on them."
+    - Joel Spolsky (https://goo.gl/jytPBh)
+%
+"Even if you don’t intend anybody else to read your code, there’s still a very good chance
+that somebody will have to stare at your code and figure out what it does: That person is
+probably going to be you, twelve months from now. "
+    - Raymond Chen (https://goo.gl/5BSggz)
+%
+"The trick is to fix the problem you have, rather than the problem you want."
+    - Bram Cohen (https://goo.gl/YVKbTd)
+%
+"Programming in 2017 , the hardest part is not learning the language but choosing exactly which
+tools to use."
+    - @mwakalingajohn (https://goo.gl/3VUXhF)
+%
+"Walking on water and developing software from a specification are easy if both are frozen."
+    - Edward V Berard (https://goo.gl/4mQS7x)
+%
+"50% of the computer programming is trial and error, the other 50% is copy and paste."
+    - @mobiledev_pawan (https://goo.gl/1gJUYa)
+%
+"The first 90% of the code accounts for the first 90% of the development time. The remaining 10%
+of the code accounts for the other 90% of the development time."
+    - John Johnson (https://goo.gl/fNKd9r)
+%
+"Learning to program has no more to do with designing interactive software than learning to
+touch type has to do with writing poetry"
+    - Ted Nelson (https://goo.gl/vmv18P)
+%
+"Don't worry if it doesn't work right. If everything did, you'd be out of a job."
+    - Mosher's Law of Software Engineering (https://goo.gl/nnAtaL)
+%
+"You might not think that programmers are artists, but programming is an extremely creative
+profession. It's logic-based creativity."
+    - John Romero (https://goo.gl/UtbiRv)
+%
+"The cleaner and nicer the program, the faster it's going to run. And if it doesn't it'll be
+easy to make it fast."
+    - Joshua Bloch (https://goo.gl/T5kQ8B)
+%
+"Just because people tell you it can't be done, that doesn't necessarily mean that it can't be
+done. It just means that they can't do it."
+    - Anders Hejlsberg (https://goo.gl/2iEhSM)
+%
+"Telling a programmer there's already a library to do X is like telling a songwriter there's
+already a song about love."
+    - Pete Cordell (https://goo.gl/1wA9iH)
+%
+"No one in the brief history of computing has ever written a piece of perfect software. It's
+unlikely that you'll be the first."
+    - Andy Hunt (https://goo.gl/NcSpfP)
+%
+"These days, the problem isn't how to innovate; it's how to get society to adopt the good ideas
+that already exist."
+    - Douglas Engelbart (https://goo.gl/GfS2DG)
+%
+"Falling in love with code means falling in love with problem solving and being a part of a
+forever ongoing conversation."
+    - Kathryn Barrett (https://goo.gl/ZtifxS)
+%
+"Sometimes it's better to leave something alone, to pause, and that's very true of programming."
+    - Joyce Wheeler (https://goo.gl/qxvH5J)
+%
+If you liked it then you should have put a regression test on it.
+    - Jessie Frazelle (https://goo.gl/zr2TLa)
+%
+"Correctness is clearly the prime quality. If a system does not do what it is supposed to do,
+then everything else about it matters little."
+    - Bertrand Meyer (https://goo.gl/AVN1iK)
+%
+"That hardly ever happens is another way of saying 'it happens'."
+    - Douglas Crockford (https://goo.gl/F68fDj)
+%
+"There's nothing more permanent than a temporary hack."
+    - Kyle Simpson (https://goo.gl/VaH5YC)
+%
+"Truth can only be found in one place: the code."
+    - Robert C. Martin (https://goo.gl/htbyF6)
+    - Clean Code: A Handbook of Agile Software Craftsmanship
+%
+"There's one technique that you must use if you want people to listen to you: listen to them."
+    - The Pragmatic Programmer (https://goo.gl/5tFhBt)
+%
+"Measuring programming progress by lines of code is like measuring aircraft building progress
+by weight."
+    - Bill Gates (https://goo.gl/K39Vq5)
+%
+"Refuctoring - the process of taking a well-designed piece of code and, through a series of small,
+reversible changes, making it completely unmaintainable by anyone except yourself."
+    - Jason Gorman (https://goo.gl/F3QbRg)
+%
+"Programming uses head and gut."
+    - Douglas Crockford (https://goo.gl/qZzdnt)
+%
+"First do it, then do it right, then do it better."
+    - Addy Osmani (https://goo.gl/AhhorM)
+%
+"A program is like a poem: you cannot write a poem without writing it."
+    - E. W. Dijkstra (https://goo.gl/uCSoLh)
+%
+"A language that doesn't affect the way you think about programming is not worth knowing."
+    - Alan J. Perlis (https://goo.gl/SgWMF2)
+%
+"The cost of adding a feature isn’t just the time it takes to code it. The cost also includes
+the addition of an obstacle to future expansion. The trick is to pick the features that don't
+fight each other."
+    - John Carmack (https://goo.gl/8DbQFu)
+%
+"A good programmer is someone who always looks both ways before crossing a one-way street."
+    - Doug Linder (https://goo.gl/bZ6Rch)
+%
+"By understanding a machine-oriented language, the programmer will tend to use a much more
+efficient method; it is much closer to reality."
+    - Donald Knuth (https://goo.gl/sNA4XQ)
+%
+"Programming isn't about what you know; it's about what you can figure out."
+    - Chris Pine (https://goo.gl/2iYpPe)
+%
+"The true test of intelligence is not how much we know how to do, but how to behave when we
+don't know what to do."
+    - John Holt (https://goo.gl/jzctYj)
+%
+"So much complexity in software comes from trying to make one thing do two things."
+    - Ryan Singer (https://goo.gl/1wUHm2)
+%
+"Are you rewarding people for building a whole bunch of complex stuff that no one can maintain
+or are you rewarding people for doing the simplest thing?"
+    - Liz Fong-Jones (@lizthegrey) (https://goo.gl/QPM2AQ)
+%
+"Beauty is more important in computing than anywhere else in technology because software is
+so complicated.  Beauty is the ultimate defence against complexity."
+    - David Gelernter (https://goo.gl/PnPYGD)
+%
+"Know how to learn. Then, want to learn."
+    - Katherine Johnson (https://goo.gl/NeMM2m)
+%
+"The key to performance is elegance, not battalions of special cases."
+    - Jon Bentley and Doug McIlroy (https://goo.gl/Qi8AoK)
+%
+"Whenever I have to think to understand what the code is doing, I ask myself if I can refactor
+the code to make that understanding more immediately apparent."
+    - Martin Fowler (https://goo.gl/SAm5Xp)
+%
+"Controlling complexity is the essence of computer programming."
+    - Brian W. Kernighan (https://goo.gl/6hcohr)
+%
+"The code you write makes you a programmer. The code you delete makes you a good one. The code
+you don't have to write makes you a great one."
+    - Mario Fusco (https://goo.gl/rrjgyp)
+%
+"If you give someone a program, you will frustrate them for a day; if you teach them how to
+program, you will frustrate them for a lifetime."
+    -  David Leinweber (https://goo.gl/8yGRjp)
+%
+"The main activity of programming is not the origination of new independent programs, but in
+the integration, modification, and explanation of existing ones."
+    - Terry Winograd (https://goo.gl/vVhK2J)
+%
+"Programming is humbling.  There is nothing more deviststing and freeing than an idea expressed
+in code that fails either in accuracy or performance."
+    - @fars1d3r (https://goo.gl/BpNa3H)
+%
+"Your problem is another's solution; Your solution will be their problem."
+    - Unknown (https://goo.gl/tDydSL)
+%
+"I'm a senior software developer in the sense that I've been wrong in a lot of different ways
+already"
+    - @GonzoHacker (https://goo.gl/Fw1WkA)
+%
+"So if you want to go fast, if you want to get done quickly, if you want your code to be
+easy to write, make it easy to read."
+    - Robert C. Martin (https://goo.gl/xHEEYN)
+    - Clean Code: A Handbook of Agile Software Craftsmanship
+%
+"It is easier to port a shell than a shell script."
+    - Larry Wall (https://goo.gl/v4LPA8)
+%
+"Codes are a puzzle. A game, just like any other game."
+    - Alan Turing (https://goo.gl/7FWXCe)
+%
+"As a software developer, you are your own worst enemy. The sooner you realize that, the
+better off you’ll be."
+    - Jeff Atwood (https://goo.gl/iZJdeT)
+%
+"Software being 'Done' is like lawn being 'Mowed'."
+    - Jim Benson (https://goo.gl/Wkzoqb)
+%
+"When in doubt, use brute force."
+    - Ken Thompson (https://goo.gl/JL9w5K)
+%
+"Documentation is a love letter that you write to your future self."
+    - Damian Conway (https://goo.gl/MESC4g)
+%
+"Learn not to add too many features right away, and get the core idea built and tested."
+    - Leah Culver (https://goo.gl/tHxsFR)
+%
+"Hire people who will automate themselves out of a job, then just keep giving them jobs."
+    - Jessie Frazelle (https://goo.gl/DrhyB4)
+%
+"Debugging is like being the detective in a crime movie where you are also the murderer."
+    - Filipe Fortes (https://goo.gl/5yHYGD)
+%
+"Testing leads to failure, and failure leads to understanding."
+    - Burt Rutan (https://goo.gl/QLwUNB)
+%
+"Minimize complexity. The simpler the product, the more likely you are to actually ship it,
+and the more likely you are to fix problems quickly."
+    - Slava Akhmechet (https://goo.gl/Yq2962)
+%
+"If you can get today’s work done today, but you do it in such a way that you can’t
+possibly get tomorrow’s work done tomorrow, then you lose."
+    - Martin Fowler (https://goo.gl/9QBxqs)
+    - Refactoring: Improving the Design of Existing Code
+%
+"Good code is its own best documentation. As you're about to add a comment, ask yourself,
+'How can I improve the code so that this comment isn't needed?' Improve the code and then
+document it to make it even clearer."
+    - Steve McConnell (https://goo.gl/iUVj9w)
+%
+"Programming is like pinball. The reward for doing it is the opportunity of doing it again."
+    - Unknown (https://goo.gl/7zRTpy)
+%
+"If at first, you don’t succeed, call it version 1.0."
+    - Unknown (https://goo.gl/Y9LiWo)
+%
+I'm increasingly thinking that every functioning system has two forms:  The abstraction that
+outsiders are led to believe, and the reality that insiders actually and carefully operate.
+
+You don't incrementally learn a system.  You eventually unlearn its necessary lies.
+    - Dan Kaminsky (https://goo.gl/f31RHV)
+%
+"The best programs are the ones written when the programmer is supposed to be working on
+something else."
+    - Melinda Varian (https://goo.gl/xfzAnS)
+%
+"Rules of Optimization:
+  Rule 1: Don't do it.
+  Rule 2 (for experts only): Don't do it yet."
+    - Michael A. Jackson (https://goo.gl/EvK9cc)
+%
+- What do we want?
+- Now!
+- When do we want it?
+- Fewer race conditions!
+    - @wellendonner (https://goo.gl/XVBp75)
+%
+"Dynamic typing: The belief that you can’t explain to a computer why your code works, but you can keep track of it all in your head."
+    - @chris__martin (https://goo.gl/XVBp75)
+%
+"Unix will give you enough rope to shoot yourself in the foot. If you didn’t think rope
+would do that, you should have read the man page."
+    - @mhoye (https://goo.gl/XVBp75)
+%
+"Sufficiently advanced abstractions are indistinguishable from obfuscation."
+    - @raganwald (https://goo.gl/XVBp75)
+%
+"[The common definition of estimate is] "An estimate is the most optimistic prediction that has
+a non-zero probability of coming true" . . . Accepting this definition leads irrevocably toward
+a method called what’s-the-earliest-date-by-which-you-can’t-prove-you-won’t-be-finished
+estimating."
+    - Tom DeMarco (1982) (https://goo.gl/XVBp75)
+%
+"It turns out that style matters in programming for the same reason that it matters in writing. It
+makes for better reading."
+    - Douglas Crockford (https://goo.gl/JfiFvc)
+%
+Library design is this: You have made a mistake. It is too late to fix it. There is production
+code depending on the mistake working exactly the way the mistake works. You will never be able
+to fix it. You will never be able to fix anything. You wrote this code nine seconds ago.
+    - MCC (https://goo.gl/F5yEzu)
+%
+"Make it correct, make it clear, make it concise, make it fast. In that order."
+    – Wes Dyer (https://goo.gl/D8Mg9G)
+%
+“Every good work of software starts by scratching a developer’s personal itch.”
+    - Eric S. Raymond (https://goo.gl/kjizdA)
+%
+"Simplicity is prerequisite for reliability."
+    - Edsger W. Dijkstra (https://goo.gl/KY15LY)
+%
+"People think that computer science is the art of geniuses but the actual reality is the opposite,
+just many people doing things that build on each other, like a wall of mini stones."
+    - Donald Knuth (https://goo.gl/Ls5ZhC)
+%
+“If you're on the internet, you already get a free pentest, just not the report.”
+    - Zane Lackey (https://goo.gl/uUgKTE)
+%
+“Don’t worry about what anyone else is going to do. The best way to predict the future is
+to invent it.”
+    - Alan Kay (https://goo.gl/75kMHz)
+%
+"The trouble with programmers is that you can never tell what a programmer is doing until it’s
+too late."
+    - Seymour Cray (https://goo.gl/BS3ddw)
+%
+"How hard can it be? What can go wrong?"
+    - Jack W. Crenshaw, author of Math Toolkit for Real-Time Programming
+    - https://goo.gl/6f9gdQ
+%
+“Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a
+framework. Just a function.”
+    - John Carmack (https://goo.gl/n9rRoY)
+%
+"It’s a curious thing about our industry: not only do we not learn from our mistakes, we also
+don’t learn from our successes."
+    - Keith Braithwaite (https://goo.gl/vPYW43)
+%
+"Testing leads to failure, and failure leads to understanding."
+    - Burt Rutan (https://goo.gl/ze6y36)
+%
+"Each new user of a new system uncovers a new class of bugs."
+    - Brian W. Kernighan (https://goo.gl/oAUKBw)
+%
+In my 20s: Yay it's the weekend, I can code on side projects!
+
+In my 30s: Yay it's the weekend. I think I will sit by the window all day and stare at some clouds.
+    - Gregory Brown (https://goo.gl/YkxYT9)
+%
+“Java is to JavaScript as ham is to hamster.”
+    - Jeremy Keith, Resilient Web Design (https://goo.gl/JFJXQ9)
+%
+"The most important single aspect of software development is to be clear about what you are
+trying to build."
+    - Bjarne Stroustrup (https://goo.gl/9EYJTC)
+%
+"If you stop learning, it's game over" #lca2018
+    - https://goo.gl/i9Qkka
+%
+"If it is not written down, it does not exist."
+    - Philippe Kruchten (https://goo.gl/96fcbW)
+%
+"There are two ways to write error-free programs; only the third works."
+    - Alan J. Perlis (https://goo.gl/jrzLCC)
+%
+"It is far better to improve the effectiveness of testing first than to improve the efficiency
+of poor testing. Automating chaos just gives faster chaos."
+    - Mark Fewster (https://goo.gl/G2W65D)

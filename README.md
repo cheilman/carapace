@@ -23,7 +23,7 @@ To-Do
     - [X] docker            # Only docker scripts, none of the stuff from the dockerfiles repo
     - [ ] docker-files
     - [X] font              # never used this font anyway
-    - [ ] fortunes
+    - [X] fortunes
     - [X] fzf
     - [X] git
     - [X] git1.7.10         # rolled into git

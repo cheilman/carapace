@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+#
+# Compile string data files
+#
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+${moduledir}/bin/folder-strfile "${moduledir}/dotfiles/fortunes"
+
