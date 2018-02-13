@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+#
+# Disable the menu key
+#
+
+if [ "$1" = "--sleep" ]; then
+    randsleep 30 10
+fi
+
+/usr/bin/xmodmap -e 'keycode 135 = NoSymbol'
+

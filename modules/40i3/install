@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#
+# Grab/update the repo
+#
+
+repodir="dev-py3status"
+repo="https://github.com/ultrabug/py3status.git"
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# See if we're already installed
+if [ -d "${moduledir}/dotfiles/i3/${repodir}" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/dotfiles/i3/${repodir}" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}/dotfiles/i3" && git clone --recurse-submodules "${repo}" ./${repodir} )
+fi
+
+

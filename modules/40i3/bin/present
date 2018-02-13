@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+#
+# Turn on presentation mode (hopefully)
+#
+
+xrandr --output eDP1 --primary
+xrandr --output HDMI1 --right-of eDP1 --auto
+
+i3present
+

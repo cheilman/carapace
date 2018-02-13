@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+#
+# Toggle dock state appropriately, depending on what's connected
+#
+
+if [ -z "$1" ]; then
+    NUMMONITORS=`xrandr | grep ' connected' | wc -l`
+else
+    NUMMONITORS=$1
+fi
+
+if [ $NUMMONITORS -eq 1 ]; then
+    echo "Un-docking..."
+    xrandr --auto
+    # Try to detect output
+    firstConnectedOutput="$(xrandr | grep connected | cut -d\  -f 1 | head -1)"
+    xrandr --output "$firstConnectedOutput" --primary
+    makedim
+    i3undock
+else
+    echo "Docking..."
+    xrandr --auto
+    xrandr --output DP1-1 --primary --left-of eDP1 --auto
+    makebright
+    i3dock
+fi
+
+setbgimage
+disable-menu-key
+

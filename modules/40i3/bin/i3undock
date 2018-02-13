@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+#
+# Undock the laptop (transfers all i3 workspaces to eDP1)
+#
+
+i3-msg "workspace 1; move workspace to output eDP1"
+i3-msg "workspace 2; move workspace to output eDP1"
+i3-msg "workspace 3; move workspace to output eDP1"
+i3-msg "workspace 4; move workspace to output eDP1"
+i3-msg "workspace 5; move workspace to output eDP1"
+i3-msg "workspace 6; move workspace to output eDP1"
+i3-msg "workspace 7; move workspace to output eDP1"
+i3-msg "workspace 8; move workspace to output eDP1"
+
+sleep 0.1s
+
+i3-msg workspace 2
+
+sleep 0.5s
+
+# i3-msg restart
+

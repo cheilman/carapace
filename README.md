@@ -29,7 +29,7 @@ To-Do
     - [X] git1.7.10         # rolled into git
     - [X] go                # Semi-dynamic installs, no existance check
     - [X] hhighlighter
-    - [ ] i3
+    - [X] i3
     - [X] images
     - [X] is
     - [-] kitty             # Didn't like it, don't need this

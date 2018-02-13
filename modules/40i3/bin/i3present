@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# Set up presentation mode.  i3 workspaces 6+ go on projector
+#
+
+i3-msg "workspace 1; move workspace to output eDP1"
+i3-msg "workspace 2; move workspace to output eDP1"
+i3-msg "workspace 3; move workspace to output eDP1"
+i3-msg "workspace 4; move workspace to output eDP1"
+i3-msg "workspace 5; move workspace to output eDP1"
+i3-msg "workspace 6; move workspace to output HDMI1"
+i3-msg "workspace 7; move workspace to output HDMI1"
+i3-msg "workspace 8; move workspace to output HDMI1"
+
+sleep 0.1s
+
+i3-msg workspace 1
+i3-msg workspace 2
+i3-msg workspace 8
+
+sleep 0.5s
+
+# i3-msg restart
+

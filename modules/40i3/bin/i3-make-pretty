@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+#
+# Run some configurations to make things pretty
+#
+
+echo "Installing appearance requirements..."
+sudo aptitude install lxappearance gtk-chtheme qt4-qtconfig
+
+echo "Pick a theme in lxappearance: Maybe Ambiance?"
+lxappearance
+
+echo "Pick the same theme in gtk-chtheme"
+gtk-chtheme
+
+echo "Make QT take GKT+ settings"
+qtconfig-qt4
+
