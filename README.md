@@ -51,6 +51,6 @@ To-Do
     - [X] vis
     - [ ] vscode
     - [X] z
-    - [ ] zgen
+    - [X] zgen
     - [ ] zz_busybox
 
