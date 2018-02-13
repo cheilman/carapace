@@ -1,0 +1,135 @@
+#!/usr/bin/env zsh
+
+#
+# Aliases for busybox commands that don't exist on the system
+#
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+bb_alias_zshrc="${moduledir}/bbaliases"
+
+cat > ${bb_alias_zshrc} <<EOF
+#!zsh
+#
+# For commands that we like that aren't on the system, alias to our busybox install
+#
+# GENERATED FILE!! DO NOT EDIT
+# $(date)
+#
+
+EOF
+
+busyBoxCheckAndAlias() {
+    local cmd="$1"
+
+    # See if command exists
+    command -v "$cmd" &> /dev/null
+    if [ $? -eq 0 ]; then
+        return
+    fi
+
+    # See if busybox supports the command
+    busybox --list | grep "^$cmd$" &> /dev/null
+    if [ $? -ne 0 ]; then
+        return
+    fi
+
+    # Set up the alias
+    echo "alias $cmd='busybox $cmd'" >> ${bb_alias_zshrc}
+}
+
+# Adds too much shit
+#for c in `busybox --list`; do
+#    busyBoxCheckAndAlias $c
+#done
+
+busyBoxCheckAndAlias arp
+busyBoxCheckAndAlias arping
+busyBoxCheckAndAlias awk
+busyBoxCheckAndAlias base64
+busyBoxCheckAndAlias basename
+busyBoxCheckAndAlias beep
+busyBoxCheckAndAlias bunzip2
+busyBoxCheckAndAlias bzcat
+busyBoxCheckAndAlias bzip2
+busyBoxCheckAndAlias cal
+busyBoxCheckAndAlias cat
+busyBoxCheckAndAlias catv
+busyBoxCheckAndAlias cksum
+busyBoxCheckAndAlias clear
+busyBoxCheckAndAlias cut
+busyBoxCheckAndAlias date
+busyBoxCheckAndAlias dc
+busyBoxCheckAndAlias df
+busyBoxCheckAndAlias diff
+busyBoxCheckAndAlias dirname
+busyBoxCheckAndAlias dos2unix
+busyBoxCheckAndAlias egrep
+busyBoxCheckAndAlias eject
+busyBoxCheckAndAlias fgrep
+busyBoxCheckAndAlias find
+busyBoxCheckAndAlias fold
+busyBoxCheckAndAlias ftpget
+busyBoxCheckAndAlias ftpput
+busyBoxCheckAndAlias getopt
+busyBoxCheckAndAlias grep
+busyBoxCheckAndAlias gunzip
+busyBoxCheckAndAlias gzip
+busyBoxCheckAndAlias head
+busyBoxCheckAndAlias hexdump
+busyBoxCheckAndAlias hostname
+busyBoxCheckAndAlias ip
+busyBoxCheckAndAlias ipaddr
+busyBoxCheckAndAlias iproute
+busyBoxCheckAndAlias less
+busyBoxCheckAndAlias lsusb
+busyBoxCheckAndAlias md5sum
+busyBoxCheckAndAlias mktemp
+busyBoxCheckAndAlias nc
+busyBoxCheckAndAlias netstat
+busyBoxCheckAndAlias od
+busyBoxCheckAndAlias pgrep
+busyBoxCheckAndAlias ping
+busyBoxCheckAndAlias ping6
+busyBoxCheckAndAlias pipe_progress
+busyBoxCheckAndAlias printf
+busyBoxCheckAndAlias readlink
+busyBoxCheckAndAlias realpath
+busyBoxCheckAndAlias reset
+busyBoxCheckAndAlias route
+busyBoxCheckAndAlias run-parts
+busyBoxCheckAndAlias sed
+busyBoxCheckAndAlias seq
+busyBoxCheckAndAlias sha1sum
+busyBoxCheckAndAlias sha256sum
+busyBoxCheckAndAlias sha3sum
+busyBoxCheckAndAlias sha512sum
+busyBoxCheckAndAlias sleep
+busyBoxCheckAndAlias sort
+busyBoxCheckAndAlias split
+busyBoxCheckAndAlias tail
+busyBoxCheckAndAlias tar
+busyBoxCheckAndAlias tee
+busyBoxCheckAndAlias telnet
+busyBoxCheckAndAlias test
+busyBoxCheckAndAlias time
+busyBoxCheckAndAlias timeout
+busyBoxCheckAndAlias top
+busyBoxCheckAndAlias touch
+busyBoxCheckAndAlias tr
+busyBoxCheckAndAlias traceroute
+busyBoxCheckAndAlias traceroute6
+busyBoxCheckAndAlias truncate
+busyBoxCheckAndAlias uname
+busyBoxCheckAndAlias unix2dos
+busyBoxCheckAndAlias unzip
+busyBoxCheckAndAlias uptime
+busyBoxCheckAndAlias usleep
+busyBoxCheckAndAlias vi
+busyBoxCheckAndAlias watch
+busyBoxCheckAndAlias wc
+busyBoxCheckAndAlias wget
+busyBoxCheckAndAlias xargs
+busyBoxCheckAndAlias zcat
+
