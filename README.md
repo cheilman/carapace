@@ -42,7 +42,7 @@ To-Do
     - [-] restic            # Not migrating
     - [-] screen            # Not migrating
     - [X] souls
-    - [ ] sysdash
+    - [X] sysdash
     - [ ] taskwarrior
     - [ ] technic
     - [ ] tinycareterminal

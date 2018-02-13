@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+#
+# Get and install the executable
+#
+
+repo="github.com/cheilman/sysdash"
+
+if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
+    go get -u "$repo"
+fi
+
