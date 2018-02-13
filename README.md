@@ -31,7 +31,7 @@ To-Do
     - [X] hhighlighter
     - [ ] i3
     - [X] images
-    - [ ] is
+    - [X] is
     - [ ] kitty
     - [ ] latex
     - [ ] lyntin
