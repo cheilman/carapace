@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+#
+# Run Technic Launcher
+#
+
+#
+# Load goodies
+#
+if [ -z "$CAHHOME" ]; then
+    export CAHHOME="`$HOME/.find-cahhome`"
+fi
+
+. $CAHHOME/script-init
+
+#
+# Run Technic
+#
+
+TECHNICDIR="$HOME/.technic"
+
+cd $TECHNICDIR
+java -jar ./TechnicLauncher.jar
+

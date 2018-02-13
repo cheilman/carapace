@@ -44,7 +44,7 @@ To-Do
     - [X] souls
     - [X] sysdash
     - [ ] taskwarrior
-    - [ ] technic
+    - [X] technic
     - [ ] tinycareterminal
     - [ ] tmux
     - [ ] update-template
