@@ -32,8 +32,8 @@ To-Do
     - [ ] i3
     - [X] images
     - [X] is
-    - [ ] kitty
-    - [ ] latex
+    - [-] kitty             # Didn't like it, don't need this
+    - [X] latex
     - [ ] lyntin
     - [ ] presentations
     - [ ] prompt

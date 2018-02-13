@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+ag -l -u -G '(tex$|sty$|dot$|png$)' | entr sh -c 'hrl && latexbuild "$@"'
+
