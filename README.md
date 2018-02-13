@@ -38,7 +38,7 @@ To-Do
     - [ ] presentations
     - [X] prompt
     - [-] rainbowstream     # Not using this twitter thing anymore
-    - [ ] recoll
+    - [-] recoll            # Not migrating this for now.  Ag works pretty well
     - [ ] restic
     - [ ] screen
     - [ ] souls
