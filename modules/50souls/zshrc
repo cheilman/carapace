@@ -1,0 +1,7 @@
+#!zsh
+#
+# Add souls to path
+#
+
+add_path_back "${CARAPACE_CURRENT_MODULE_PATH}/souls"
+

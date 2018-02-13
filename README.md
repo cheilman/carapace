@@ -41,7 +41,7 @@ To-Do
     - [-] recoll            # Not migrating this for now.  Ag works pretty well
     - [-] restic            # Not migrating
     - [-] screen            # Not migrating
-    - [ ] souls
+    - [X] souls
     - [ ] sysdash
     - [ ] taskwarrior
     - [ ] technic
