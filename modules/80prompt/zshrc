@@ -5,7 +5,8 @@
 
 if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
     export PS1='%{$(carapaceprompt --color --exitcode $?)%}
-    ${Green}--${BCyan}%#${NC} '
+${Green}--${BCyan}%#${NC} '
+
 else
     export PS1='${Green}--${BCyan}%#${NC} '
 fi

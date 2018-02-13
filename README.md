@@ -52,4 +52,5 @@ To-Do
     - [X] z
     - [X] zgen
     - [X] zz_busybox
+- [ ] Add installation/modules for handy go utilities (that are in go/bin right now)
 

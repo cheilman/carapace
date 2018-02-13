@@ -27,22 +27,23 @@ local dest_file="$2"
 
 # Did we already install this file?
 if [ -L "$dest_file" ]; then
-    # It's a symlink, see if it's the same file
-    cmp -s "$source_file" "$dest_file"
-    if [[ $? -eq 0 ]]; then
-        # File contents match, so it's probably a symlink to the same place
+    # It's a symlink
+
+    # Does the symlink match what we want?
+    if [ "$source_file" = "$(readlink -f "$dest_file")" ]; then
+        # Probably a symlink to the same place
         return 0
     fi
 fi
 
 # Do we need to back up an existing file?
 if [ -e "$dest_file" ]; then
-    mv -f "$dest_file" "$CARAPACE/backup/${dest_file:h}.$(date -u -I)"
+    mv -f "$dest_file" "$CARAPACE/backup/${${dest_file:t}#.}.$(date -u -I)"
 fi
 
 # Destroy the file for sure
-rm -f "$dest_file"
+rm -rf "$dest_file"
 
 # Link it up
 carapace-message "green" "+ ${source_file:t} -> $dest_file"
-#ln -s "$source_file" "$dest_file"
+ln -s "$source_file" "$dest_file"

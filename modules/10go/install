@@ -17,7 +17,8 @@ oldgodir="${godir}.old"
 
 # TODO: Figure out the currently installed version, if we need an upgrade
 
-( cd /tmp && get $dlurl )
+# TODO: Removign the download because it's a pain in the ass
+#( cd /tmp && ${moduledir}/../00pre/bin/get $dlurl )
 
 if [ ! -r "/tmp/$dlfile" ]; then
     carapace-message "boldred" "Failed to download: ${dlurl}"
@@ -43,4 +44,9 @@ fi
 
 # Remove downloaded file
 rm -f "/tmp/${dlfile}" || :
+
+# Remove old version
+if [ -d "${oldgodir}" ]; then
+    rm -rf "${oldgodir}" || :
+fi
 

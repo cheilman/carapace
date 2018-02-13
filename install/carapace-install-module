@@ -87,7 +87,7 @@ export CARAPACE_CURRENT_MODULE_PATH=\"$moduledir\""
 # Eliminates double-comment lines (##)
 # Expands some variables during append: $HOME
 append-with-expansion() {
-    append-helper <(sed -e '/^##.*$/d' $1 | sed -e "s#\$HOME#$HOME#g") "$2"
+    append-helper =(sed -e '/^##.*$/d' $1 | sed -e "s#\$HOME#$HOME#g") "$2"
 }
 
 # contains(string, substring)
