@@ -1,0 +1,7 @@
+#!zsh
+#
+# Alias to run vis under 256 colors
+#
+
+alias vis='TERM=xterm-256color vis'
+

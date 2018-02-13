@@ -48,7 +48,7 @@ To-Do
     - [-] tinycareterminal  # Replaced by sysdash
     - [X] tmux
     - [ ] update-template
-    - [ ] vis
+    - [X] vis
     - [ ] vscode
     - [ ] z
     - [ ] zgen
