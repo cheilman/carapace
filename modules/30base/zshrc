@@ -214,39 +214,3 @@ calc_f() {
 
 alias calc='noglob calc_f'
 
-#
-# Command to get a file from URL
-#
-
-GET_CMD="`which kcurl 2> /dev/null`"
-if [ ! -x "$GET_CMD" ]; then
-    GET_CMD="`which curl`"
-fi
-if [ ! -x "$GET_CMD" ]; then
-    GET_CMD="`which wget`"
-fi
-
-export GET_CMD
-
-case "$GET_CMD" in
-    *curl)
-        # echo "curl based command ($GET_CMD)"
-        function cah_get() {
-            # So many -O's are a HACK to make it work when you pass multiple
-            # urls on the command line.  TODO: Make this better
-            $GET_CMD -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O --connect-timeout 30 --retry 5 --retry-delay 5 --retry-max-time 0 $*
-        }
-        ;;
-    *wget)
-        # echo "wget based command ($GET_CMD)"
-        function cah_get() {
-            $GET_CMD --tries=5 --timeout=30 --waitretry=5 $*
-        }
-        ;;
-    *)  
-        echo "unknown command ($GET_CMD)"
-        ;;
-esac
-
-alias get="noglob cah_get"
-

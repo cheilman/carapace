@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+#
+# Install go
+#
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+arch="linux-amd64"
+version="1.9.4"
+
+dlfile="go${version}.${arch}.tar.gz"
+dlurl="https://dl.google.com/go/${dlfile}"
+
+godir="${moduledir}/go"
+oldgodir="${godir}.old"
+
+# TODO: Figure out the currently installed version, if we need an upgrade
+
+( cd /tmp && get $dlurl )
+
+if [ ! -r "/tmp/$dlfile" ]; then
+    carapace-message "boldred" "Failed to download: ${dlurl}"
+    exit 1
+fi
+
+# Move the existing install
+if [ -d "${godir}" ]; then
+    mv "${godir}" "${oldgodir}"
+fi
+
+# Untar the install
+( cd "${moduledir}" && tar zxf "/tmp/${dlfile}" )
+err=$?
+
+if [ $err -ne 0 ]; then
+    # Restore the old version as a fallback
+    rm -Rf "${godir}"
+    mv "${oldgodir}" "${godir}"
+    carapace-message "boldred" "Failed to extract downloaded go install."
+    exit $err
+fi
+
+# Remove downloaded file
+rm -f "/tmp/${dlfile}" || :
+

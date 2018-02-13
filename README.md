@@ -27,7 +27,7 @@ To-Do
     - [ ] fzf
     - [X] git
     - [X] git1.7.10         # rolled into git
-    - [ ] go
+    - [X] go                # Semi-dynamic installs, no existance check
     - [X] hhighlighter
     - [ ] i3
     - [X] images
