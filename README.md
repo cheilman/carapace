@@ -35,7 +35,7 @@ To-Do
     - [-] kitty             # Didn't like it, don't need this
     - [X] latex
     - [ ] lyntin
-    - [ ] presentations
+    - [-] presentations     # Was entirely commented out in cahhome
     - [X] prompt
     - [-] rainbowstream     # Not using this twitter thing anymore
     - [-] recoll            # Not migrating this for now.  Ag works pretty well
