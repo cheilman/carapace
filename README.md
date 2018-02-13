@@ -39,8 +39,8 @@ To-Do
     - [X] prompt
     - [-] rainbowstream     # Not using this twitter thing anymore
     - [-] recoll            # Not migrating this for now.  Ag works pretty well
-    - [ ] restic
-    - [ ] screen
+    - [-] restic            # Not migrating
+    - [-] screen            # Not migrating
     - [ ] souls
     - [ ] sysdash
     - [ ] taskwarrior
