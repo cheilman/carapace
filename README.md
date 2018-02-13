@@ -20,7 +20,6 @@ To-Do
     - [-] atom              # Not continuing with atom, as I use vscode now
     - [-] chime             # Have a better chime option now
     - [X] clog
-    - [ ] crontab-template
     - [ ] docker
     - [X] font              # never used this font anyway
     - [ ] fortunes
@@ -47,7 +46,6 @@ To-Do
     - [X] technic
     - [-] tinycareterminal  # Replaced by sysdash
     - [X] tmux
-    - [ ] update-template
     - [X] vis
     - [ ] vscode
     - [X] z
