@@ -50,7 +50,7 @@ To-Do
     - [ ] update-template
     - [X] vis
     - [ ] vscode
-    - [ ] z
+    - [X] z
     - [ ] zgen
     - [ ] zz_busybox
 
