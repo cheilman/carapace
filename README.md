@@ -14,7 +14,7 @@ To-Do
 - [X] Add pre/post configuration from base module
 - [X] Finish adding base module content
 - Work on migrating existing modules:
-    - [ ] amazon
+    - [~] amazon            # In progress
     - [X] ansi
     - [X] ansiweather
     - [-] atom              # Not continuing with atom, as I use vscode now
