@@ -1,0 +1,124 @@
+#!zsh
+#
+# Load fzf
+#
+
+export FZF_DEFAULT_OPTS='--no-mouse --height=50% --border --ansi --color=16 --black'
+export FZF_DEFAULT_COMMAND='ag -al'
+export FZF_DEFAULT_WIDGET_HEIGHT='20%'
+
+alias fzfzf='fzf --preview '"'"'[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -500'"'"
+
+#
+# Below taken from the generated .fzf.zsh file so I don't have to run the install
+#
+
+# Setup fzf
+# ---------
+add_path_back "${CARAPACE_CURRENT_MODULE_PATH}/fzf/bin"
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "${CARAPACE_CURRENT_MODULE_PATH}/fzf/shell/completion.zsh" 2> /dev/null
+
+# Key bindings
+# I don't want ^T, so I pulled things out and copied them below
+# ------------
+# source ".../fzf/shell/key-bindings.zsh"
+
+#
+# Fancy change directory
+#
+
+# Ensure precmds are run after cd
+fzf-redraw-prompt() {
+  local precmd
+  for precmd in $precmd_functions; do
+    $precmd
+  done
+  zle reset-prompt
+}
+zle -N fzf-redraw-prompt
+
+# Directory selection based on z - frecency
+fzf-cd-widget-z() {
+  local cmd="${FZF_ALT_C_COMMAND:-"z -l | sed -e 's/^[0-9.]*[ ]*//'"}"
+  setopt localoptions pipefail 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} --reverse  $FZF_ALT_C_OPTS" fzf +m --tac)"
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  cd "$dir"
+  local ret=$?
+  zle fzf-redraw-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N    fzf-cd-widget-z
+
+# Directory selection based on find (slow, but complete)
+fzf-cd-widget-find() {
+    local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune -o -type d -print 2> /dev/null | cut -b3-"}"
+  setopt localoptions pipefail 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} --reverse $FZF_ALT_C_OPTS" fzf +m --tac)"
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  cd "$dir"
+  local ret=$?
+  zle fzf-redraw-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N    fzf-cd-widget-find
+
+#
+# Bind directory stuff
+#
+
+# Alt-C
+bindkey '\ec' fzf-cd-widget-z
+
+# Shift-Alt-C
+bindkey '\eC' fzf-cd-widget-find
+
+#
+# History Search Functions
+#
+
+function reformat_hist() {
+    local history_file=${HISTFILE:="$HOME/.zshhistory"}
+
+    # Read from history file reformatting the output (mostly for timestamp)
+    while IFS=';' read tmes cmd; do
+        IFS=':' read a timestamp duration <<< $tmes
+        printf "%25s | %5ds | %s\n" "$(date -d @${timestamp// /} +'%Y-%m-%d %H:%M:%S %Z')" "${duration}" "$cmd"
+    done < $history_file
+}
+
+fzf-history-widget() {
+    local selected num
+    setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+    selected=( $(fc -rl 1 |
+        FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
+    local ret=$?
+    if [ -n "$selected" ]; then
+        num=$selected[1]
+        if [ -n "$num" ]; then
+            zle vi-fetch-history -n $num
+        fi
+    fi
+    zle redisplay
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N   fzf-history-widget
+
+#
+# Bind history search
+#
+
+bindkey '^R' fzf-history-widget
+

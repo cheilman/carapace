@@ -20,10 +20,11 @@ To-Do
     - [-] atom              # Not continuing with atom, as I use vscode now
     - [-] chime             # Have a better chime option now
     - [X] clog
-    - [ ] docker
+    - [X] docker            # Only docker scripts, none of the stuff from the dockerfiles repo
+    - [ ] docker-files
     - [X] font              # never used this font anyway
     - [ ] fortunes
-    - [ ] fzf
+    - [X] fzf
     - [X] git
     - [X] git1.7.10         # rolled into git
     - [X] go                # Semi-dynamic installs, no existance check
