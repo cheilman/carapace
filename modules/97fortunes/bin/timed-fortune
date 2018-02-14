@@ -8,7 +8,7 @@ configkey="$2"
 frequency="$3"
 header="${4-$configkey}"
 
-timestamp_file="$CAHHOME/generated/${configkey}-timestamp"
+timestamp_file="$CARAPACE/generated/${configkey}-timestamp"
 
 which fortune &> /dev/null
 

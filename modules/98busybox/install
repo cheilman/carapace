@@ -30,7 +30,7 @@ busyBoxCheckAndAlias() {
     fi
 
     # See if busybox supports the command
-    busybox --list | grep "^$cmd$" &> /dev/null
+    ${moduledir}/bin/busybox --list | grep "^$cmd$" &> /dev/null
     if [ $? -ne 0 ]; then
         return
     fi
