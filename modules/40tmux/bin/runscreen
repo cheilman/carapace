@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+#
+# Modified to run tmux, I'm not using screen as much anymore
+#
+
+export PATH=$HOME/bin:$HOME/bin/carapace:$HOME/go/bin:$PATH
+
+$HOME/carapace/bin/sc
