@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Task dashboard
+#
+
+while true; do
+    clear
+    tw
+    \sleep 10s
+done
+

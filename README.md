@@ -43,7 +43,7 @@ To-Do
     - [-] screen            # Not migrating
     - [X] souls
     - [X] sysdash
-    - [ ] taskwarrior
+    - [X] taskwarrior
     - [X] technic
     - [-] tinycareterminal  # Replaced by sysdash
     - [X] tmux

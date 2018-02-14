@@ -1,0 +1,88 @@
+# [Created by task 2.5.0 9/8/2017 15:29:25]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+color=on
+_forcecolor=yes
+
+# Color theme (uncomment one to use)
+
+##include /usr/share/taskwarrior/light-16.theme
+##include /usr/share/taskwarrior/light-256.theme
+##include /usr/share/taskwarrior/dark-16.theme
+##include /usr/share/taskwarrior/dark-red-256.theme
+##include /usr/share/taskwarrior/dark-green-256.theme
+##include /usr/share/taskwarrior/dark-yellow-green.theme
+##include /usr/share/taskwarrior/dark-gray-256.theme
+##include /usr/share/taskwarrior/dark-gray-blue-256.theme
+##include /usr/share/taskwarrior/solarized-light-256.theme
+##include /usr/share/taskwarrior/no-color.theme
+
+#include /usr/share/taskwarrior/dark-256.theme
+include /usr/share/taskwarrior/dark-blue-256.theme
+#include /usr/share/taskwarrior/dark-violets-256.theme
+#include /usr/share/taskwarrior/solarized-dark-256.theme
+
+#taskd.server=localhost:53589
+#taskd.key=~/.task/freecinc_48e10478.key.pem
+#taskd.certificate=~/.task/freecinc_48e10478.cert.pem
+#taskd.ca=~/.task/freecinc_48e10478.ca.pem
+#taskd.credentials=FreeCinc\/freecinc_48e10478\/d80f1a6b-661d-4014-9877-593ab38650a4
+#taskd.trust=ignore hostname
+
+taskd.certificate=~/.task/private.certificate.pem
+taskd.key=~/.task/private.key.pem
+taskd.ca=~/.task/ca.cert.pem
+taskd.server=localhost:53588
+taskd.credentials=inthe_am/chris.heilman/c7de8162-f346-4f4c-afdd-c132d152600c
+taskd.trust=ignore hostname
+
+uda.priority.values=H,M,,L
+urgency.uda.priority.L.coefficient=-0.1
+
+
+# User defined stuff
+urgency.user.tag.personal.coefficient=-2.0
+urgency.user.tag.work.coefficient=2.0
+urgency.user.tag.hire.coefficient=4.0
+
+color.tag.OVERDUE=on red bold
+color.tag.DUETODAY=on rgb103
+color.tag.hire=magenta
+color.tag.personal=blue bold
+color.tag.work=cyan bold
+
+alias.complete=done
+
+# My dashboard report
+report.dashboard.columns=id,start.age,depends,priority,project,tags,recur,scheduled.countdown,due.remaining,until.remaining,description.count,urgency
+report.dashboard.description=Dashboard
+report.dashboard.filter=status:pending limit:page
+report.dashboard.labels=ID,Active,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
+report.dashboard.sort=urgency-
+
+# Override waiting reports column data
+report.waiting.columns=id,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait,wait.remaining,scheduled,due,until,description.count
+report.waiting.description=Waiting (hidden) tasks
+report.waiting.filter=+WAITING
+report.waiting.labels=ID,A,Age,D,P,Project,Tags,R,Wait,Remaining,Sched,Due,Until,Description
+report.waiting.sort=due+,wait+,entry+
+
+# Tasksh
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
