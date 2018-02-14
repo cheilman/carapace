@@ -8,7 +8,8 @@ set -e
 # Prepare
 #
 
-export CARAPACE=$(dirname "${0:a:h}")
+# TODO: Fix carapace folder autodetect
+export CARAPACE="$HOME/.carapace"
 
 if [ ! -d "$CARAPACE" ]; then
     >&2 echo "Unable to find carapace folder!"
