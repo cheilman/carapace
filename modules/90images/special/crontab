@@ -4,4 +4,4 @@
 ## m h  dom mon dow   command
 
 # Rotate background images
-6,21,36,51 * * * * DISPLAY=:0 $HOME/bin/setbgimage &> /dev/null
+6,21,36,51 * * * * DISPLAY=:0 $HOME/bin/carapace/setbgimage &> /dev/null

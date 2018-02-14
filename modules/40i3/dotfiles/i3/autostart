@@ -20,5 +20,5 @@ xset dpms 900 1200 1500
 xset +dpms
 
 # Set up screensaver
-xautolock -detectsleep -time 10 -locker "$HOME/bin/lock" -notify 30 -notifier "notify-send -u critical -t 10000 -- 'About to lock screen!'" &
+xautolock -detectsleep -time 10 -locker "$HOME/bin/carapace/lock" -notify 30 -notifier "notify-send -u critical -t 10000 -- 'About to lock screen!'" &
 

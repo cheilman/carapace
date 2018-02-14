@@ -4,5 +4,5 @@
 ## m h  dom mon dow   command
 
 # Update our database of all the files in our home directory
-3 * * * * $HOME/bin/cahhome-update-database
+3 * * * * $HOME/bin/carapace/cahhome-update-database
 
