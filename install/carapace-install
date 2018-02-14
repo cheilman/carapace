@@ -45,9 +45,10 @@ carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapa
 # TODO: We could generate files in one place and then "atomic"-ish replace them
 # TODO: With this setup we have a period in time where the files don't exist...
 
+# NOTE: We only want to deleted the generated files, keep the timestamps or it may cause trouble
 carapace-message "cyan" "clearing old generated files"
 if [ -d "$CARAPACE_GENERATED" ]; then
-    rm -f $CARAPACE_GENERATED/* >& /dev/null || :
+    rm -f $CARAPACE_GENERATED/generated* >& /dev/null || :
 fi
 
 #
