@@ -14,7 +14,7 @@ To-Do
 - [X] Add pre/post configuration from base module
 - [X] Finish adding base module content
 - Work on migrating existing modules:
-    - [~] amazon            # In progress
+    - [X] amazon
     - [X] ansi
     - [X] ansiweather
     - [-] atom              # Not continuing with atom, as I use vscode now
@@ -54,3 +54,4 @@ To-Do
     - [X] zz_busybox
 - [X] Add installation/modules for handy go utilities (that are in go/bin right now)
 - [ ] Fix cahhome-limited
+
