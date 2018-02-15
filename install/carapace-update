@@ -24,7 +24,7 @@ export PATH="$CARAPACE/install:$PATH"
 #
 
 carapace-message "boldcyan" "Carapace Update Starting..."
-( cd $CARAPACE && git pull )
+( cd $CARAPACE && git pull -q --recurse-submodules )
 carapace-message "boldcyan" "Carapace Update Finished"
 
 #
