@@ -116,7 +116,7 @@ remove_broken_symlink_to_this_module() {
         # See if it contains this module
         contains "$actual" "$moduledir" && (
             carapace-message "magenta" "- $link"
-            #rm -f "$link"
+            rm -f "$link"
         )
     fi
 }
