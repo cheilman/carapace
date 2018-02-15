@@ -14,7 +14,7 @@ if [ -z "$GIT_REPO_SEARCH_PATH" ]; then
     # No repos set, use locate logic
     for i in `home-locate -b '\.git' | grep -v 'https-COLON--SLASH--SLASH' | grep -v zgen | grep -v 'go/.cache' | grep -v 'go/src' | grep -v 'NetHack' | grep -v 'seti-syntax' | grep -v '/tmp/'` ; do
         if [ -d $i ]; then
-            repoList+=($i)
+            repoList+=(`dirname $i`)
         fi
     done
 else
@@ -23,10 +23,10 @@ else
 
     for i in ${(k)repos}; do
         if [ -d $i ]; then
-            repoList+=(`find -L "$i" -maxdepth $repos[$i] -type d -name .git 2> /dev/null`)
+            repoList+=(`find -L "$i" -maxdepth $repos[$i] -type d -name .git 2> /dev/null | xargs -n1 dirname`)
         fi
     done
 fi
 
-printf "%s/..\n" $repoList | xargs -n 1 realpath -s | sort
+printf "%s\n" $repoList | sort | uniq
 
