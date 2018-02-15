@@ -60,6 +60,10 @@ Module `crontab` files will be appended to the generated Carapace-wide `generate
 
 Module `gitconfig` files will be appended to the generated Carapae-wide `generated-gitconfig` file, and then symlinke to `$HOME/.gitconfig`.
 
+#### gitignore
+
+Module `gitignore` files will be appended to the generated Carapae-wide `generated-gitignore` file, and then symlinke to `$HOME/.gitignore`.
+
 #### profile
 
 Module `profile` files will be appended to the generated Carapace-wide `generated-profile` file, and executed whenever `$HOME/.profile` is.

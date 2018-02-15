@@ -3,7 +3,7 @@
 #
 
 # Brazil stuff
-build
+/build
 
 # IntelliJ stuff
 *.iml

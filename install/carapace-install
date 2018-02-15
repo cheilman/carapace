@@ -127,6 +127,7 @@ EOF
 #
 
 carapace-redirect "$CARAPACE_GENERATED/generated-gitconfig" "$HOME/.gitconfig"
+carapace-redirect "$CARAPACE_GENERATED/generated-gitignore" "$HOME/.gitignore"
 carapace-redirect "$CARAPACE_GENERATED/generated-profile" "$HOME/.profile"
 carapace-redirect "$CARAPACE_GENERATED/generated-ssh_config" "$HOME/.ssh/config"
 carapace-redirect "$CARAPACE_GENERATED/generated-vimrc" "$HOME/.vimrc"
