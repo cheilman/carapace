@@ -102,9 +102,8 @@ alias tl='less +F'
 # Open a file like you "double-clicked" on it
 alias click='xdg-open'
 
-# Don't try to be fancy in our ssh terminal
-# TODO: Maybe fix ssh terminals
-alias ssh='TERM=xterm ssh'
+# Don't try to be (too) fancy in our ssh terminal
+alias ssh='TERM=xterm-256color ssh'
 
 # Get size of the terminal window
 alias termsize='echo $(tput cols)x$(tput lines)'

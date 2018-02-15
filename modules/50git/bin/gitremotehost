@@ -2,7 +2,7 @@
 #
 # Find out what host a git repo is remotely tracking (first)
 #
-# TODO: Requires a port to be in the url
+# NOTE: Requires a port to be in the url
 #
 
 if [ ! -d .git ]; then
