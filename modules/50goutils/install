@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+#
+# Get and install the executables for useful go utilities
+#
+
+repos=( "github.com/jessfraz/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/jessfraz/udict" )
+
+if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
+    for i in $repos; do
+        (
+            go get -u "$i"
+            if [ $? -ne 0 ]; then
+                carapace-message "himagenta" "Failed to install go utility: $i"
+            fi
+        )
+    done
+fi
