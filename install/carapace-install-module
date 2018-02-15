@@ -29,6 +29,24 @@ modulename="${${moduledir:t}:2}"
 # Functions
 #
 
+# Is dst already linked to src?
+# Usage: <src> <dst>
+already-linked() {
+    local src="$(readlink -f "$1")"
+    local dst="$2"
+
+    if [ -L "$dst" ]; then
+        # It's a link
+        
+        if [ "$src" = "$(readlink -f "$dst")" ]; then
+            # It's a match
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
 # Usage: <src> <dst> <comment character> <extra header text>
 append-helper() {
     local source_file="$(readlink -f $1)"
@@ -42,7 +60,7 @@ append-helper() {
     fi
 
     cat >> $dest_file <<EOF
-${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 ${commentchar}###
 ${commentchar}### Included from: $modulename
 ${commentchar}###     ($source_file)
@@ -64,7 +82,7 @@ fi
 ${commentchar}###
 ${commentchar}### End include from: $modulename
 ${commentchar}###
-${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+${commentchar}###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 
 EOF
 }
@@ -187,36 +205,9 @@ for i in $HOME/.*; do
 done
 
 #
-# Install config files
-#
-
-if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)"  ]; then
-    for i in ${moduledir}/config/*; do
-        target="$HOME/.config/${i:t}"
-
-        if [ ! -d "$i" ]; then
-            # Our source is a normal file, always set it up
-            carapace-redirect "$i" "$target"
-        else
-            # Our source is a directory...
-            if [ -d "$target" ]; then
-                # Target is also a directory.  Symlink the contents
-                for j in ${i}/*; do
-                    carapace-redirect "$j" "$target/${j:t}"
-                done
-            elif [ ! -e "$target" ]; then
-                # Target does not exist, link the whole directory
-                carapace-redirect "$i" "$target"
-            else
-                # Target exists, but was not a directory... error?!
-                carapace-message "boldred" "! mismatch between config '$i', target not a directory."
-            fi
-        fi
-    done
-fi
-
-#
 # Remove missing config files
+#
+# Note: We do this before the install to make sure our 'already-linked' test below works right.
 #
 
 for i in $HOME/.config/* $HOME/.config/*/*; do
@@ -224,6 +215,42 @@ for i in $HOME/.config/* $HOME/.config/*/*; do
         remove_broken_symlink_to_this_module "$i"
     fi
 done
+
+#
+# Install config files
+#
+
+if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)"  ]; then
+    for i in ${moduledir}/config/*; do
+        target="$HOME/.config/${i:t}"
+
+        # Warning: If we've linked the root dir, then later it deletes things _inside_ the dir
+        
+        if [ ! -d "$i" ]; then
+            # Our source is a normal file, always set it up
+            carapace-redirect "$i" "$target"
+        else
+            # Our source is a directory...
+            if already-linked "$i" "$target"; then
+                # It's something we set up already, skip further processing
+                continue
+            else
+                if [ -d "$target" ]; then
+                    # Target is also a directory.  Symlink the contents
+                    for j in ${i}/*; do
+                        carapace-redirect "$j" "$target/${j:t}"
+                    done
+                elif [ ! -e "$target" ]; then
+                    # Target does not exist, link the whole directory
+                    carapace-redirect "$i" "$target"
+                else
+                    # Target exists, but was not a directory... error?!
+                    carapace-message "boldred" "! mismatch between config '$i', target not a directory."
+                fi
+            fi
+        fi
+    done
+fi
 
 #
 # Handle special files
