@@ -34,7 +34,7 @@ add_git_repo_search_path() {
 # Decent presets?
 #
 
-add_git_repo_search_path "$HOME/.carapace" 5
+add_git_repo_search_path "$HOME/.carapace" 3
 add_git_repo_search_path "$HOME/prj" 3
 add_git_repo_search_path "$HOME/workplace" 5
 add_git_repo_search_path "$HOME/go/src/github.com/cheilman" 3
