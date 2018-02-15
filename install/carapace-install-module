@@ -192,7 +192,7 @@ done
 
 if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)"  ]; then
     for i in ${moduledir}/config/*; do
-        target="$HOME/.config/{$i:t}"
+        target="$HOME/.config/${i:t}"
 
         if [ ! -d "$i" ]; then
             # Our source is a normal file, always set it up
