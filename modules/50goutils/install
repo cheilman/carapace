@@ -3,6 +3,18 @@
 # Get and install the executables for useful go utilities
 #
 
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+# Set the path according to the module directory, in case we're bootstrapping go
+godir="${moduledir}/../10go/go"
+
+if [ -d "$godir" ]; then
+    export GOROOT="${godir}"
+    export PATH="$PATH:${GOROOT}/bin:$HOME/go/bin"
+fi
+
+# Install a bunch of go repos
 repos=( "github.com/jessfraz/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/jessfraz/udict" )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
