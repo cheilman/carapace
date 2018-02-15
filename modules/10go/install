@@ -57,6 +57,3 @@ if [ "$currentver" != "$version" ]; then
 
 fi
 
-# Also, add the environment variables/path since other modules may want to use go
-source "${moduledir}/zshrc"
-
