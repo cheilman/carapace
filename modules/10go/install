@@ -15,38 +15,44 @@ dlurl="https://dl.google.com/go/${dlfile}"
 godir="${moduledir}/go"
 oldgodir="${godir}.old"
 
-# TODO: Figure out the currently installed version, if we need an upgrade
+# Figure out the currently installed version, if we need an upgrade
+currentver="$( ${godir}/bin/go version 2> /dev/null | grep -oe "[0-9]*\.[0-9]*\.[0-9]*")"
 
-# TODO: Removign the download because it's a pain in the ass
-#( cd /tmp && ${moduledir}/../00pre/bin/get $dlurl )
+# TODO: Right now, always replaces instead of upgrading (better version check)
+if [ "$currentver" != "$version" ]; then
+    # We need to download it
+    carapace-message "magenta" "Installed version ($currentver) differs from desired version ($version), downloading."
 
-if [ ! -r "/tmp/$dlfile" ]; then
-    carapace-message "boldred" "Failed to download: ${dlurl}"
-    exit 0  # TODO: Make me 1 again
+    ( cd /tmp && ${moduledir}/../00pre/bin/get $dlurl )
+
+    if [ ! -r "/tmp/$dlfile" ]; then
+        carapace-message "boldred" "Failed to download: ${dlurl}"
+        exit 1
+    fi
+
+    # Move the existing install
+    if [ -d "${godir}" ]; then
+        mv "${godir}" "${oldgodir}"
+    fi
+
+    # Untar the install
+    ( cd "${moduledir}" && tar zxf "/tmp/${dlfile}" )
+    err=$?
+
+    if [ $err -ne 0 ]; then
+        # Restore the old version as a fallback
+        rm -Rf "${godir}"
+        mv "${oldgodir}" "${godir}"
+        carapace-message "boldred" "Failed to extract downloaded go install."
+        exit $err
+    fi
+
+    # Remove downloaded file
+    rm -f "/tmp/${dlfile}" || :
+
+    # Remove old version
+    if [ -d "${oldgodir}" ]; then
+        rm -rf "${oldgodir}" || :
+    fi
+
 fi
-
-# Move the existing install
-if [ -d "${godir}" ]; then
-    mv "${godir}" "${oldgodir}"
-fi
-
-# Untar the install
-( cd "${moduledir}" && tar zxf "/tmp/${dlfile}" )
-err=$?
-
-if [ $err -ne 0 ]; then
-    # Restore the old version as a fallback
-    rm -Rf "${godir}"
-    mv "${oldgodir}" "${godir}"
-    carapace-message "boldred" "Failed to extract downloaded go install."
-    exit $err
-fi
-
-# Remove downloaded file
-rm -f "/tmp/${dlfile}" || :
-
-# Remove old version
-if [ -d "${oldgodir}" ]; then
-    rm -rf "${oldgodir}" || :
-fi
-
