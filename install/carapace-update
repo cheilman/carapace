@@ -8,13 +8,16 @@ set -e
 # Prepare
 #
 
-# TODO: Fix carapace directory detection
-#export CARAPACE=$(dirname "${0:a:h}")
-export CARAPACE="$HOME/.carapace"
+# Try to autodetect carapace folder
+export CARAPACE="${0:A:h:h}"
 
 if [ ! -d "$CARAPACE" ]; then
-    >&2 echo "Unable to find carapace folder!"
-    exit 1
+    export CARAPACE="$HOME/.carapace"
+
+    if [ ! -d "$CARAPACE" ]; then
+        >&2 echo "Unable to find carapace folder!"
+        exit 1
+    fi  
 fi
 
 export PATH="$CARAPACE/install:$PATH"

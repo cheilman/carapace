@@ -3,7 +3,7 @@
 # Prepare to execute the Carapace generated zshrc script
 #
 
-# TODO: Fix carapace autodetection
+# TODO: Fix carapace autodetection... somehow
 export CARAPACE="$HOME/.carapace"
 
 #

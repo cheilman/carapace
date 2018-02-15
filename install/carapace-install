@@ -8,12 +8,16 @@ set -e
 # Prepare
 #
 
-# TODO: Fix carapace folder autodetect
-export CARAPACE="$HOME/.carapace"
+# Try to autodetect carapace folder
+export CARAPACE="${0:A:h:h}"
 
 if [ ! -d "$CARAPACE" ]; then
-    >&2 echo "Unable to find carapace folder!"
-    exit 1
+    export CARAPACE="$HOME/.carapace"
+
+    if [ ! -d "$CARAPACE" ]; then
+        >&2 echo "Unable to find carapace folder!"
+        exit 1
+    fi
 fi
 
 export PATH="$CARAPACE/install:$PATH"
@@ -24,6 +28,8 @@ export CARAPACE_INDENT=""
 carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
 carapace-message "cyan" "using source folder '$CARAPACE'"
+
+exit 0
 
 # Create bin folder
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
