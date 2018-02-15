@@ -43,9 +43,6 @@ carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapa
 # Clear out the generated folder
 #
 
-# TODO: We could generate files in one place and then "atomic"-ish replace them
-# TODO: With this setup we have a period in time where the files don't exist...
-
 # NOTE: We only want to deleted the generated files, keep the timestamps or it may cause trouble
 carapace-message "cyan" "clearing old generated files"
 if [ -d "$CARAPACE_GENERATED" ]; then
@@ -89,7 +86,6 @@ done
         if [ -d "$i" ]; then
             carapace-message "boldblue" "processing module $i"
 
-            # Install from inside the module
             carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || (
                 carapace-message "boldred" "$i module failed!"
             )

@@ -8,9 +8,8 @@ export CARAPACE="$HOME/.carapace"
 
 #
 # We'll want to see if we need to switch zsh executables
+# ... or not.  Let's just compile/install the right zsh ...
 #
-
-# TODO: Switch running zsh
 
 #
 # Check for new updates
