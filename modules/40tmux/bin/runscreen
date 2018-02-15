@@ -5,4 +5,4 @@
 
 export PATH=$HOME/bin:$HOME/bin/carapace:$HOME/go/bin:$PATH
 
-$HOME/carapace/bin/sc
+$HOME/bin/carapace/sc
