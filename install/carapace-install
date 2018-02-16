@@ -29,8 +29,6 @@ carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
 carapace-message "cyan" "using source folder '$CARAPACE'"
 
-exit 0
-
 # Create bin folder
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 
