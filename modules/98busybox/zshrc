@@ -3,6 +3,9 @@
 # Aliases for busybox commands that don't exist on the system
 #
 
+# Load the aliases
+source "${CARAPACE_CURRENT_MODULE_PATH}/bbaliases"
+
 # What commands did we set up aliases for?
 alias check-busybox-aliases='alias | grep busybox'
 
