@@ -7,7 +7,7 @@ moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
 arch="linux-amd64"
-version="1.9.4"
+version="1.10"
 
 dlfile="go${version}.${arch}.tar.gz"
 dlurl="https://dl.google.com/go/${dlfile}"
