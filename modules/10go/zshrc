@@ -3,14 +3,14 @@
 # My go installation
 #
 
+# This should be after $GOROOT/bin, so that we use a local version before OS version
+add_path_front "/usr/local/go/bin"
+
 if [ -d "${CARAPACE_CURRENT_MODULE_PATH}/go" ]; then
     # Install succeeded
     export GOROOT="${CARAPACE_CURRENT_MODULE_PATH}/go"
-    add_path_back "$GOROOT/bin"
+    add_path_front "$GOROOT/bin"
 fi
-
-# This should be after $GOROOT/bin, so that we use a local version before OS version
-add_path_back "/usr/local/go/bin"
 
 #
 # My go workspace and path
@@ -21,6 +21,6 @@ if [ -z "$GOPATH" -a -d "$HOME/go" ]; then
 fi
 
 if [ -n "$GOPATH" ]; then
-    add_path_back "$GOPATH/bin"
+    add_path_front "$GOPATH/bin"
 fi
 
