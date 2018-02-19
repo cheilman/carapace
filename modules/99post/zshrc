@@ -12,6 +12,7 @@
 
 add_path_front "$HOME/bin/carapace"
 add_path_front "$HOME/bin"
+add_path_front "$HOME/.host/bin"
 
 #################
 # Shell Options #

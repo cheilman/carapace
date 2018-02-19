@@ -5,14 +5,12 @@
 #
 add_path_front "$HOME/usr/bin"
 add_path_front "$HOME/home/bin"
-add_path_front "$HOME/bin"
 
 #
 # Other paths that are probably unimportant
 #
 add_path_back "$HOME/programs/android/tools"
 add_path_back "$HOME/programs/android/platform-tools"
-add_path_back "$HOME/.host/bin"
 
 #
 # Autoload Functions
