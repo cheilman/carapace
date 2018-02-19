@@ -3,7 +3,6 @@
 # Get and install the executables for useful go utilities
 #
 
-<<<<<<< HEAD
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
@@ -16,18 +15,12 @@ if [ -d "$godir" ]; then
 fi
 
 # Install a bunch of go repos
-||||||| merged common ancestors
-=======
-moduledir="${1:-${0:a:h}}"
-generated="${2:-/dev/null}"
-
->>>>>>> Fixing go paths and pathing orders.
 repos=( "github.com/jessfraz/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/jessfraz/udict" )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
     for i in $repos; do
         (
-            ${moduledir}/../10go/go/bin/go get -u "$i"
+            ${godir}/bin/go get -u "$i"
             if [ $? -ne 0 ]; then
                 carapace-message "himagenta" "Failed to install go utility: $i"
             fi
