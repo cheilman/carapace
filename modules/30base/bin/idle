@@ -11,8 +11,8 @@
 which sysdash &>/dev/null
 if [ $? -eq 0 ]; then
     # Also load whatever sysdash environment variables we have
-    if [ -r $CARAPACE/modules/50sysdash/zshrc ]; then
-        source $CARAPACE/modules/50sysdash/zshrc
+    if [ -r $CARAPACE/modules/60sysdash/zshrc ]; then
+        source $CARAPACE/modules/60sysdash/zshrc
     fi
 
     if [ -r ~/.host/config/sysdash ]; then
