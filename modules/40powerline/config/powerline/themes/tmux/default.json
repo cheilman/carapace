@@ -2,7 +2,8 @@
     "segments": {
         "left": [
             {
-                "function": "powerline.segments.common.net.hostname"
+                "function": "carapace.prettyhostname.prettyhostname",
+                "priority": 50
             }
         ],
         "right": [
