@@ -7,6 +7,11 @@ import subprocess
 import os
 import re
 
+try:
+    from subprocess import DEVNULL # py3k
+except ImportError:
+    DEVNULL = open(os.devnull, 'wb')
+
 SHOW_ZEROS_DEFAULT = False
 
 ANSI_ESCAPE_RE = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
@@ -74,7 +79,7 @@ def getGitStatus(dir=None):
 
     try:
         # git -c color.status=always -c color.ui=always status -sb 2> /dev/null
-        return subprocess.check_output(["git", "-c", "color.status=always", "-c", "color.ui=always", "status", "-sb"])
+        return subprocess.check_output(["git", "-c", "color.status=always", "-c", "color.ui=always", "status", "-sb"], stderr=DEVNULL)
     finally:
         if (origDir):
             os.chdir(origDir)
@@ -141,14 +146,18 @@ def pad(ansiStr, width, rightAlign=True):
 
 # Load/parse data
 repo = getRepoName()
-status = getGitStatus()
-branch = getBranchLine(status)
-chars = getFileChangeCharacters(status)
-keys = countKeysForFileChanges(chars)
-fileStatus = parseFileStatusKeysToColoredSummaryString(chars)
+try:
+    status = getGitStatus()
+    branch = getBranchLine(status)
+    chars = getFileChangeCharacters(status)
+    keys = countKeysForFileChanges(chars)
+    fileStatus = parseFileStatusKeysToColoredSummaryString(chars)
 
-# Manually do formatting, since we can't rely on printf widths with ANSI escapes
-statusString = "%s | %s |%s" % (pad(repo, 26), pad(branch, 37, False), fileStatus)
-statusString = statusString.rstrip()
+    # Manually do formatting, since we can't rely on printf widths with ANSI escapes
+    statusString = "%s | %s |%s" % (pad(repo, 26), pad(branch, 37, False), fileStatus)
+    statusString = statusString.rstrip()
+except subprocess.CalledProcessError:
+    statusString = "%s | %s |%s" % (pad(repo, 26), pad(COLOR_BOLD + COLOR_FG_RED + "<error>" + COLOR_RESET, 37, False), "")
+    statusString = statusString.rstrip()
 
 print statusString
