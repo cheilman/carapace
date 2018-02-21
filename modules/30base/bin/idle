@@ -3,6 +3,11 @@
 # Idle screen
 #
 
+export CARAPACE="${0:A:h:h:h:h}"
+if [ ! -d "$CARAPACE" ]; then
+    export CARAPACE="$HOME/.carapace"
+fi
+
 #
 # Idle
 #
