@@ -541,3 +541,52 @@ trying to build."
 "It is far better to improve the effectiveness of testing first than to improve the efficiency
 of poor testing. Automating chaos just gives faster chaos."
     - Mark Fewster (https://goo.gl/G2W65D)
+%
+"The only real durable skill is how to learn about new stuff."
+    - P. Patterson (https://goo.gl/TK1GVn)
+%
+"There's never enough time to design the right solution, but somehow always an infinite amount
+of time for supporting the wrong solution."
+    - Matthew Noonan (https://goo.gl/8XKC7U)
+%
+"Code is like humor. When you have to explain it, it’s bad."
+    - Cory House (https://goo.gl/uSMMj3)
+%
+"You haven't mastered a tool until you understand when it should not be used."
+    - Kelsey Hightower (https://goo.gl/DviFfx)
+%
+"To my fellow maintainers: stay harsh on code and don't be afraid to say "No" or "Why?";
+there really are more bad ideas than good ones, and complexity is such a bright candle for
+us hacker-moths.  But be gentle, kind and forgiving of your peers: respect from people you
+respect is really the only reward that sticks."
+    - Rusty Russel (https://goo.gl/jERPbi)
+%
+"Deleted code is debugged code."
+    - Jeff Sickel (https://goo.gl/U98zPu)
+%
+"Inside every well-written large program is a well-written small program."
+    - C.A.R Hoare (https://goo.gl/kqXQcY)
+%
+"The costs of complexity, rough as they are during development, bite hardest after deployment"
+    - Eric Steven Raymond (https://goo.gl/3MciLB)
+%
+"Programming languages, like pizzas, come in only two sizes; too big and too small."
+    - Richard E. Pattis (https://goo.gl/AHVayK)
+%
+"A computer shall not harm your work or, through inaction, allow your work to come to harm."
+    - Jef Raskin (https://goo.gl/ijcEib)
+%
+There is no perfect tool / framework / language / process.  All software is created within a
+context, and trade-offs are made based on that context.
+
+Learning to see and evaluate technical decisions from this angle will help you ask better
+questions, and build better systems
+
+Be very wary of anyone promising that their tech solves all problems, is applicable in all
+situations, or is the only Right Way to do things.
+
+In my experience these conversations are usually more about ego than understanding the tech.
+    - Caitie McCaffrey (https://goo.gl/uqoFbY)
+%
+"Never put off until tomorrow what you can put off forever."
+    - P. J Plaguer (https://goo.gl/w3m5C4)
