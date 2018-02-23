@@ -42,8 +42,13 @@
     },
     "isup": {
         "prefix": "",
+        "warning": {
+            "prefix": "",
+            "fg": "#002b36",
+            "bg": "#b58900"
+        },
         "critical": {
-            "prefix": "",
+            "prefix": "",
             "fg": "#002b36",
             "bg": "#dc322f"
         }

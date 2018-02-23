@@ -6,7 +6,7 @@ Requires the following executable:
     * xinput
 
 Parameters:
-    yubikey.interval   How often to check (in seconds)
+    yubikey.frequency   How often to check (in seconds)
 """
 
 import re
@@ -26,26 +26,26 @@ def y_enabled(module, widget):
                 val = int(line.split(":")[1])
 
                 if val == 1:
-                    widget.set("enabled", True)
+                    widget.set("yubi-enabled", True)
                     return
 
-        widget.set("enabled", False)
+        widget.set("yubi-enabled", False)
     except Exception as e:
         print e
-        widget.set("enabled", False)
+        widget.set("yubi-enabled", False)
 
 class Module(bumblebee.engine.Module):
     def __init__(self, engine, config):
         widget = bumblebee.output.Widget(full_text="Y")
         super(Module, self).__init__(engine, config, widget)
 
-        widget.set("interval", self.parameter("interval", 5))
-        widget.set("enabled", False)
+        widget.set("yubi-frequency", self.parameter("frequency", 5))
+        widget.set("yubi-enabled", False)
 
         self._next_check = 0
 
     def state(self, widget):
-        if widget.get("enabled"): return ["critical"]
+        if widget.get("yubi-enabled"): return ["critical"]
         return None
 
     def update(self, widgets):
@@ -53,6 +53,6 @@ class Module(bumblebee.engine.Module):
             return
         thread = threading.Thread(target=y_enabled, args=(self, widgets[0],))
         thread.start()
-        self._next_check = int(time.time()) + int(widgets[0].get("interval"))
+        self._next_check = int(time.time()) + int(widgets[0].get("yubi-frequency"))
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4

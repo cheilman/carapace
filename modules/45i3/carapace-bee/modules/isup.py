@@ -6,12 +6,10 @@ Requires the following executable:
     * ping
 
 Parameters:
-    * isup.interval: Time in seconds between two isup checks (defaults to 60)
-    * isup.address : IP address to check
-    * isup.timeout : Timeout for waiting for a reply (defaults to 5.0)
-    * isup.probes  : Number of probes to send (defaults to 5)
-    * isup.warning : Threshold for warning state, in seconds (defaults to 1.0)
-    * isup.critical: Threshold for critical state, in seconds (defaults to 2.0)
+    * isup.frequency: Time in seconds between two isup checks (defaults to 30)
+    * isup.address  : IP address to check
+    * isup.timeout  : Timeout for waiting for a reply (defaults to 5.0)
+    * isup.count    : Number of probes to send (defaults to 5)
 """
 
 import re
@@ -24,9 +22,16 @@ import bumblebee.engine
 
 def get_isup(module, widget):
     try:
-        res = bumblebee.util.execute("ping -n -q -c 1 -W {} {}".format(
-            widget.get("isup-timeout"), widget.get("address")
+        res = bumblebee.util.execute("ping -n -q -c {} -W {} {}".format(
+            widget.get("isup-count"), widget.get("isup-timeout"), widget.get("address")
         ))
+
+        for line in res.split("\n"):
+            if line.startswith("{} packets transmitted".format(widget.get("isup-count"))):
+                m = re.search(r'(\d+)% packet loss', line)
+
+                widget.set('packet-loss', m.group(1))
+
         widget.set("isup-unreachable", False)
         widget.set("isup-downcount", 0)
     except Exception as e:
@@ -42,18 +47,26 @@ class Module(bumblebee.engine.Module):
 
         widget.set("address", addr)
         widget.set("name", self.parameter("name", addr))
-        widget.set("interval", self.parameter("interval", 30))
+        widget.set("isup-frequency", self.parameter("frequency", 30))
+        widget.set("isup-count", self.parameter("count", 5))
         widget.set("isup-timeout", self.parameter("timeout", 5.0))
         widget.set("isup-unreachable", False)
         widget.set("isup-downcount", 0)
+        widget.set("packet-loss", 0)
 
         self._next_check = 0
 
     def isup(self, widget):
-        return widget.get("name")
+        return "{} ({}%)".format(widget.get("name"), widget.get("packet-loss"))
 
     def state(self, widget):
         if widget.get("isup-unreachable"): return ["critical"]
+        try:
+            if int(widget.get("packet-loss")) > 0:
+                return ["warning"]
+        except:
+            pass
+
         return None
 
     def update(self, widgets):
@@ -61,6 +74,6 @@ class Module(bumblebee.engine.Module):
             return
         thread = threading.Thread(target=get_isup, args=(self, widgets[0],))
         thread.start()
-        self._next_check = int(time.time()) + int(widgets[0].get("interval"))
+        self._next_check = int(time.time()) + int(widgets[0].get("isup-frequency"))
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
