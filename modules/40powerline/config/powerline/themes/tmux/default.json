@@ -3,7 +3,7 @@
         "left": [
             {
                 "function": "carapace.prettyhostname.prettyhostname",
-                "priority": 50
+                "priority": 30
             }
         ],
         "right": [
@@ -17,21 +17,15 @@
             {
                 "function": "powerline.segments.common.time.date",
                 "name": "time",
+                "priority": 10,
                 "args": {
-                    "format": "%H:%M",
+                    "format": "%H:%M:%S",
                     "istime": true
                 }
             },
             {
-                "function": "powerline.segments.common.sys.uptime",
-                "priority": 50,
-                "args": {
-                    "shorten_len": 2
-                }
-            },
-            {
                 "function": "powerline.segments.common.bat.battery",
-                "priority": 50,
+                "priority": 40,
                 "args": {
                     "gamify": true
                 }
