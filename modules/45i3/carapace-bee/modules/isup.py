@@ -35,6 +35,7 @@ def get_isup(module, widget):
         widget.set("isup-unreachable", False)
         widget.set("isup-downcount", 0)
     except Exception as e:
+        widget.set('packet-loss', 100)
         widget.set("isup-unreachable", True)
         widget.set("isup-downcount", widget.get("isup-downcount", 0))
 
