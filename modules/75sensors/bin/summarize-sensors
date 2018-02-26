@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+#
+# Show temp. sensors
+# 
+
+cat sensors.log | grep Physical | cut -dC -f1 | grep -oe '[0-9][0-9]*\.[0-9]' | (echo "°C"; cat - ) | datamash -H min 1 q1 1 mean 1 median 1 q3 1 max 1                                                     
+

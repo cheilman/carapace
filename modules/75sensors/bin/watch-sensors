@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+#
+# Record temperatures
+# 
+
+while true; do
+    date >> ~/sensors.log
+    sensors >> ~/sensors.log
+    sleep 10
+done
+
