@@ -3,5 +3,5 @@
 # Run bumblebee-status as my i3bar
 #
 
-~/.i3/bumblebee-status/bumblebee-status -m shortnic isup:goog isup:amzn battery cpu load1 kerberos yubikey sensors pasink date time utc -p interval=2 time.format="%H:%M" utc.format="%H:%M" date.format="%b %d %Y" shortnic.exclude="enp0s25,lo,docker0" goog.address="www.google.com" goog.name="NET" amzn.address="inside.amazon.com" amzn.name="VPN" -t carapace-powerline
+~/.i3/bumblebee-status/bumblebee-status -m shortnic isup:goog isup:amzn battery cpu load1 kerberos yubikey sensors pasink date time utc -p interval=2 time.format="%H:%M" utc.format="%H:%M" date.format="%b %d %Y" shortnic.exclude="enp0s25,lo,docker0" goog.address="www.google.com" goog.name="NET" amzn.address="inside.amazon.com" amzn.name="CORP" -t carapace-powerline
 
