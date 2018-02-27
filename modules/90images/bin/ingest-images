@@ -3,7 +3,7 @@
 # Pull the images from the images/folder, and convert them as appropriate for backgrounds and lock screens.
 #
 
-ROOT="${0:a:h}/.."
+ROOT="${0:A:h}/.."
 AR_ERR_MAX=32
 SOURCE_PATH="${ROOT}/images/"
 BACKGROUND_PATH="${ROOT}/dotfiles/backgrounds"
