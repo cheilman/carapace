@@ -19,7 +19,11 @@ add_path_back "${CARAPACE_CURRENT_MODULE_PATH}/fzf/bin"
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "${CARAPACE_CURRENT_MODULE_PATH}/fzf/shell/completion.zsh" 2> /dev/null
+if grep Amazon /etc/system-release >/dev/null 2>/dev/null; then
+    # Don't do completion on Amazon Linux
+else
+    [[ $- == *i* ]] && source "${CARAPACE_CURRENT_MODULE_PATH}/fzf/shell/completion.zsh" 2> /dev/null
+fi
 
 # Key bindings
 # I don't want ^T, so I pulled things out and copied them below

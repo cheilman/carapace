@@ -81,8 +81,13 @@ setopt HIST_NO_FUNCTIONS
 setopt HIST_NO_STORE
 setopt HIST_VERIFY
 setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY_TIME
-setopt NO_INC_APPEND_HISTORY
+
+if grep Amazon /etc/system-release >/dev/null 2>/dev/null; then
+    setopt INC_APPEND_HISTORY
+else
+    setopt INC_APPEND_HISTORY_TIME
+    setopt NO_INC_APPEND_HISTORY
+fi
 setopt NO_SHARE_HISTORY
 
 #
