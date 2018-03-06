@@ -63,7 +63,7 @@ class Module(bumblebee.engine.Module):
     def state(self, widget):
         if widget.get("isup-unreachable"): return ["critical"]
         try:
-            if int(widget.get("packet-loss")) > 0:
+            if int(widget.get("packet-loss")) > 2:
                 return ["warning"]
         except:
             pass
