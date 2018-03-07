@@ -3,8 +3,21 @@
 # Use carapaceprompt if installed, default to something terrible otherwise
 #
 
+# Wrapper that adds job status to the prompt
+carapace_prompt_wrapper() {
+    local exitcode=$1
+    local running=""
+    local suspended=""
+    local jbs="$(jobs 2>/dev/null)"
+
+    echo $jbs | grep 'run' 2> /dev/null && running="--runningjobs"
+    echo $jbs | grep 'sus' 2> /dev/null && suspended="--suspendedjobs"
+
+    carapaceprompt --color --exitcode $exitcode $running $suspended
+}
+
 if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
-    export PS1='%{$(carapaceprompt --color --exitcode $?)%}
+    export PS1='%{$(carapace_prompt_wrapper $?)%}
 ${Green}--${BCyan}%#${NC} '
 
 else
