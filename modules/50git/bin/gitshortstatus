@@ -154,10 +154,10 @@ try:
     fileStatus = parseFileStatusKeysToColoredSummaryString(chars)
 
     # Manually do formatting, since we can't rely on printf widths with ANSI escapes
-    statusString = "%s | %s |%s" % (pad(repo, 26), pad(branch, 37, False), fileStatus)
+    statusString = "%s | %s |%s" % (pad(repo, 40), pad(branch, 40, False), fileStatus)
     statusString = statusString.rstrip()
 except subprocess.CalledProcessError:
-    statusString = "%s | %s |%s" % (pad(repo, 26), pad(COLOR_BOLD + COLOR_FG_RED + "<error>" + COLOR_RESET, 37, False), "")
+    statusString = "%s | %s |%s" % (pad(repo, 40), pad(COLOR_BOLD + COLOR_FG_RED + "<error>" + COLOR_RESET, 40, False), "")
     statusString = statusString.rstrip()
 
 print statusString
