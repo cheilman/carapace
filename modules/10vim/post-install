@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+#
+# Finalize vim configuration
+#
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# Install/update plugins
+vim +PluginInstall\! +qall
+vim +PluginClean\! +qall
+

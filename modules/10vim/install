@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+#
+# Grab/update the vundle repo
+#
+
+repodir="dotfiles/vim/bundle/Vundle.vim"
+repo="https://github.com/VundleVim/Vundle.vim.git"
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+mkdir -p ${moduledir}/dotfiles/vim/bundle 2> /dev/null || :
+
+# See if we're already installed
+if [ -d "${moduledir}/${repodir}" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
+fi
+
+
