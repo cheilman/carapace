@@ -19,5 +19,5 @@ else
 fi
 
 # Grab/update binary
-( cd "${moduledir}/${repodir}" && ./install --bin )
+( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null )
 
