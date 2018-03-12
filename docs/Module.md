@@ -18,6 +18,7 @@ mymod/
  |- dotfiles/
  |- special/
  |- install
+ |- post-install
  |- update
  |- zshrc
 ```
@@ -103,6 +104,14 @@ An optional script that is executed on Carapace installations or upgrades.  It s
 
 `install <module dir> <generated dir>`
 
+### post-install
+
+An optional script that is executed after the rest of the module installation has finished.  It should be idempotent enough to be run on every upgrade/install without causing problems.  This script allows you to initialize anything that requires the symlinks to be set up already.  It operates similarly to to the install script.
+
+#### Usage:
+
+`post-install <module dir> <generated dir>`
+
 What does the module installation process look like?
 ----------------------------------------------------
 
@@ -114,7 +123,8 @@ What does the module installation process look like?
 5. Symlink all the `dotfiles/` files to the correct location (following the [description in that section](#dotfiles)).
 6. Symlink all the `config/` files to the correct location (following the [description in that section](#config)).
 7. Process each of the `special/` files [as necessary](#special).
-8. Add the module name to the list of installed modules (see [Environment Variables](Carapace.md#Environment-Variables) section in the [Carapace documentation](Carapace.md))
+8. If the `post-install` file exists, execute it.
+9. Add the module name to the list of installed modules (see [Environment Variables](Carapace.md#Environment-Variables) section in the [Carapace documentation](Carapace.md))
 
 How can I communicate to the user during installation?
 ------------------------------------------------------

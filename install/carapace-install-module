@@ -37,7 +37,7 @@ already-linked() {
 
     if [ -L "$dst" ]; then
         # It's a link
-        
+
         if [ "$src" = "$(readlink -f "$dst")" ]; then
             # It's a match
             return 0
@@ -225,7 +225,7 @@ if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)" 
         target="$HOME/.config/${i:t}"
 
         # Warning: If we've linked the root dir, then later it deletes things _inside_ the dir
-        
+
         if [ ! -d "$i" ]; then
             # Our source is a normal file, always set it up
             carapace-redirect "$i" "$target"
@@ -268,6 +268,22 @@ fi
 
 if [ -r "${moduledir}/special/vimrc" ]; then
     append-to "${moduledir}/special/vimrc" "${generated}/generated-vimrc" '"'
+fi
+
+#
+# Execute post-install script
+#
+
+if [ -x "${moduledir}/post-install" ]; then
+    ${moduledir}/post-install "$moduledir" "$generated"
+    err=$?
+
+    if [ $err -ne 0 ]; then
+        carapace-message "red" "'$modulename' had an error in the post-install script: $err"
+        exit $err
+    fi
+elif [ -e "${moduledir}/post-install" ]; then
+    carapace-message "brown" "Warning, '$modulename' has a post-install file that is NOT executable."
 fi
 
 #
