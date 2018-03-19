@@ -17,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Add plugins here
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-commentary'
 Plugin 'dhruvasagar/vim-table-mode'
 "Plugin 'Valloric/YouCompleteMe'    " TODO: Enable after figuring out compilation
 Plugin 'vim-syntastic/syntastic'
