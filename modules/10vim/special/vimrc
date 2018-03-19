@@ -122,10 +122,16 @@ set number
 set spelllang=en_US
 
 " Undo persist between vim invocations
-set undodir=~/.vim/undodir
-set undofile
+if exists('undodir')
+    set undodir=~/.vim/undodir
+endif
+if exists('undofile')
+    set undofile
+endif
 set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+if exists('undoreload')
+    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+endif
 
 " Ssshhhhhhh
 set noerrorbells
