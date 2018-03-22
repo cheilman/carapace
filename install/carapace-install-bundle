@@ -83,16 +83,20 @@ remove_broken_symlink_to_this_bundle() {
 # Clear out broken modules
 #
 
-for i in $moduleroot/*; do
-    remove_broken_symlink_to_this_bundle $i
-done
+if [ -d "${moduledir}" -a -n "$(ls -A ${moduledir} 2> /dev/null)" ]; then
+    for i in $moduleroot/*; do
+        remove_broken_symlink_to_this_bundle $i
+    done
+fi
 
 #
 # Link up the bundle's modules
 #
 
-for i in $bundledir/*; do
-    if [ -d "$i" ]; then
-        carapace-redirect "$i" "$moduleroot/${i:t}"
-    fi
-done
+if [ -d "${bundledir}" -a -n "$(ls -A ${bundledir} 2> /dev/null)" ]; then
+    for i in $bundledir/*; do
+        if [ -d "$i" ]; then
+            carapace-redirect "$i" "$moduleroot/${i:t}"
+        fi
+    done
+fi

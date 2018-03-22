@@ -76,6 +76,26 @@ done
     echo >> $CARAPACE_GENERATED/generated-vimrc
 )
 
+#
+# Run through the bundles and link their modules
+#
+(
+    carapace-message "cyan" "evaluating bundles"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    cd $CARAPACE/bundles
+    for i in *; do
+        if [ -d "$i" ]; then
+            carapace-message "boldblue" "processing bundle $i"
+
+            carapace-install-bundle "$(readlink -f $i)" "$CARAPACE/modules" "$CARAPACE_GENERATED" || (
+                carapace-message "boldred" "$i module failed!"
+            )
+        fi
+    done
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+)
 
 #
 # Now start checking modules
