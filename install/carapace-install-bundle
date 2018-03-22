@@ -1,0 +1,98 @@
+#!/usr/bin/env zsh
+#
+# Install a carapace bundle.
+#
+# Usage: carapace-install-bundle <bundle dir> <module root> <generated files directory>
+#
+
+set -e
+
+#
+# Setup
+#
+
+export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+TRAPEXIT() {
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+}
+
+bundledir="$1"
+moduleroot="$2"
+generated="$3"
+bundlename="${${bundledir:t}:2}"
+
+#carapace-message "boldgrey" "Dir: $moduledir"
+#carapace-message "boldgrey" "Gen: $generated"
+#carapace-message "boldgrey" "Mod: $modulename"
+
+#
+# Functions
+#
+
+# Is dst already linked to src?
+# Usage: <src> <dst>
+already-linked() {
+    local src="$(readlink -f "$1")"
+    local dst="$2"
+
+    if [ -L "$dst" ]; then
+        # It's a link
+
+        if [ "$src" = "$(readlink -f "$dst")" ]; then
+            # It's a match
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
+# contains(string, substring)
+# http://stackoverflow.com/a/8811800
+#
+# Returns 0 if the specified string contains the specified substring,
+# otherwise returns 1.
+contains() {
+    string="$1"
+    substring="$2"
+    if test "${string#*$substring}" != "$string"
+    then
+        return 0    # $substring is in $string
+    else
+        return 1    # $substring is not in $string
+    fi
+}
+
+# Remove symlinks that point into non-existant files from this module
+remove_broken_symlink_to_this_bundle() {
+    local link="$1"
+    local actual="$(readlink "$link")"
+
+    # Symlink, and the target doesn't exist
+    if [ -L "$link" -a ! -e "$link" ]; then
+        # See if it contains this module
+        contains "$actual" "$bundledir" && (
+            carapace-message "magenta" "- $link"
+            rm -f "$link"
+        )
+    fi
+}
+
+#
+# Clear out broken modules
+#
+
+for i in $moduleroot/*; do
+    remove_broken_symlink_to_this_bundle $i
+done
+
+#
+# Link up the bundle's modules
+#
+
+for i in $bundledir/*; do
+    if [ -d "$i" ]; then
+        carapace-redirect "$i" "$moduleroot/${i:t}"
+    fi
+done
