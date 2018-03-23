@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-#
-# Adjust volume
-#
-
-/usr/bin/pactl set-sink-volume @DEFAULT_SINK@ $*

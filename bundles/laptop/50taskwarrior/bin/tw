@@ -1,8 +1,0 @@
-#!/bin/bash
-#
-# Show a set of tasks that'll fit on the screen
-#
-
-# Use my custom report, excluding some projects
-task dashboard project.not:DesktopContainers
-

@@ -1,8 +1,0 @@
-#!/bin/bash
-#
-# Connect to mist and run a task sync
-#
-
-( ssh mist "sleep 10s" 2>/dev/null & ) && (echo "Waiting for ssh connection..." && sleep 5s && task sync)
-
-

@@ -1,8 +1,0 @@
-#!/usr/bin/zsh
-# vim: filetype=zsh
-#
-# Disable tap-to-click on the touchpad
-#
-
-toggle-touchpad-click 0
-

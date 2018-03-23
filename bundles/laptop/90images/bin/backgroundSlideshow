@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-#
-# Run a random slideshow of the background images
-#
-
-watch -n 2 setbgimage
-
