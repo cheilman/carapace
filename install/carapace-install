@@ -88,6 +88,15 @@ done
         if [ -d "$i" ]; then
             carapace-message "boldblue" "processing bundle $i"
 
+            # Update bundle if it has its own repo
+            (
+                cd $i
+
+                if [ -d "./.git" ]; then
+                    git pull -q --recurse-submodules
+                fi
+            )
+
             carapace-install-bundle "$(readlink -f $i)" "$CARAPACE/modules" "$CARAPACE_GENERATED" || (
                 carapace-message "boldred" "$i module failed!"
             )
