@@ -3,17 +3,19 @@
 # Use carapaceprompt if installed, default to something terrible otherwise
 #
 
-# Wrapper that adds job status to the prompt
+# Wrapper that adds shell-based flags to the prompt
 carapace_prompt_wrapper() {
     local exitcode=$1
     local running=""
     local suspended=""
+    local battery=""
     local jbs="$(jobs 2>/dev/null)"
 
     echo $jbs | grep 'run' 2> /dev/null && running="--runningjobs"
     echo $jbs | grep 'sus' 2> /dev/null && suspended="--suspendedjobs"
+    [ -x "$(which ibam-battery-prompt 2>/dev/null)" ] && battery="--showBattery"
 
-    carapaceprompt --color --exitcode $exitcode $running $suspended
+    carapaceprompt --color --exitcode $exitcode $running $suspended $battery
 }
 
 if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
