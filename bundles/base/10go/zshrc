@@ -16,6 +16,8 @@ fi
 # My go workspace and path
 #
 
+mkdir $HOME/go 2> /dev/null || :
+
 if [ -z "$GOPATH" -a -d "$HOME/go" ]; then
     export GOPATH=$HOME/go
 fi
