@@ -43,7 +43,7 @@ setopt COMPLETE_IN_WORD
 #
 
 # Fancy listing
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
 alias lf='ls -F'
 alias la='ls -Fa'
 alias ll='ls -Flh'
