@@ -15,7 +15,7 @@ if [ -d "$godir" ]; then
 fi
 
 # Install a bunch of go repos
-repos=( "github.com/jessfraz/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/jessfraz/udict" )
+repos=( "github.com/genuinetools/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/genuinetools/udict" )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
     for i in $repos; do
