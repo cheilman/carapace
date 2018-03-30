@@ -1,0 +1,12 @@
+#
+# My input RC
+#
+
+set bell-style none
+set blink-matching-paren on
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case on
+set mark-directories on
+set visible-stats on
+
