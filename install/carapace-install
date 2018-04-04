@@ -44,6 +44,15 @@ carapace-redirect "$CARAPACE/install/carapace-install" "$HOME/bin/carapace/carap
 carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapace-update"
 
 #
+# Create any necessary folders that might not exist yet.
+#
+
+carapace-message "cyan" "creating necessary folders"
+
+mkdir -p "$HOME/.config" &> /dev/null || :
+mkdir -p "$HOME/.ssh" --mode 600 &> /dev/null || :
+
+#
 # Clear out the generated folder
 #
 
