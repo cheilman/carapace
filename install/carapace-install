@@ -50,7 +50,7 @@ carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapa
 carapace-message "cyan" "creating necessary folders"
 
 mkdir -p "$HOME/.config" &> /dev/null || :
-mkdir -p "$HOME/.ssh" --mode 600 &> /dev/null || :
+mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
 
 ls -ld $HOME/.config
 ls -ld $HOME/.ssh
