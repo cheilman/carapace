@@ -52,9 +52,6 @@ carapace-message "cyan" "creating necessary folders"
 mkdir -p "$HOME/.config" &> /dev/null || :
 mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
 
-ls -ld $HOME/.config
-ls -ld $HOME/.ssh
-
 #
 # Clear out the generated folder
 #
