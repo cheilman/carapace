@@ -478,7 +478,7 @@ to fix it. You will never be able to fix anything. You wrote this code nine seco
 "Make it correct, make it clear, make it concise, make it fast. In that order."
     – Wes Dyer (https://goo.gl/D8Mg9G)
 %
-“Every good work of software starts by scratching a developer’s personal itch.”
+"Every good work of software starts by scratching a developer’s personal itch."
     - Eric S. Raymond (https://goo.gl/kjizdA)
 %
 "Simplicity is prerequisite for reliability."
@@ -488,11 +488,11 @@ to fix it. You will never be able to fix anything. You wrote this code nine seco
 just many people doing things that build on each other, like a wall of mini stones."
     - Donald Knuth (https://goo.gl/Ls5ZhC)
 %
-“If you're on the internet, you already get a free pentest, just not the report.”
+"If you're on the internet, you already get a free pentest, just not the report."
     - Zane Lackey (https://goo.gl/uUgKTE)
 %
-“Don’t worry about what anyone else is going to do. The best way to predict the future is
-to invent it.”
+"Don’t worry about what anyone else is going to do. The best way to predict the future is
+to invent it."
     - Alan Kay (https://goo.gl/75kMHz)
 %
 "The trouble with programmers is that you can never tell what a programmer is doing until it’s
@@ -503,8 +503,8 @@ too late."
     - Jack W. Crenshaw, author of Math Toolkit for Real-Time Programming
     - https://goo.gl/6f9gdQ
 %
-“Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a
-framework. Just a function.”
+"Sometimes, the elegant implementation is just a function. Not a method. Not a class. Not a
+framework. Just a function."
     - John Carmack (https://goo.gl/n9rRoY)
 %
 "It’s a curious thing about our industry: not only do we not learn from our mistakes, we also
@@ -522,7 +522,7 @@ In my 20s: Yay it's the weekend, I can code on side projects!
 In my 30s: Yay it's the weekend. I think I will sit by the window all day and stare at some clouds.
     - Gregory Brown (https://goo.gl/YkxYT9)
 %
-“Java is to JavaScript as ham is to hamster.”
+"Java is to JavaScript as ham is to hamster."
     - Jeremy Keith, Resilient Web Design (https://goo.gl/JFJXQ9)
 %
 "The most important single aspect of software development is to be clear about what you are
@@ -590,3 +590,36 @@ In my experience these conversations are usually more about ego than understandi
 %
 "Never put off until tomorrow what you can put off forever."
     - P. J Plaguer (https://goo.gl/w3m5C4)
+%
+"A heuristic we follow is that whenever we feel the need to comment something, we write a
+method instead."
+    - Martin Fowler (https://bit.ly/2GL4ybU)
+%
+"Good programmers don't just write programs. They build a working vocabulary."
+    - Guy Steele (https://bit.ly/2uYsHGx)
+%
+"Give me six hours to chop down a tree and I will spend the first four sharpening the axe."
+    - Abraham Lincoln
+
+"Give me six hours to chop down a tree and I'll spend the first twelve sharpening the axe."
+    - A programmer (https://bit.ly/2IdrlsV)
+%
+"Show me the incentive and I will show you the outcome."
+    - Charlie Munger, Vice Chairman of Berkshire Hathaway (https://bit.ly/2ExHF5H)
+%
+"Less than 10% of the code has to do with the ostensible purpose of the system; the rest deals with
+input-output, data validation, data structure maintenance, and other housekeeping."
+    - Mary Shaw (https://bit.ly/2qhDQxi)
+%
+"Generate good code for the frequent case; don't optimize the exceptional case"
+    - Hanspeter Mössenböck (https://bit.ly/2IDhTPQ)
+%
+"What one programmer can do in one month, two programmers can do in two months."
+    - Fred Brooks (https://bit.ly/2HlFlSn)
+%
+"Make each program do one thing well. To do a new job, build afresh rather than complicate
+old programs by adding new features."
+    - Eric S. Raymond (https://bit.ly/2Jx2stZ)
+%
+"LEARN LIKE YOU'LL LIVE FOREVER"
+    - @DynamicWebPaige (https://bit.ly/2GL5dKq)
