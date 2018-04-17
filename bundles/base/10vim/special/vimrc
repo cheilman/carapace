@@ -63,9 +63,9 @@ let g:airline_theme='simple'
 "" My key mappings
 
 " set 'q' to format a line to 100 characters wide
-:map q :.!fmt -w 100
+:map q :.!fmt -w 100 
 " set 'Q' to format a paragraph to 100 characters wide
-:map Q :.;/^$/!fmt -w 100
+:map Q :.;/^$/!fmt -w 100 
 
 " set t to transpose the letter under the cursor
 " with the letter to its right
