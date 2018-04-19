@@ -144,7 +144,7 @@ remove_broken_symlink_to_this_module() {
 folder_is_not_empty() {
     local path="$1"
 
-    if [ -d "${path}" -a -n "$(ls -A \"${path}\" 2> /dev/null)" ]; then
+    if [ -d "${path}" -a -n "$(ls -A ${path} 2> /dev/null)" ]; then
         return 0
     else
         return 1
@@ -223,13 +223,13 @@ done
 #
 
 echo here
-if folder_is_not_empty "$HOME/.config/"; then
+folder_is_not_empty "$HOME/.config/" && (
     for i in $HOME/.config/* $HOME/.config/*/*; do
         if [ -L "$i" ]; then
             remove_broken_symlink_to_this_module "$i"
         fi
     done
-fi
+)
 echo there
 
 #
