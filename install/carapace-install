@@ -121,6 +121,7 @@ done
 module_failed=0
 
 (
+    err=0
     carapace-message "cyan" "evaluating modules"
     export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
 
@@ -129,21 +130,22 @@ module_failed=0
         if [ -d "$i" ]; then
             carapace-message "boldblue" "processing module $i"
 
-            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || (
+            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || {
                 carapace-message "boldred" "$i module failed!"
-                module_failed=1
-            )
+                err=1
+            }
         fi
     done
 
     export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
-)
+
+    exit $err
+) || module_failed=1
 
 #
 # Finalize zshrc
 #
 
-# Clear module-level variables
 cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
 #############################
 # Module Inclusion Finished #
