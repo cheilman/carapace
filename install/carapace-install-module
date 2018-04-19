@@ -139,18 +139,6 @@ remove_broken_symlink_to_this_module() {
     fi
 }
 
-# folder_is_not_empty(directory)
-# Makes sure there is stuff in the folder
-folder_is_not_empty() {
-    local path="$1"
-
-    if [ -d "${path}" -a -n "$(ls -A ${path} 2> /dev/null)" ]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
 #
 # Execute install script
 #
@@ -222,15 +210,13 @@ done
 # Note: We do this before the install to make sure our 'already-linked' test below works right.
 #
 
-echo here
-folder_is_not_empty "$HOME/.config/" && (
+if [ -d "${HOME}/.config" -a -n "$(ls -A ${HOME}/.config 2> /dev/null)"  ]; then
     for i in $HOME/.config/* $HOME/.config/*/*; do
         if [ -L "$i" ]; then
             remove_broken_symlink_to_this_module "$i"
         fi
     done
-)
-echo there
+fi
 
 #
 # Install config files
