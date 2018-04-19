@@ -145,9 +145,9 @@ folder_is_not_empty() {
     local path="$1"
 
     if [ -d "${path}" -a -n "$(ls -A \"${path}\" 2> /dev/null)" ]; then
-        return 1
-    else
         return 0
+    else
+        return 1
     fi
 }
 

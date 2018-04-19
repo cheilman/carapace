@@ -107,7 +107,7 @@ done
             )
 
             carapace-install-bundle "$(readlink -f $i)" "$CARAPACE/modules" "$CARAPACE_GENERATED" || (
-                carapace-message "boldred" "$i module failed!"
+                carapace-message "boldred" "$i bundle failed!"
             )
         fi
     done
@@ -118,6 +118,7 @@ done
 #
 # Now start checking modules
 #
+module_failed=0
 
 (
     carapace-message "cyan" "evaluating modules"
@@ -130,6 +131,7 @@ done
 
             carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || (
                 carapace-message "boldred" "$i module failed!"
+                module_failed=1
             )
         fi
     done
@@ -185,3 +187,9 @@ crontab "$CARAPACE_GENERATED/generated-crontab"
 
 export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
 carapace-message "boldcyan" "Carapace Installation Complete!"
+
+if [ $module_failed -ne 0 ]; then
+    carapace-message "boldred" "One or more modules failed!"
+    exit 1
+fi
+
