@@ -17,6 +17,7 @@ RUN add-apt-repository ppa:git-core/ppa && \
         apt-get install -y \
             git \
             vim \
+            wget \
             zsh
 
 # Add a user
