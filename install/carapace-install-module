@@ -222,6 +222,7 @@ done
 # Note: We do this before the install to make sure our 'already-linked' test below works right.
 #
 
+echo here
 if folder_is_not_empty "$HOME/.config/"; then
     for i in $HOME/.config/* $HOME/.config/*/*; do
         if [ -L "$i" ]; then
@@ -229,6 +230,7 @@ if folder_is_not_empty "$HOME/.config/"; then
         fi
     done
 fi
+echo there
 
 #
 # Install config files
