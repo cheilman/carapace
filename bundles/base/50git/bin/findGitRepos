@@ -28,5 +28,5 @@ else
     done
 fi
 
-printf "%s\n" $repoList | sort | uniq
+printf "%s\n" $repoList | xargs -n1 readlink -f | sort | uniq
 
