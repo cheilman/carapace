@@ -1,6 +1,11 @@
 #!zsh
 
 #
+# Set umask
+# 
+umask 022
+
+#
 # Set timezone
 #
 
