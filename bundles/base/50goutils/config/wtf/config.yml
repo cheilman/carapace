@@ -2,12 +2,12 @@ wtf:
   colors:
     border:
       focusable: darkslateblue
-      focused: orange
+      focused: cyan
       normal: gray
   grid:
-    columns: [40, 40]
+    columns: [50, 50]
     rows: [13, 13, 4]
-  refreshInterval: 1
+  refreshInterval: 5
   mods:
     clocks:
       colors:
@@ -16,11 +16,9 @@ wtf:
           odd: "white"
       enabled: true
       locations:
-        Avignon: "Europe/Paris"
-        Barcelona: "Europe/Madrid"
-        Dubai: "Asia/Dubai"
-        Vancouver: "America/Vancouver"
-        Toronto: "America/Toronto"
+        Pittsburgh: "America/New_York"
+        Seattle: "America/Los_Angeles"
+        UTC: "UTC"
       position:
         top: 0
         left: 0
