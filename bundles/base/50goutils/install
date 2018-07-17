@@ -27,3 +27,13 @@ if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
         )
     done
 fi
+
+# This one requires some additional work to install
+(
+    go get -u github.com/senorprogrammer/wtf
+    cd $GOPATH/src/github.com/senorprogrammer/wtf
+    make install > /dev/null
+    if [ $? -ne 0 ]; then
+        carapace-message "himagenta" "Failed to install go utility: wtf"
+    fi
+)
