@@ -22,6 +22,7 @@ Plugin 'dhruvasagar/vim-table-mode'
 "Plugin 'Valloric/YouCompleteMe'    " TODO: Enable after figuring out compilation
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ctrlp.vim'
+Plugin 'berdandy/ansiesc.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
