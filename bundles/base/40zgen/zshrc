@@ -65,3 +65,9 @@ if ! zgen saved; then
     zgen save
 fi
 
+#
+# Override some settings
+#
+
+export ZSH_THEME_TERM_TAB_TITLE_IDLE="%30<..<%~%<<"
+
