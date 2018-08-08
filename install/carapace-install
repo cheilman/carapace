@@ -22,6 +22,7 @@ fi
 
 export PATH="$CARAPACE/install:$PATH"
 export CARAPACE_GENERATED="$CARAPACE/generated"
+export CARAPACE_GENERATED_INTERMEDIATE="$CARAPACE/generated/intermediate"
 export CARAPACE_MODULES=""
 export CARAPACE_INDENT=""
 
@@ -29,8 +30,16 @@ carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
 carapace-message "cyan" "using source folder '$CARAPACE'"
 
-# Create bin folder
+#
+# Create any necessary folders that might not exist yet.
+#
+
+carapace-message "cyan" "creating necessary folders"
+
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
+mkdir -p "$CARAPACE_GENERATED_INTERMEDIATE" &> /dev/null || :
+mkdir -p "$HOME/.config" &> /dev/null || :
+mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
 
 #
 # Functions
@@ -44,45 +53,26 @@ carapace-redirect "$CARAPACE/install/carapace-install" "$HOME/bin/carapace/carap
 carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapace-update"
 
 #
-# Create any necessary folders that might not exist yet.
-#
-
-carapace-message "cyan" "creating necessary folders"
-
-mkdir -p "$HOME/.config" &> /dev/null || :
-mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
-
-#
-# Clear out the generated folder
-#
-
-# NOTE: We only want to deleted the generated files, keep the timestamps or it may cause trouble
-carapace-message "cyan" "clearing old generated files"
-if [ -d "${CARAPACE_GENERATED}" -a -e "${CARAPACE_GENERATED}/generated-zshrc" ]; then
-    rm -f $CARAPACE_GENERATED/generated* &> /dev/null || :
-fi
-
-#
 # Start by creating the boilerplate/headers for the generated files
 #
 
 carapace-message "cyan" "setting up generated file boilerplate"
 for i in crontab gitconfig profile ssh_config zshrc; do
-    cp $CARAPACE/docs/templates/$i-template $CARAPACE_GENERATED/generated-$i
+    cp $CARAPACE/docs/templates/$i-template $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
 
-    echo "#" >> $CARAPACE_GENERATED/generated-$i
-    echo "# Generated: $(date -u)" >> $CARAPACE_GENERATED/generated-$i
-    echo "#" >> $CARAPACE_GENERATED/generated-$i
-    echo >> $CARAPACE_GENERATED/generated-$i
+    echo "#" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
+    echo "# Generated: $(date -u)" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
+    echo "#" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
+    echo >> $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
 done
 
 ( # vimrc
-    cp $CARAPACE/docs/templates/vimrc-template $CARAPACE_GENERATED/generated-vimrc
+    cp $CARAPACE/docs/templates/vimrc-template $CARAPACE_GENERATED_INTERMEDIATE/generated-vimrc
 
-    echo "\"" >> $CARAPACE_GENERATED/generated-vimrc
-    echo "\" Generated: $(date -u)" >> $CARAPACE_GENERATED/generated-vimrc
-    echo "\"" >> $CARAPACE_GENERATED/generated-vimrc
-    echo >> $CARAPACE_GENERATED/generated-vimrc
+    echo "\"" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-vimrc
+    echo "\" Generated: $(date -u)" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-vimrc
+    echo "\"" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-vimrc
+    echo >> $CARAPACE_GENERATED_INTERMEDIATE/generated-vimrc
 )
 
 #
@@ -97,16 +87,7 @@ done
         if [ -d "$i" ]; then
             carapace-message "boldblue" "processing bundle $i"
 
-            # Update bundle if it has its own repo
-            (
-                cd $i
-
-                if [ -d "./.git" ]; then
-                    git pull -q --recurse-submodules
-                fi
-            )
-
-            carapace-install-bundle "$(readlink -f $i)" "$CARAPACE/modules" "$CARAPACE_GENERATED" || (
+            carapace-install-bundle "$(readlink -f $i)" "$CARAPACE/modules" "$CARAPACE_GENERATED_INTERMEDIATE" || (
                 carapace-message "boldred" "$i bundle failed!"
             )
         fi
@@ -130,7 +111,7 @@ module_failed=0
         if [ -d "$i" ]; then
             carapace-message "boldblue" "processing module $i"
 
-            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED" || {
+            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED_INTERMEDIATE" || {
                 carapace-message "boldred" "$i module failed!"
                 err=1
             }
@@ -146,7 +127,7 @@ module_failed=0
 # Finalize zshrc
 #
 
-cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
+cat >> "${CARAPACE_GENERATED_INTERMEDIATE}/generated-zshrc" <<EOF
 #############################
 # Module Inclusion Finished #
 #############################
@@ -154,7 +135,7 @@ cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
 EOF
 
 # Clear module-level variables
-cat >> "${CARAPACE_GENERATED}/generated-zshrc" <<EOF
+cat >> "${CARAPACE_GENERATED_INTERMEDIATE}/generated-zshrc" <<EOF
 
 #
 # Clearing module variables
@@ -163,6 +144,19 @@ export CARAPACE_CURRENT_MODULE=""
 export CARAPACE_CURRENT_MODULE_PATH=""
 
 EOF
+
+#
+# Clean up old generated files and move the new ones into place
+#
+
+# NOTE: We only want to deleted the generated files, keep the timestamps or it may cause trouble
+carapace-message "cyan" "clearing old generated files"
+if [ -d "${CARAPACE_GENERATED}" -a -e "${CARAPACE_GENERATED}/generated-zshrc" ]; then
+    rm -f $CARAPACE_GENERATED/generated* &> /dev/null || :
+fi
+
+carapace-message "cyan" "installing new generated files"
+mv "${CARAPACE_GENERATED_INTERMEDIATE}"/* "${CARAPACE_GENERATED}/"
 
 #
 # Link up our generated files
