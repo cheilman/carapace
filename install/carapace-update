@@ -17,17 +17,49 @@ if [ ! -d "$CARAPACE" ]; then
     if [ ! -d "$CARAPACE" ]; then
         >&2 echo "Unable to find carapace folder!"
         exit 1
-    fi  
+    fi
 fi
 
 export PATH="$CARAPACE/install:$PATH"
 
 #
-# Update
+# Update main folder
 #
 
 carapace-message "boldcyan" "Carapace Update Starting on folder '$CARAPACE' ..."
 ( cd $CARAPACE && git pull -q --recurse-submodules )
+
+#
+# Update bundles
+#
+(
+    carapace-message "cyan" "updating bundles"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    cd $CARAPACE/bundles
+    for i in *; do
+        if [ -d "$i" ]; then
+            carapace-message "boldblue" "updating bundle $i"
+
+            # Update bundle if it has its own repo
+            (
+                cd $i
+
+                if [ -d "./.git" ]; then
+                    git pull -q --recurse-submodules
+                fi
+            )
+
+        fi
+    done
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+)
+
+#
+# Done
+#
+
 carapace-message "boldcyan" "Carapace Update Finished"
 
 #
