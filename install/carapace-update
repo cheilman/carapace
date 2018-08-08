@@ -33,7 +33,7 @@ carapace-message "boldcyan" "Carapace Update Starting on folder '$CARAPACE' ..."
 # Update bundles
 #
 (
-    carapace-message "cyan" "evaluating bundles"
+    carapace-message "cyan" "updating bundles"
     export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
 
     cd $CARAPACE/bundles
