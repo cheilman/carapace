@@ -1,0 +1,60 @@
+#!/bin/bash
+
+read -r -p "Are you sure? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+        ;;
+    *)
+        exit 21
+        ;;
+esac
+
+rm -Rf ~/.config/Atom
+rm -Rf ~/.config/bumblebee-status
+rm -Rf ~/.config/chromium
+rm -Rf ~/.config/Code
+rm -Rf ~/.config/evolution
+rm -Rf ~/.config/google-chrome
+rm -Rf ~/.config/google-chrome2
+rm -Rf ~/.config/keybase
+rm -Rf ~/.config/Keybase
+rm -Rf ~/.config/Recoll.org
+rm -Rf ~/.config/Recoll.org
+
+rm -Rf ~/.cache/chromium
+rm -Rf ~/.cache/evolution
+rm -Rf ~/.cache/google-chrome
+rm -Rf ~/.cache/keybase
+rm -Rf ~/.cache/mozilla
+rm -Rf ~/.cache/thunderbird
+
+rm -Rf ~/.local
+
+rm -Rf ~/.IntelliJIdea*
+rm -Rf ~/.lpass
+rm -Rf ~/.minecraft
+rm -Rf ~/.mozilla
+rm -Rf ~/.ssh
+rm -Rf ~/.steam
+rm -Rf ~/.task
+rm -Rf ~/.technic
+rm -Rf ~/.thunderbird
+rm -Rf ~/.unison
+rm -Rf ~/.vim
+rm -Rf ~/.vimrc
+rm -Rf ~/.vscode
+rm -Rf ~/.wine
+rm -Rf ~/.wine-chime
+
+rm -Rf ~/go
+rm -Rf ~/H
+rm -Rf ~/prj
+rm -Rf ~/programs
+rm -Rf ~/tmp
+
+rm -Rf ~/workplace/br
+
+rm -Rf ~/.carapace
+
+rm -Rf ~/.z*
+
