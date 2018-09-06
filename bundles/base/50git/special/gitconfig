@@ -16,11 +16,18 @@
     untracked = cyan
 
 [color "diff"]
-    whitespace = red reverse
-    meta = yellow bold
+    meta = yellow
     frag = magenta bold # line info
-    old = red # deletions
-    new = green # additions
+    commit = yellow bold
+    old = red bold # deletions
+    new = green bold # additions
+    whitespace = red reverse
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 
 [diff]
     # Detect copies as well as renames
@@ -28,7 +35,7 @@
 
 [core]
     editor = vim -X
-    pager = less -FMRiX -x4
+    pager = "diff-so-fancy | less -FMRiX -x4"
     excludesfile = ~/.gitignore
     autocrlf = input
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
