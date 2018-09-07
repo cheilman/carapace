@@ -6,13 +6,8 @@
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
-# Set the path according to the module directory, in case we're bootstrapping go
-godir="${moduledir}/../10go/go"
-
-if [ -d "$godir" ]; then
-    export GOROOT="${godir}"
-    export PATH="$PATH:${GOROOT}/bin:$HOME/go/bin"
-fi
+# Load go environment
+source "${HOME}/bin/carapace/goenv-cache"
 
 # Install a bunch of go repos
 repos=( "github.com/genuinetools/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep/src/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/genuinetools/udict" "github.com/cheilman/countunique" "github.com/variadico/noti/cmd/noti" )
@@ -22,7 +17,7 @@ if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
 
     for i in $repos; do
         (
-            ${godir}/bin/go get -u "$i"
+            ${GOROOT}/bin/go get -u "$i"
             if [ $? -ne 0 ]; then
                 carapace-message "himagenta" "Failed to install go utility: $i"
             else

@@ -4,7 +4,7 @@
 #
 
 # The installer writes go information into a cache file
-goenv_cache="${HOME}/bin/carpace/goenv-cache"
+goenv_cache="${HOME}/bin/carapace/goenv-cache"
 
 if [ -r "${goenv_cache}" ]; then
     source "${goenv_cache}"
