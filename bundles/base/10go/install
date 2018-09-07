@@ -3,25 +3,52 @@
 # Install go
 #
 
+autoload is-at-least
+
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
+goenv_cache="${moduledir}/bin/goenv-cache"
+
 arch="linux-amd64"
-version="1.10"
+desired_version="1.10"
 
-dlfile="go${version}.${arch}.tar.gz"
-dlurl="https://dl.google.com/go/${dlfile}"
+#
+# Try to detect a go install of the correct version
+# NOTE: Highest version number wins, preference is given to items earlier in the list
+#
+install_locations=( "${GOROOT}/bin/go" "/usr/local/bin/go" "/usr/bin/go" "/bin/go" "${moduledir}/go/bin/go" )
+found_goroot=""
+currentver=""
 
-godir="${moduledir}/go"
-oldgodir="${godir}.old"
+for i in ${install_locations}; do
+    if [ -x "$i" ]; then
+        foundver="$( /usr/bin/env -i ${i} version 2> /dev/null | grep -Eoe '([0-9]+\.)+[0-9]+' )"
+        if is-at-least "${desired_version}" "${foundver}" && is-at-least "${currentver}" "${foundver}"; then
+            # Grab the go root
+            found_goroot="$( /usr/bin/env -i "${i}" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
+            currentver=${foundver}
+        fi
+    fi
+done
 
-# Figure out the currently installed version, if we need an upgrade
-currentver="$( ${godir}/bin/go version 2> /dev/null | grep -Eoe '([0-9]+\.)+[0-9]+')"
+#
+# Did we find a go installation?
+# 
 
-# TODO: Right now, always replaces instead of upgrading (better version check)
-if [ "$currentver" != "$version" ]; then
-    # We need to download it
-    carapace-message "magenta" "Installed version ($currentver) differs from desired version ($version), downloading."
+if [ -d "${found_goroot}" -a -x "${found_goroot}/bin/go" ]; then
+else
+    #
+    # We need to install it ourselves
+    #
+
+    dlfile="go${desired_version}.${arch}.tar.gz"
+    dlurl="https://dl.google.com/go/${dlfile}"
+
+    godir="${moduledir}/go"
+    oldgodir="${godir}.old"
+
+    carapace-message "magenta" "Unable to find go installation at least version ${desired_version}, downloading."
 
     ( cd /tmp && ${moduledir}/../00pre/bin/get $dlurl )
 
@@ -36,7 +63,7 @@ if [ "$currentver" != "$version" ]; then
     fi
 
     # Untar the install
-    ( cd "${moduledir}" && tar zxf "/tmp/${dlfile}" )
+    ( cd "${moduledir}" && pv -cN "un-tar" "/tmp/${dlfile}" | tar zxf - )
     err=$?
 
     if [ $err -ne 0 ]; then
@@ -55,5 +82,19 @@ if [ "$currentver" != "$version" ]; then
         rm -rf "${oldgodir}" || :
     fi
 
+    # Save go root
+    found_goroot="$( /usr/bin/env -i "${godir}/bin/go" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
+fi
+
+#
+# Assuming we have it discovered/installed, save the environment details for later
+#
+
+if [ -x "${found_goroot}/bin/go" ]; then
+    carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
+    /usr/bin/env -i "${found_goroot}/bin/go" env | grep '^GO' | sed -e 's/^/export /' > "${goenv_cache}"
+else
+    carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
+    exit 1
 fi
 
