@@ -1,0 +1,7 @@
+#!zsh
+#
+# Set up alias
+#
+
+alias ping='prettyping --nolegend'
+

@@ -1,0 +1,7 @@
+#!zsh
+#
+# Set up alias
+#
+
+alias cat='bat --paging never'
+
