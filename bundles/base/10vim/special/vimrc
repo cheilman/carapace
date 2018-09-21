@@ -23,6 +23,12 @@ Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ctrlp.vim'
 Plugin 'berdandy/ansiesc.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'w0rp/ale'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'jeanCarloMachado/vim-toop'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -182,6 +188,10 @@ MapToggle <F11> ignorecase
 
 " Toggle features
 MapToggle <F5> spell
+
+" Plugin hotkeys
+map ; :Files<CR>
+map <C-o> :NERDTreeToggle<CR>
 
 "" Show filename in screen title
 ""  from: http://vim.wikia.com/wiki/Automatically_set_screen_title
