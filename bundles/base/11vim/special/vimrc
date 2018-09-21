@@ -19,7 +19,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-commentary'
 Plugin 'dhruvasagar/vim-table-mode'
-"Plugin 'Valloric/YouCompleteMe'    " TODO: Enable after figuring out compilation
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ctrlp.vim'
 Plugin 'berdandy/ansiesc.vim'
@@ -29,6 +29,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'w0rp/ale'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'jeanCarloMachado/vim-toop'
+Plugin 'fatih/vim-go'
+Plugin 'rking/ag.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

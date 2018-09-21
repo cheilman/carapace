@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+#
+# Finalize vim configuration
+#
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# Install/update plugins
+vim +PluginInstall\! +qall
+vim +PluginClean\! +qall
+
+# Re-compile YouCompleteMe
+YCMDir="${moduledir}/dotfiles/vim/bundle/YouCompleteMe"
+if [ -d "$YCMDir" ]; then
+    (
+        carapace-message "yellow" "(Re-)compiling YouCompleteMe plugin."
+        cd "$YCMDir"
+        python3 install.py --clang-completer --go-completer 1> /dev/null || :  # We don't care about failing on this failure
+    )
+fi
+
