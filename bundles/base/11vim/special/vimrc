@@ -71,16 +71,16 @@ let g:airline_theme='simple'
 
 "" Auto-fix some stuff with ALE
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   '*': ['trim_whitespace'],
 \}
 let g:ale_fix_on_save = 1
 
 "" My key mappings
 
 " set 'q' to format a line to 100 characters wide
-:map q :.!fmt -w 100 
+:map q :.!fmt -w 100
 " set 'Q' to format a paragraph to 100 characters wide
-:map Q :.;/^$/!fmt -w 100 
+:map Q :.;/^$/!fmt -w 100
 
 " set t to transpose the letter under the cursor
 " with the letter to its right
@@ -215,4 +215,3 @@ function! SetTitle()
 endfunction
 
 autocmd BufEnter,BufFilePost * call SetTitle()
-
