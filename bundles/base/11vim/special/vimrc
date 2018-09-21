@@ -69,6 +69,12 @@ let g:airline_theme='simple'
 "let g:airline_theme='angr'
 "let g:airline_theme='murmur'
 
+"" Auto-fix some stuff with ALE
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+let g:ale_fix_on_save = 1
+
 "" My key mappings
 
 " set 'q' to format a line to 100 characters wide
