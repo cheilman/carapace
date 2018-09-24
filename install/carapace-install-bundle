@@ -22,10 +22,6 @@ moduleroot="$2"
 generated="$3"
 bundlename="${${bundledir:t}:2}"
 
-#carapace-message "boldgrey" "Dir: $moduleroot"
-#carapace-message "boldgrey" "Gen: $generated"
-#carapace-message "boldgrey" "Mod: $modulename"
-
 #
 # Functions
 #
@@ -83,7 +79,7 @@ remove_broken_symlink_to_this_bundle() {
 # Clear out broken modules
 #
 
-if [ -d "${moduleroot}" -a -n "$(ls -A ${moduleroot} 2> /dev/null)" ]; then
+if [ -d "${moduleroot}" -a -n "$(ls ${moduleroot} 2> /dev/null)" ]; then
     for i in $moduleroot/*; do
         remove_broken_symlink_to_this_bundle $i
     done
@@ -93,7 +89,7 @@ fi
 # Link up the bundle's modules
 #
 
-if [ -d "${bundledir}" -a -n "$(ls -A ${bundledir} 2> /dev/null)" ]; then
+if [ -d "${bundledir}" -a -n "$(ls ${bundledir} 2> /dev/null)" ]; then
     for i in $bundledir/*; do
         if [ -d "$i" ]; then
             carapace-redirect "$i" "$moduleroot/${i:t}"

@@ -165,7 +165,7 @@ fi
 # Install bin files
 #
 
-if [ -d "${moduledir}/bin" -a -n "$(ls -A ${moduledir}/bin 2> /dev/null)" ]; then
+if [ -d "${moduledir}/bin" -a -n "$(ls ${moduledir}/bin 2> /dev/null)" ]; then
     for i in ${moduledir}/bin/*; do
         carapace-redirect "$i" "$HOME/bin/carapace/${i:t}"
     done
@@ -176,7 +176,7 @@ fi
 #
 
 # Make sure it isn't empty or it prints errors
-if [ -n "$(ls -A $HOME/bin/carapace/ 2> /dev/null)" ]; then
+if [ -n "$(ls $HOME/bin/carapace/ 2> /dev/null)" ]; then
     for i in $HOME/bin/carapace/*; do
         if [ -L "$i" ]; then
             remove_broken_symlink_to_this_module "$i"
@@ -188,7 +188,7 @@ fi
 # Install dotfiles
 #
 
-if [ -d "${moduledir}/dotfiles" -a -n "$(ls -A ${moduledir}/dotfiles 2> /dev/null)" ]; then
+if [ -d "${moduledir}/dotfiles" -a -n "$(ls ${moduledir}/dotfiles 2> /dev/null)" ]; then
     for i in ${moduledir}/dotfiles/*; do
         carapace-redirect "$i" "$HOME/.${i:t}"
     done
@@ -210,7 +210,7 @@ done
 # Note: We do this before the install to make sure our 'already-linked' test below works right.
 #
 
-if [ -d "${HOME}/.config" -a -n "$(ls -A ${HOME}/.config 2> /dev/null)"  ]; then
+if [ -d "${HOME}/.config" -a -n "$(ls ${HOME}/.config 2> /dev/null)"  ]; then
     for i in $HOME/.config/* $HOME/.config/*/*; do
         if [ -L "$i" ]; then
             remove_broken_symlink_to_this_module "$i"
@@ -222,7 +222,7 @@ fi
 # Install config files
 #
 
-if [ -d "${moduledir}/config" -a -n "$(ls -A ${moduledir}/config 2> /dev/null)"  ]; then
+if [ -d "${moduledir}/config" -a -n "$(ls ${moduledir}/config 2> /dev/null)"  ]; then
     for i in ${moduledir}/config/*; do
         target="$HOME/.config/${i:t}"
 
