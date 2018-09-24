@@ -34,7 +34,7 @@ done
 
 #
 # Did we find a go installation?
-# 
+#
 
 if [ -d "${found_goroot}" -a -x "${found_goroot}/bin/go" ]; then
 else
@@ -92,7 +92,7 @@ fi
 
 if [ -x "${found_goroot}/bin/go" ]; then
     carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
-    /usr/bin/env -i "${found_goroot}/bin/go" env | grep '^GO' | sed -e 's/^/export /' > "${goenv_cache}"
+    /usr/bin/env -i "${found_goroot}/bin/go" env | grep '^GO' | grep -v GOPATH | sed -e 's/^/export /' > "${goenv_cache}"
 else
     carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
     exit 1
