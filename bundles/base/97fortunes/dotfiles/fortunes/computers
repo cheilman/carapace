@@ -225,10 +225,6 @@ tools to use."
 "50% of the computer programming is trial and error, the other 50% is copy and paste."
     - @mobiledev_pawan (https://goo.gl/1gJUYa)
 %
-"The first 90% of the code accounts for the first 90% of the development time. The remaining 10%
-of the code accounts for the other 90% of the development time."
-    - John Johnson (https://goo.gl/fNKd9r)
-%
 "Learning to program has no more to do with designing interactive software than learning to
 touch type has to do with writing poetry"
     - Ted Nelson (https://goo.gl/vmv18P)
@@ -631,9 +627,9 @@ Rule 777:
 "In theory, there is no difference between theory and practice. But, in practice, there is."
     - Jan L. A. van de Snepscheut (http://bit.ly/2LYzqVg)
 %
-Write more words than code. 
+Write more words than code.
 
-Blog posts, tutorials, design documents, etc. 
+Blog posts, tutorials, design documents, etc.
 
 One’s ability to communicate clearly is often more important than the elegance of your code.
     - Kevin Stewart (http://bit.ly/2HiNxkC)
@@ -677,3 +673,22 @@ specific, localized forces or events for outcomes."
 "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging
 Monday's code."
     - Christopher Thompson (http://bit.ly/2L9Fclk)
+%
+"The second time you postpone refactoring a piece of code, it has become Legacy. Stand up for
+your Craft!"
+    - Victor Rentea (http://bit.ly/2OPLX1t)
+%
+"A program is never less than 90% complete, and never more than 95% complete."
+    - Terry Baker (http://bit.ly/2CyOlno)
+%
+"When evaluating code remember you are viewing someone’s compromises not their plans. Assume
+good intent."
+    - Jonathan Chambers (http://bit.ly/2A1wQdg)
+%
+"Gaze not into the abyss, lest you become recognized as an abyss domain expert, and they expect
+you keep gazing into the damn thing."
+    - Nick Mathewson (http://bit.ly/2QCc5Ks)
+%
+"The hardest part of being a developer isn't the code, it's learning that the entire internet
+is put together with peanut butter and goblins."
+    - Sarah Drasner (http://bit.ly/2E5u36G)
