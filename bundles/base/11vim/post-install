@@ -20,3 +20,16 @@ if [ -d "$YCMDir" ]; then
     )
 fi
 
+# Install vim-go binaries
+goenv_cache="${HOME}/bin/carapace/goenv-cache"
+
+if [ -r "${goenv_cache}" ]; then
+    source "${goenv_cache}"
+
+    if [ -d "${GOROOT}" ]; then
+        carapace-message "yellow" "(Re-)installing vim-go binaries."
+        vim +GoInstallBinaries\! +qall
+        vim +helptags ALL\! +qall
+    fi
+fi
+
