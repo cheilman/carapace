@@ -695,3 +695,11 @@ is put together with peanut butter and goblins."
 %
 "You can teach someone how to code but you can't undick a person"
     - Sara Vieira (http://bit.ly/2RzWmw7)
+%
+When you discover a bug, ask yourself if it's an Oopsie or a Modeling Problem.
+
+An Oopsie is nbd. Write a test, fix it, and move on.
+
+A Modeling Problem is a bug that reveals a fundamental flaw in your program. These are harder to
+"fix" - but they also lead to the biggest wins.
+    - Andrew Clark (http://bit.ly/2Ore42H)
