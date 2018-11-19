@@ -11,7 +11,7 @@ generateddir="${2:-/dev/null}"
 goenv_cache="${moduledir}/bin/goenv-cache"
 
 arch="linux-amd64"
-desired_version="1.10"
+desired_version="1.9"
 
 #
 # Try to detect a go install of the correct version
