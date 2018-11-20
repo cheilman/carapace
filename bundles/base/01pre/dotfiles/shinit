@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Initialization files for sh-style shell invocation (such as with dash)
+#
+
+if [ -n "$HOME" ]; then
+    export PATH="$HOME/bin:$HOME/carapace/bin:$PATH:/usr/bin"
+fi
+
