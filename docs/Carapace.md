@@ -5,6 +5,8 @@ It's like a shell, okay?
 
 ```
 ~/.carapace/
+    |- bundles/
+        |- base/
     |- modules/
     |- install/
     |- generated/
@@ -13,38 +15,45 @@ It's like a shell, okay?
     |   |- templates/
     |- zshrc-update
 ~/.host/
-    |- config/
-    |- zshrc-pre
-    |- zshrc-post
-    |- profile
-    |- crontab
-    |- sshconfig
+    |...
 ```
 
 Components
 ----------
 
-### Modules
+### bundles
 
-The modules are the main content of the Carapace system (see [Module Documentation](Module.md) for more details).  Modules within this folder will be evaluated in lexicographical order.  A common practice is prefixing each module name with a two digit number (`10MyModule`) to more precisely define inclusion and execution order.
+Bundles are groups of modules related in purpose.  This allows different module-sets to be stored in separate repositories (such as for work-related settings in a company that requires use of a private git server).  The modules in each bundle folder are symlinked into the `modules/` folder.
 
-### Install
+Modules are the main content of the Carapace system (see [Module Documentation](Module.md) for more details).  Modules within this folder will be evaluated in lexicographical order.  A common practice is prefixing each module name with a two digit number (`10MyModule`) to more precisely define inclusion and execution order.
+
+#### bundles/base
+
+This bundle contains the standard set of functionality included with Carapace.
+
+### modules
+
+NOTE: No modules should live in this folder, each module should be part of a bundle.
+
+The modules defined here are evaluated in lexicographical order during installation to build out the final shell system.
+
+### install
 
 There is a folder of scripts to assist with installation in `$HOME/.carapace/install/`.  These will manage the installation process.
 
-### Generated
+### generated
 
 Many files are generated from module-level components.  These all live in the `$HOME/.carapace/generated/` folder.
 
-### Backup
+### backup
 
 If installation would overwrite any existing files (usually with symlinks), the original file will be saved in `$HOME/.carapace/backup` and suffixed with a timestamp.
 
-### Docs
+### docs
 
 Carapace system documentation is stored in this folder.
 
-#### Docs/Templates
+#### docs/templates
 
 Documentation that will be symlinked or copied on install (such as crontab headers and `.host` readmes).
 
@@ -56,28 +65,30 @@ This is the script that will be run on each login (symlinked to `$HOME/.zshrc`).
 
 The `$HOME/.host` folder contains files specific to this host.  Nothing in here is tracked by Carapace, and all files are optional.  If a file does exist, it will be referenced/included by the installation process.
 
-#### `$HOME/.host/config` Settings
-
-Host-level configuration of the Carapace system (and modules).  The presence or absense of files here, as well as the content, can affect Carapace module operation.  See the readme linked in this folder.
+See [Host](Host.md) and [Host Config](Host-Config.md) readmes for more details.
 
 ### Environment Variables
 
 A few environment variables are set by the Carapace system:
 
-Variable | Contents
--------- | --------
-CARAPACE | The path to the `$HOME/.carapace` directory
-CARAPACE_MODULES | A comma separated list of modules (minus the numeric prefix) that have been successfully installed.
+Variable           | Contents
+------------------ | --------
+`CARAPACE`         | The path to the `$HOME/.carapace` directory
+`CARAPACE_MODULES` | A comma separated list of modules (minus the numeric prefix) that have been successfully installed.
 
 Installation
 ------------
 
 ### Generated Files
 
-The following files will be generated in `$HOME/.carapace/generated`:
+The following files may be generated in `$HOME/.carapace/generated`:
 
-- generated-crontab
-- generated-profile
-- generated-sshconfig
-- generated-vimrc
-- generated-zshrc
+- `generated-crontab`
+- `generated-gitconfig`
+- `generated-gitignore`
+- `generated-i3config`
+- `generated-profile`
+- `generated-ssh_config`
+- `generated-vimrc`
+- `generated-zshrc`
+

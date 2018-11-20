@@ -36,10 +36,8 @@ add_git_repo_search_path() {
 
 add_git_repo_search_path "$HOME/.carapace" 3
 add_git_repo_search_path "$HOME/prj" 3
-add_git_repo_search_path "$HOME/workplace" 5
 add_git_repo_search_path "$HOME/go/src/github.com/cheilman" 3
 add_git_repo_search_path "$HOME/go/src/bitbucket.org/cheilman" 3
-add_git_repo_search_path "$HOME/H" 1
 
 #
 # Load repos from host config (if they exist)

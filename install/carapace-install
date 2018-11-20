@@ -40,10 +40,25 @@ mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 mkdir -p "$CARAPACE_GENERATED_INTERMEDIATE" &> /dev/null || :
 mkdir -p "$HOME/.config" &> /dev/null || :
 mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
+mkdir -p "$HOME/.host/config" &> /dev/null || :
+mkdir -p "$HOME/.host/modules" &> /dev/null || :
+mkdir -p "$HOME/.host/bin" &> /dev/null || :
 
 #
 # Functions
 #
+
+#
+# Populate some readmes for local host settings
+#
+
+if [ ! -f "$HOME/.host/README.md" ]; then
+    carapace-redirect "$CARAPACE/docs/Host.md" "$HOME/.host/README.md"
+fi
+
+if [ ! -f "$HOME/.host/config/README.md" ]; then
+    carapace-redirect "$CARAPACE/docs/Host-Config.md" "$HOME/.host/config/README.md"
+fi
 
 #
 # Install our installation and update files
@@ -92,6 +107,14 @@ done
             )
         fi
     done
+
+    if [ -d "$HOME/.host/modules" ]; then
+        carapace-message "boldblue" "processing bundle HOST"
+
+        carapace-install-bundle "$(readlink -f "$HOME/.host/modules")" "$CARAPACE/modules" "$CARAPACE_GENERATED_INTERMEDIATE" "HOST" || (
+                carapace-message "boldred" "HOST bundle failed!"
+            )
+    fi
 
     export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
 )

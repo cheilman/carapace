@@ -4,6 +4,7 @@
 # !!! DO NOT MANUALLY EDIT THE ZSHRC FOR YOUR USER !!!
 #
 # Your user's zshrc is managed by Carapace.  Any changes you make manually may be discarded.
-# You may create a local file (~/.host/zshrc-pre or ~/.host/zshrc-post) that will be automatically
-# included in a rebuild of the system (or manually kicked off by carapace-install).
+# You may create a local module in ~/.host/modules that contains a zshrc, and it will be
+# automatically included in a rebuild of the system (or manually kicked off by carapace-install).
+#
 

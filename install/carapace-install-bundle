@@ -20,7 +20,7 @@ TRAPEXIT() {
 bundledir="$1"
 moduleroot="$2"
 generated="$3"
-bundlename="${${bundledir:t}:2}"
+bundlename="${4:-${bundledir:t}}"
 
 #
 # Functions
@@ -75,6 +75,17 @@ remove_broken_symlink_to_this_bundle() {
     fi
 }
 
+# If the bundle name is 'HOST', we munge the module names to make conflicts rarer
+munge_module_target_name() {
+    local target="$1"
+
+    if [ "${bundlename}" = "HOST" ]; then
+        echo "${target}-host"
+    else
+        echo "$target"
+    fi
+}
+
 #
 # Clear out broken modules
 #
@@ -92,7 +103,9 @@ fi
 if [ -d "${bundledir}" -a -n "$(ls ${bundledir} 2> /dev/null)" ]; then
     for i in $bundledir/*; do
         if [ -d "$i" ]; then
-            carapace-redirect "$i" "$moduleroot/${i:t}"
+            newTarget="$(munge_module_target_name "${i:t}")"
+            carapace-redirect "$i" "$moduleroot/$newTarget"
         fi
     done
 fi
+
