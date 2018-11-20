@@ -29,7 +29,9 @@ if [ -r "${goenv_cache}" ]; then
     if [ -d "${GOROOT}" ]; then
         carapace-message "yellow" "(Re-)installing vim-go binaries."
         vim +GoInstallBinaries\! +qall
-        vim +helptags ALL\! +qall
     fi
 fi
+
+# Update helps
+vim +helptags ALL\! +qall
 
