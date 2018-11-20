@@ -264,9 +264,11 @@ for i in gitconfig profile ssh_config gitignore; do
     fi
 done
 
-if [ -r "${moduledir}/special/crontab" ]; then
-    append-with-expansion "${moduledir}/special/crontab" "${generated}/generated-crontab"
-fi
+for i in crontab i3config; do
+    if [ -r "${moduledir}/special/$i" ]; then
+        append-with-expansion "${moduledir}/special/$i" "${generated}/generated-$i"
+    fi
+done
 
 if [ -r "${moduledir}/special/vimrc" ]; then
     append-to "${moduledir}/special/vimrc" "${generated}/generated-vimrc" '"'
