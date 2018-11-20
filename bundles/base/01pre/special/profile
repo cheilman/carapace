@@ -18,6 +18,22 @@ export PAGER=less
 # Path
 #
 
+if [ -z "$HOME" ]; then
+    # From https://stackoverflow.com/a/630645o
+    prg=$0
+    if [ ! -e "$prg" ]; then
+        prg=$(command -v -- "$prg")
+    fi
+    dir=$(
+      cd -P -- "$(dirname -- "$prg")" && pwd -P
+    )
+    prg=$dir/$(basename -- "$prg")
+
+    if [ -d "$prg" ]; then
+        export HOME="$prg"
+    fi
+fi
+
 if [ -n "$HOME" ]; then
     export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
 fi
@@ -35,3 +51,9 @@ fi
 
 # Disable caps lock key
 [ -x "`which setxkbmap 2>/dev/null`" ] && setxkbmap -option caps:none
+
+#
+# Other scripts to run for /bin/sh initialization (specifically for dash)
+#
+export ENV="$HOME/.shinit"
+

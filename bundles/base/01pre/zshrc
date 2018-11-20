@@ -1,8 +1,14 @@
 #!zsh
 
 #
+# Source profile
+#
+
+. "$HOME/.profile"
+
+#
 # Set umask
-# 
+#
 umask 022
 
 #
