@@ -3,30 +3,32 @@
 # Make a pretty hostname
 #
 
-HOSTNAME="$(hostname)"
+HOSTNAME="(unknown)"
 
-if [ "${HOSTNAME}" = "cheilman.pit.corp.google.com" ]; then
-    # Google Desktop 2018/11/19
-    echo "gDesktop"
-elif [ "${HOSTNAME}" = "cheilman.c.googlers.com" ]; then
-    # Google Cloudtop 2018/11/19
-    echo "gCloudtop"
+# See if there is one locally
+if [ -x "$HOME/.host/pretty-hostname" ]; then
+    # It's executable, run it
+    HOSTNAME="$($HOME/.host/pretty-hostname | head -1)"
+    if [ -n "$HOSTNAME" ]; then
+        echo $HOSTNAME
+        exit 0
+    fi
+elif [ -r "$HOME/.host/pretty-hostname" ]; then
+    # It's readable, read it
+    HOSTNAME="$(head -1 "$HOME/.host/pretty-hostname")"
+    if [ -n "$HOSTNAME" ]; then
+        echo $HOSTNAME
+        exit 0
+    fi
 else
+    # Try to figure it out magically
     HOSTNAME="$(hostname -s)"
-    if [ "${HOSTNAME}" = "cheilman-glaptop" ]; then
-        # Google Laptop 2018/11/19
-        echo "gLaptop"
-    elif [ "${HOSTNAME}" = "ufc3fdb4224ce58052331" ]; then
-        # Change hostname (newly imaged laptop 2016/10)
-        echo "laptop"
-    elif [ "${HOSTNAME}" = "ip-172-31-4-98" ]; then
+    if [ "${HOSTNAME}" = "ip-172-31-4-98" ]; then
         # Change hostname (new mist 2017/01)
         echo "mist"
-    elif [ "${HOSTNAME}" = "heilmanc-desktop-2a-779a3607" ]; then
-        # Change hostname (cloud desktop 2018/02/27)
-        echo "cloud-dev"
-    else
-        echo "$HOSTNAME"
+        exit 0
     fi
 fi
+
+echo "$HOSTNAME"
 
