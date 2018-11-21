@@ -3,6 +3,9 @@
 # Modified to run tmux, I'm not using screen as much anymore
 #
 
-export PATH=$HOME/bin:$HOME/bin/carapace:$HOME/go/bin:$PATH
+if [ -r "$HOME/.path-carapace" ]; then
+    source "$HOME/.path-carapace"
+fi
 
-$HOME/bin/carapace/sc
+sc
+

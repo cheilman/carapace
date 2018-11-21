@@ -3,6 +3,10 @@
 # TMux stuff
 #
 
+if [ -r "$HOME/.path-carapace" ]; then
+    source "$HOME/.path-carapace"
+fi
+
 # Start up my session group as needed
 CAH_TMUX_SESSION_GROUP="main"
 
@@ -16,8 +20,8 @@ if [ $? -ne 0 ]; then
     tmux set-option -t $CAH_TMUX_SESSION_GROUP destroy-unattached off
 
     # Set options for idle window
-    tmux set-window-option -t ${CAH_TMUX_SESSION_GROUP}:0 monitor-activity off 
-    
+    tmux set-window-option -t ${CAH_TMUX_SESSION_GROUP}:0 monitor-activity off
+
     if [ -x "`which tasksh 2> /dev/null`" ]; then
         # Add task support
 

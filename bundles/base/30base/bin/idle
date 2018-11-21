@@ -3,6 +3,10 @@
 # Idle screen
 #
 
+if [ -r "$HOME/.path-carapace" ]; then
+    source "$HOME/.path-carapace"
+fi
+
 export CARAPACE="${0:A:h:h:h:h}"
 if [ ! -d "$CARAPACE" ]; then
     export CARAPACE="$HOME/.carapace"
