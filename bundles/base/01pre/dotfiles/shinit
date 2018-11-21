@@ -3,7 +3,13 @@
 # Initialization files for sh-style shell invocation (such as with dash)
 #
 
-if [ -n "$HOME" ]; then
-    export PATH="$HOME/bin:$HOME/carapace/bin:$PATH:/usr/bin"
+if [ -r "$HOME/.path-carapace" ]; then
+    source "$HOME/.path-carapace"
+elif [ -r "~/.path-carapace" ]; then
+    source "~/.path-carapace"
+else
+    if [ -n "$HOME" ]; then
+        export PATH="$HOME/bin:$HOME/carapace/bin:$PATH:/usr/bin"
+    fi
 fi
 

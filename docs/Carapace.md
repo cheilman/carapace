@@ -16,6 +16,7 @@ It's like a shell, okay?
     |- zshrc-update
 ~/.host/
     |...
+~/.path-carapace
 ```
 
 Components
@@ -66,6 +67,10 @@ This is the script that will be run on each login (symlinked to `$HOME/.zshrc`).
 The `$HOME/.host` folder contains files specific to this host.  Nothing in here is tracked by Carapace, and all files are optional.  If a file does exist, it will be referenced/included by the installation process.
 
 See [Host](Host.md) and [Host Config](Host-Config.md) readmes for more details.
+
+### ~/.path-carapace
+
+This file contains a source-able path setting that is built over the course of initialization.  If you're having trouble with some executables (such as i3 running audio commands, etc.), your script may want to source this file to get an updated, valid path.
 
 ### Environment Variables
 

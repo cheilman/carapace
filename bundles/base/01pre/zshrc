@@ -1,6 +1,26 @@
 #!zsh
 
 #
+# We're going to track our path in a temporary file, and then save it to a well-known location
+#
+
+pathCache="$(mktemp)"
+
+save_path_to_cache ()
+{
+    /bin/cat >$pathCache <<EOF
+#
+# Path cache file
+#
+# Generated: $(/bin/date -u)"
+#
+
+export PATH="$PATH"
+
+EOF
+}
+
+#
 # Source profile
 #
 
@@ -51,6 +71,8 @@ add_path_back ()
             export PATH="$*"
         fi
     fi
+
+    save_path_to_cache
 }
 
 # Add to the beginning of the path.  Doesn't check for duplicates
@@ -63,6 +85,8 @@ add_path_front ()
             export PATH="$*"
         fi
     fi
+
+    save_path_to_cache
 }
 
 #
