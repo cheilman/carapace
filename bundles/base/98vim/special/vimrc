@@ -1,0 +1,12 @@
+"
+" Finalize vimrc settings
+"
+
+" This has to be last to enable all plugins
+filetype plugin indent on
+syntax on
+
+" Now do our highlighting
+highlight CursorLine cterm=NONE ctermbg=black
+highlight CursorLineNR cterm=underline ctermbg=black
+

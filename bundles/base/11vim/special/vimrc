@@ -34,10 +34,7 @@ Plugin 'rking/ag.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
+
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -100,15 +97,15 @@ set autoindent
 set cindent
 
 set expandtab
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set shiftwidth=2
 
 " Match braces, etc.
 set showmatch
 set matchtime=10
 
 " Edit behavior
-set backspace=2
+set backspace=indent,eol,start
 
 " Command History
 set history=50
@@ -116,7 +113,8 @@ set history=50
 " UI
 set laststatus=2
 set ruler
-set scrolloff=1
+set scrolloff=2
+set cursorline
 
 " Line wrapping
 set nolinebreak
@@ -151,6 +149,9 @@ endif
 " Ssshhhhhhh
 set noerrorbells
 set novisualbell
+
+" Show sneaky hidden characters
+set list listchars=tab:»\ ,trail:°
 
 " Add a vertical line to show where to stop typing
 "set colorcolumn=100
