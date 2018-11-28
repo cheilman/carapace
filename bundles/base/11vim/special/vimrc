@@ -157,6 +157,9 @@ set list listchars=tab:»\ ,trail:°
 "set colorcolumn=100
 ":highlight ColorColumn ctermbg=blue guibg=blue
 
+" Let ENTER complete YCM recommendations too
+let g:tvm_key_list_stop_completion = ['<C-y>', '<CR>']
+
 "" Syntax Highlighting
 syntax on
 
