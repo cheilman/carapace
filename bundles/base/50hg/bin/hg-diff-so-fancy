@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+#
+# Run hg diff through diff-so-fancy
+#
+
+echo $*
+echo $(pwd)
+ls -laF $(pwd)
+ls -laF $(pwd)/$1
+ls -laF $(pwd)/$2
+
+hg diff --color=always | diff-so-fancy | less -FMRiX -x4
+

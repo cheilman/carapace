@@ -258,7 +258,7 @@ fi
 # Handle special files
 #
 
-for i in gitconfig profile ssh_config gitignore; do
+for i in gitconfig profile ssh_config gitignore hgrc hgignore; do
     if [ -r "${moduledir}/special/$i" ]; then
         append-to "${moduledir}/special/$i" "${generated}/generated-$i"
     fi

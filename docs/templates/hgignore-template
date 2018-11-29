@@ -1,0 +1,10 @@
+#
+# Generated file, do not edit.
+#
+# !!! DO NOT MANUALLY EDIT THE HGIGNORE FOR YOUR USER !!!
+#
+# Your user's hgignore is managed by Carapace.  Any changes you make manually may be discarded.
+# You may create a local module in ~/.host/modules that contains a hgignore, and it will be
+# automatically included in a rebuild of the system (or manually kicked off by carapace-install).
+#
+
