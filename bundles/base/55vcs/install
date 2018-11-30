@@ -9,7 +9,7 @@ generated="${2:-/dev/null}"
 # Load go environment
 source "${HOME}/bin/carapace/goenv-cache"
 
-repos=( "github.com/cheiman/vcsstatus" )
+repos=( "github.com/cheilman/vcsstatus" )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
     export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
