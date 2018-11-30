@@ -13,7 +13,7 @@
 for i in `findGitRepos`; do
     (
         cd $i
-        gitshortstatus
+        vcsshortstatus
     )
 done
 
