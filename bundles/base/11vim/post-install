@@ -5,10 +5,11 @@
 
 moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
+generated_vimrc="${generated}/generated-vimrc"
 
 # Install/update plugins
-vim +PluginInstall\! +qall
-vim +PluginClean\! +qall
+vim -u "${generated_vimrc}" +PluginInstall\! +qall
+vim -u "${generated_vimrc}" +PluginClean\! +qall
 
 # Re-compile YouCompleteMe
 YCMDir="${moduledir}/dotfiles/vim/bundle/YouCompleteMe"
