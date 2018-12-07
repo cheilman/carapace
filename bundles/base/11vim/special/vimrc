@@ -31,6 +31,11 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'jeanCarloMachado/vim-toop'
 Plugin 'fatih/vim-go'
 Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-endwise'
+Plugin 'elzr/vim-json'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'uarun/vim-protobuf'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
