@@ -137,6 +137,9 @@ set smartcase
 " Line numbers
 set number
 
+" Folding is a pain in the ass
+set nofoldenable
+
 " Spelling
 set spelllang=en_US
 
