@@ -10,3 +10,6 @@ syntax on
 highlight CursorLine cterm=NONE ctermbg=black
 highlight CursorLineNR cterm=underline ctermbg=black
 
+" Maybe now do go formatting?  use 4-space tab width, while still using tabs
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
