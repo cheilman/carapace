@@ -56,6 +56,25 @@ if ! zgen saved; then
     if [ -z "$barebones" ]; then
         zgen oh-my-zsh plugins/safe-paste
     fi
+    zgen oh-my-zsh plugins/autojump
+
+    bgnotify_threshold=15
+    zgen oh-my-zsh plugins/bgnotify
+
+    zgen oh-my-zsh plugins/catimg
+
+    zgen oh-my-zsh plugins/colorize
+
+    zgen oh-my-zsh plugins/copybuffer
+    zgen oh-my-zsh plugins/copydir
+    zgen oh-my-zsh plugins/copyfile
+
+    zgen oh-my-zsh plugins/emoji-clock
+
+    zgen oh-my-zsh plugins/golang
+
+    zgen oh-my-zsh plugins/httpie
+
     #zgen oh-my-zsh plugins/docker
     #zgen oh-my-zsh plugins/gitfast
     #zgen oh-my-zsh plugins/mvn
