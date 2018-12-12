@@ -11,19 +11,22 @@ set -e
 # Setup
 #
 
+modulefullname="$1"
+moduledir="$2"
+generated="$3"
+modulepriority="${${modulefullname}:0:2}"
+module="$(echo ${${modulefullname}:2} | cut -d- -f1)"
+bundlename="$(echo ${modulefullname} | cut -d- -f2)"
+
+modulename="${bundlename}/${module}"
+
+carapace-message "boldblue" "processing module [${modulepriority}] ${modulename}"
+
 export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
 
 TRAPEXIT() {
     export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
 }
-
-moduledir="$1"
-generated="$2"
-modulename="${${moduledir:t}:2}"
-
-#carapace-message "boldgrey" "Dir: $moduledir"
-#carapace-message "boldgrey" "Gen: $generated"
-#carapace-message "boldgrey" "Mod: $modulename"
 
 #
 # Functions

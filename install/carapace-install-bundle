@@ -75,15 +75,11 @@ remove_broken_symlink_to_this_bundle() {
     fi
 }
 
-# If the bundle name is 'HOST', we munge the module names to make conflicts rarer
+# Include bundle name in targets to help with conflicts
 munge_module_target_name() {
     local target="$1"
 
-    if [ "${bundlename}" = "HOST" ]; then
-        echo "${target}-host"
-    else
-        echo "$target"
-    fi
+    echo "${target}-${bundlename}"
 }
 
 #
