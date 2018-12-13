@@ -132,9 +132,7 @@ module_failed=0
     cd $CARAPACE/modules
     for i in *; do
         if [ -d "$i" ]; then
-            carapace-message "boldblue" "processing module $i"
-
-            carapace-install-module "$(readlink -f $i)" "$CARAPACE_GENERATED_INTERMEDIATE" || {
+            carapace-install-module "$i" "$(readlink -f $i)" "$CARAPACE_GENERATED_INTERMEDIATE" || {
                 carapace-message "boldred" "$i module failed!"
                 err=1
             }
