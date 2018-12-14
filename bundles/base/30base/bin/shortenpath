@@ -6,8 +6,8 @@
 dir="$*"
 
 # If a host shortener exists, run it through there first
-if [ -x "$HOME/.host/bin/shortenpath" ]; then
-  dir="$($HOME/.host/bin/shortenpath "$dir")"
+if [ -x "$HOME/.host/bin/host-shortenpath" ]; then
+  dir="$($HOME/.host/bin/host-shortenpath "$dir")"
 fi
 
 # Compress the home directory
