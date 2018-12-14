@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#
+# Shorten a path in a nice way
+#
+
+dir="$*"
+
+# If a host shortener exists, run it through there first
+if [ -x "$HOME/.host/bin/shortenpath" ]; then
+  dir="$($HOME/.host/bin/shortenpath "$dir")"
+fi
+
+# Compress the home directory
+
+if [[ "$dir" =~ "^$HOME.*" ]]; then
+  dir="$(echo "$dir" | /bin/sed -e s,$HOME,~,)"
+fi
+
+# All short now!
+echo $dir
+
