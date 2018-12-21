@@ -32,3 +32,42 @@ else
     export PS1='${Green}--${BCyan}%#${NC} '
 fi
 
+# Directory/workspace-based right prompt
+carapace_prompt_right() {
+  local origwd="$(pwd)"
+  local rprompt=""
+
+  # Let the host explain
+  if [ -x "$HOME/.host/bin/host-rprompt-text" ]; then
+    rprompt="$($HOME/.host/bin/host-rprompt-text 2> /dev/null)"
+  fi
+
+  # Let the standard script explain
+  if [ -z "$rprompt" ]; then
+    rprompt="$(carapace_rprompt 2> /dev/null)"
+  fi
+
+  # Let the directory tree itself explain
+  if [ -z "$rprompt" ]; then
+    local cwd=$origwd
+    while [ "$cwd" != "/" ]; do
+      if [ -x "${cwd}/.carapace-rprompt" ]; then
+        rprompt="$(${cwd}/.carapace-rprompt)"
+        break
+      fi
+      cwd="${cwd:h}"
+    done
+
+    cd $origwd
+  fi
+
+  if [ -n "$rprompt" ]; then
+    echo -n "${Green}[${BCyan}${rprompt}${Green}]-"
+  else
+    echo -n ""
+  fi
+}
+
+export ZLE_RPROMPT_INDENT=0
+export RPROMPT='$(carapace_prompt_right)'
+
