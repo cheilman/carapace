@@ -721,3 +721,8 @@ This is what I do:
 
 🤷🏻‍♀️ that's really the model I work from
     - Sarah Drasner (http://bit.ly/2BeyfMR)
+%
+Of course - I try to write code with zero dependencies - code I wrote 25 years ago with zero
+dependencies still works today. Code I wrote 5 years ago with external dependencies often fails.
+It’s my contribution to the war on entropy.
+    - Joe Armstrong (http://bit.ly/2V7imkx)
