@@ -726,3 +726,6 @@ Of course - I try to write code with zero dependencies - code I wrote 25 years a
 dependencies still works today. Code I wrote 5 years ago with external dependencies often fails.
 It’s my contribution to the war on entropy.
     - Joe Armstrong (http://bit.ly/2V7imkx)
+%
+I put in some sleeps like a professional programmer.
+    - Jessie Frazelle (http://bit.ly/2F6udJM)
