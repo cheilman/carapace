@@ -3,56 +3,14 @@
 # Set up grc
 #
 
-# From the GRC install
-if [[ "$TERM" != dumb ]] && (( $+commands[grc] )) ; then
-
-  # Supported commands
-  cmds=(
-    cc \
-    configure \
-    cvs \
-    df \
-    diff \
-    dig \
-    gcc \
-    gmake \
-    ifconfig \
-    last \
-    ldap \
-    ls \
-    make \
-    mount \
-    mtr \
-    netstat \
-    ping \
-    ping6 \
-    ps \
-    traceroute \
-    traceroute6 \
-    wdiff \
-    whois \
-    iwconfig \
-  );
-
-  # Set alias for available commands.
-  for cmd in $cmds ; do
-    if (( $+commands[$cmd] )) ; then
-      alias $cmd="grc --colour=auto $(whence $cmd)"
-    fi
-  done
-
-  # Clean up variables
-  unset cmds cmd
-fi
-
 # From Ivan Smirnov
 
 # Grc plugin
-# Uses config from ~/.dotfiles/grc
+# Uses config from ~/.grc
 # vim:ft=zsh
 _grc_injector(){
   if (( ! ${+DISABLE_GRC} )); then
-    for f in $(ls ~/.dotfiles/grc/conf*); do
+    for f in $(ls ~/.grc/conf*); do
       local prog=${f:e}
       if [[ "$BUFFER" =~ "(^|[/\w\.]+/|sudo\s+)$prog\s?" && ! "$BUFFER" =~ "grcat conf*" ]]; then
         BUFFER=$BUFFER" | grcat conf.$prog"
