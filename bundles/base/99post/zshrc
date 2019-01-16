@@ -25,3 +25,8 @@ mv -f "$pathCache" "$HOME/.path-carapace"
 #
 source ${ZGEN_DIR}/zgen/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 
+#
+# oh-my-zsh messes up my 'la' alias
+#
+alias la='ls -Fa
+
