@@ -13,6 +13,14 @@ add_path_back "$HOME/programs/android/tools"
 add_path_back "$HOME/programs/android/platform-tools"
 
 #
+# More settings
+#
+
+# long date format in ls(1)
+# https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
+export TIME_STYLE=long-iso
+
+#
 # Autoload Functions
 #
 autoload -U compinit
