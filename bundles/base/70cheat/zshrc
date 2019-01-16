@@ -1,0 +1,10 @@
+#!zsh
+#
+# Set up cheat
+#
+
+export CHEATCOLORS=true
+
+# Autocompletion
+export fpath=($fpath "${CARAPACE_CURRENT_MODULE_PATH}/fpath")
+
