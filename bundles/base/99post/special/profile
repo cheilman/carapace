@@ -1,0 +1,5 @@
+#!zsh
+
+# Double-check path (uses .shinit)
+source $HOME/.shinit
+
