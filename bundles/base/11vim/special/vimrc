@@ -36,6 +36,7 @@ Plugin 'elzr/vim-json'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'uarun/vim-protobuf'
+Plugin 'haishanh/night-owl.vim'
 Plugin 'tmux-plugins/vim-tmux'
 
 " All of your Plugins must be added before the following line
@@ -58,9 +59,17 @@ call vundle#end()            " required
 
 set t_Co=256
 set background=dark
+
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
+
+syntax enable
+
 "colorscheme pablo
 "colorscheme koehler
-colorscheme desert
+"colorscheme desert
+colorscheme night-owl
 
 "" Airline configuration
 
