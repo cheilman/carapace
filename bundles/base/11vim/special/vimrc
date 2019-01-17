@@ -68,8 +68,8 @@ syntax enable
 
 "colorscheme pablo
 "colorscheme koehler
-"colorscheme desert
-colorscheme night-owl
+colorscheme desert
+"colorscheme night-owl
 
 "" Airline configuration
 
