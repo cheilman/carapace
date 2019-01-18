@@ -91,6 +91,24 @@ done
 )
 
 #
+# Clear out broken modules
+#
+(
+    carapace-message "cyan" "cleaning up broken modules"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    cd $CARAPACE/modules
+
+    for i in *; do
+      if [ -h "$i" -a ! -e "$i" ]; then
+        # Broken symlink
+        carapace-message "magenta" "- $i"
+        rm -f "$i"
+      fi
+    done
+)
+
+#
 # Run through the bundles and link their modules
 #
 (
