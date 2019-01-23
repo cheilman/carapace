@@ -52,6 +52,8 @@ if ! zgen saved; then
 
     zgen load unixorn/autoupdate-zgen
 
+    zgen load popstas/zsh-command-time
+
     zgen oh-my-zsh
     if [ -z "$barebones" ]; then
         zgen oh-my-zsh plugins/safe-paste
@@ -89,4 +91,28 @@ fi
 #
 
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%30<..<%~%<<"
+
+export ZSH_COMMAND_TIME_MIN_SECONDS=30
+export ZSH_COMMAND_TIME_MSG="Execution time: %s"
+export ZSH_COMMAND_TIME_COLOR="cyan" # might be overriden by function?
+zsh_command_time() {
+    if [ -n "$ZSH_COMMAND_TIME" ]; then
+        hours=$(($ZSH_COMMAND_TIME/3600))
+        min=$(($ZSH_COMMAND_TIME/60))
+        sec=$(($ZSH_COMMAND_TIME%60))
+        if [ "$ZSH_COMMAND_TIME" -le 60 ]; then
+            timer_show="$fg[green]$ZSH_COMMAND_TIME s."
+        elif [ "$ZSH_COMMAND_TIME" -gt 60 ] && [ "$ZSH_COMMAND_TIME" -le 180 ]; then
+            timer_show="$fg[yellow]${min}m ${sec}s"
+        else
+            if [ "$hours" -gt 0 ]; then
+                min=$(($min%60))
+                timer_show="$fg[red]${hours}h ${min}m ${sec}s"
+            else
+                timer_show="$fg[red]${min}m ${sec}s"
+            fi
+        fi
+        printf "$fg[cyan]${ZSH_COMMAND_TIME_MSG}${reset_color}\n" "$timer_show"
+    fi
+}
 
