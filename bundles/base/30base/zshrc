@@ -20,6 +20,10 @@ add_path_back "$HOME/programs/android/platform-tools"
 # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
 export TIME_STYLE=long-iso
 
+# Better 'time' command format
+# https://unix.stackexchange.com/a/453339
+export TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
+
 #
 # Autoload Functions
 #
