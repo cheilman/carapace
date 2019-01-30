@@ -50,7 +50,7 @@ else
 
     carapace-message "magenta" "Unable to find go installation at least version ${desired_version}, downloading."
 
-    ( cd /tmp && ${moduledir}/../00pre/bin/get $dlurl )
+    ( cd /tmp && ${moduledir}/../01pre/bin/get $dlurl )
 
     if [ ! -r "/tmp/$dlfile" ]; then
         carapace-message "boldred" "Failed to download: ${dlurl}"
