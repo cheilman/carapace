@@ -99,13 +99,15 @@ done
 
     cd $CARAPACE/modules
 
-    for i in *; do
-      if [ -h "$i" -a ! -e "$i" ]; then
-        # Broken symlink
-        carapace-message "magenta" "- $i"
-        rm -f "$i"
-      fi
-    done
+    if [ -n "$(ls $CARAPACE/modules 2>/dev/null)" ]; then
+      for i in *; do
+        if [ -h "$i" -a ! -e "$i" ]; then
+          # Broken symlink
+          carapace-message "magenta" "- $i"
+          rm -f "$i"
+        fi
+      done
+    fi
 )
 
 #
@@ -220,7 +222,10 @@ carapace-redirect "$CARAPACE/zshrc-update" "$HOME/.zshrc"
 # Install crontab
 #
 
-crontab "$CARAPACE_GENERATED/generated-crontab"
+which crontab &>/dev/null
+if [ $? -eq 0 ]; then
+	crontab "$CARAPACE_GENERATED/generated-crontab"
+fi
 
 #
 # Should be all good!
