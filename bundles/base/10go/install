@@ -93,6 +93,10 @@ fi
 if [ -x "${found_goroot}/bin/go" ]; then
     carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
     /usr/bin/env -i "${found_goroot}/bin/go" env | grep '^GO' | grep -v GOPATH | sed -e 's/^/export /' > "${goenv_cache}"
+
+    # There are new GOCACHE requirements that don't always show up in the 'env'
+    mkdir -p "$HOME/tmp/gocache" &>/dev/null || :
+    echo "export GOCACHE='$HOME/tmp/gocache'" >> "${goenv_cache}"
 else
     carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
     exit 1
