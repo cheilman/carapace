@@ -1,0 +1,11 @@
+#!zsh
+#
+# Aliases for toybox commands that don't exist on the system
+#
+
+# Load the aliases
+source "${CARAPACE_CURRENT_MODULE_PATH}/tbaliases"
+
+# What commands did we set up aliases for?
+alias check-toybox-aliases='alias | grep toybox'
+
