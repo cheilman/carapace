@@ -30,3 +30,23 @@ source ${ZGEN_DIR}/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlight
 #
 alias la='ls -Fa'
 
+#
+# on-my-zsh also messes with zsh history
+#
+HISTSIZE=16000
+SAVEHIST=$HISTSIZE
+HISTFILE=~/.zshhistory
+
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_FUNCTIONS
+setopt HIST_NO_STORE
+setopt HIST_VERIFY
+setopt HIST_REDUCE_BLANKS
+
+setopt INC_APPEND_HISTORY_TIME
+setopt NO_INC_APPEND_HISTORY
+setopt NO_SHARE_HISTORY
+
