@@ -58,7 +58,7 @@ if ! zgen saved; then
     if [ -z "$barebones" ]; then
         zgen oh-my-zsh plugins/safe-paste
     fi
-    zgen oh-my-zsh plugins/autojump
+#    zgen oh-my-zsh plugins/autojump
 
     bgnotify_threshold=15
     zgen oh-my-zsh plugins/bgnotify
