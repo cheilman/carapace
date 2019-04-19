@@ -25,6 +25,12 @@ fi
 local source_file="$(readlink -f "$1")"
 local dest_file="$2"
 
+# Does the source exist?
+if [ ! -e "$source_file" ]; then
+  carapace-message "red" "! file does not exist: $1"
+  exit 1
+fi
+
 # Did we already install this file?
 if [ -L "$dest_file" ]; then
     # It's a symlink
