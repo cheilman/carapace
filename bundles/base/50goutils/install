@@ -10,7 +10,7 @@ generateddir="${2:-/dev/null}"
 source "${HOME}/bin/carapace/goenv-cache"
 
 # Install a bunch of go repos
-repos=( "github.com/genuinetools/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/genuinetools/udict" "github.com/cheilman/countunique" "github.com/variadico/noti/cmd/noti" )
+repos=( "github.com/genuinetools/apk-file" "github.com/emojisum/emojisum" "github.com/christophberger/goman" "github.com/tianon/gosleep" "github.com/evanmiller/hecate" "github.com/maxzender/jv" "github.com/jessfraz/netscan" "github.com/pranavraja/tldr" "github.com/genuinetools/udict" "github.com/cheilman/countunique" "github.com/variadico/noti/cmd/noti" "github.com/Feh/guess" )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
     export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
