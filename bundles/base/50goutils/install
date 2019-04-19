@@ -39,9 +39,13 @@ if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
         )
     done
 
-    # Feh/guess post-install support.  It has a couple of scripts that need to be linked to bin
-    carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g"
-    carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify"
+    # Feh/guess post-install support.  It has a couple of scripts that need to be linked to bin,
+    # and the executable needs to be in the same path as the scripts :/
+    if [ -x "${GOPATH}/bin/guess" ]; then
+      carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess"
+      carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g"
+      carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify"
+    fi
 
     export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
 fi
