@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+#
+# Check to see if required commands are installed on the system.
+#
+# Pass commands one per line to stdin/as a file
+#
+
+# Setup
+export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+TRAPEXIT() {
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+}
+
+# Try to autodetect carapace folder
+export CARAPACE="${0:A:h:h}"
+
+if [ ! -d "$CARAPACE" ]; then
+    export CARAPACE="$HOME/.carapace"
+
+    if [ ! -d "$CARAPACE" ]; then
+        >&2 echo "Unable to find carapace folder!"
+        exit 1
+    fi
+fi
+
+# Set up path
+[ -r ~/.path-carapace ] && source ~/.path-carapace
+export PATH="$CARAPACE/install:$PATH"
+
+err=0
+
+# Check input as commands
+while read -r line
+do
+  if [ -n "$line" ]; then
+    if ! which "$line" &> /dev/null; then
+      carapace-message "red" "- command not found: $line"
+      err=1
+    fi
+  fi
+done < "${1:-/dev/stdin}"
+
+exit $err
+

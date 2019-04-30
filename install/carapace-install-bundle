@@ -105,3 +105,14 @@ if [ -d "${bundledir}" -a -n "$(ls ${bundledir} 2> /dev/null)" ]; then
     done
 fi
 
+#
+# Check bundle prerequisites
+#
+
+if [ -r "${bundledir}/prereqs" ]; then
+  carapace-message "cyan" "Checking bundle prerequisites"
+  if ! carapace-prereqs "${bundledir}/prereqs"; then
+    carapace-message "boldred" "Some prerequisites are missing, behaviour may not be correct."
+  fi
+fi
+
