@@ -33,7 +33,8 @@ err=0
 # Check input as commands
 while read -r line
 do
-  if [ -n "$line" ]; then
+  cmd=$(echo $line | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+  if [ -n "$cmd" ]; then
     if ! which "$line" &> /dev/null; then
       carapace-message "red" "- command not found: $line"
       err=1
