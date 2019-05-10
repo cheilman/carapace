@@ -7,6 +7,20 @@
 export TZ='America/New_York'
 
 #
+# Set locale
+#
+
+for lc in "en_US.utf8" "C.UTF-8" "POSIX" "C"; do
+  if locale -a | grep $lc &>/dev/null; then
+    export LC_ALL="$lc"
+    export LC_CTYPE="$lc"
+    export LANG="$lc"
+    break
+  fi
+done
+
+
+#
 # Editor/Pager
 #
 
