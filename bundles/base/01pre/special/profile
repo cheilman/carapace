@@ -49,7 +49,13 @@ if [ -z "$HOME" ]; then
 fi
 
 if [ -n "$HOME" ]; then
+  if [ -r "$HOME/.path-carapace" ]; then
+    # Load pre-generated path file
+    source "$HOME/.path-carapace"
+  else
+    # Semi-decent fallback
     export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
+  fi
 fi
 
 #
