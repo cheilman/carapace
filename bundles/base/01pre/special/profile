@@ -1,4 +1,4 @@
-#!zsh
+#!/bin/sh
 
 #
 # Set timezone
@@ -57,13 +57,6 @@ if [ -n "$HOME" ]; then
     export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
   fi
 fi
-
-#
-# TTY settings
-#
-
-# Disable ^S/^Q flow control
-[[ $- == *i* ]] && stty -ixon
 
 #
 # Keyboard settings

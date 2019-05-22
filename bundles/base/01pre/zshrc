@@ -26,6 +26,9 @@ EOF
 
 . "$HOME/.profile"
 
+# Disable ^S/^Q flow control
+[[ $- == *i* ]] && stty -ixon
+
 #
 # Set umask
 #
