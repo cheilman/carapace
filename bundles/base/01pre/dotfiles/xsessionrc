@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# X-Session Initialization
+#
+
+# Source my main profile
+if [ -r ~/.profile ]; then
+  . ~/.profile
+fi
+
