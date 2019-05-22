@@ -11,7 +11,7 @@ export TZ='America/New_York'
 #
 
 for lc in "en_US.utf8" "C.UTF-8" "POSIX" "C"; do
-  if locale -a | grep $lc &>/dev/null; then
+  if locale -a | grep $lc >/dev/null 2>/dev/null; then
     export LC_ALL="$lc"
     export LC_CTYPE="$lc"
     export LANG="$lc"
@@ -51,7 +51,8 @@ fi
 if [ -n "$HOME" ]; then
   if [ -r "$HOME/.path-carapace" ]; then
     # Load pre-generated path file
-    source "$HOME/.path-carapace"
+    # shellcheck source=/dev/null
+    . "$HOME/.path-carapace"
   else
     # Semi-decent fallback
     export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
@@ -63,10 +64,12 @@ fi
 #
 
 # Disable caps lock key
-[ -x "`which setxkbmap 2>/dev/null`" ] && setxkbmap -option caps:none
+[ -x "$(which setxkbmap 2>/dev/null)" ] && setxkbmap -option caps:none
 
 #
 # Other scripts to run for /bin/sh initialization (specifically for dash)
 #
-export ENV="$HOME/.shinit"
+if [ -r "$HOME/.shinit" ]; then
+  export ENV="$HOME/.shinit"
+fi
 

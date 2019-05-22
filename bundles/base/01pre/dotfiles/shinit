@@ -4,9 +4,9 @@
 #
 
 if [ -r "$HOME/.path-carapace" ]; then
-    source "$HOME/.path-carapace"
+    . "$HOME/.path-carapace"
 elif [ -r "~/.path-carapace" ]; then
-    source "~/.path-carapace"
+    . "~/.path-carapace"
 else
     if [ -n "$HOME" ]; then
         export PATH="$HOME/bin:$HOME/carapace/bin:$PATH:/usr/bin"

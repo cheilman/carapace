@@ -1,5 +1,7 @@
 #!/bin/sh
 
 # Double-check path (uses .shinit)
-. $HOME/.shinit
+if [ -r "$HOME/.shinit" ]; then
+  . "$HOME/.shinit"
+fi
 
