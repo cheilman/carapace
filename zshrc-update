@@ -3,6 +3,11 @@
 # Prepare to execute the Carapace generated zshrc script
 #
 
+# Profiling support
+if [[ "$ZPROF" = true ]]; then
+  zmodload zsh/zprof
+fi
+
 findCarapace() {
     local zshrc="$HOME/.zshrc"
     local carapace="${zshrc:A:h}"
@@ -47,3 +52,9 @@ fi
 #
 
 . $CARAPACE/generated/generated-zshrc
+
+# Profiling support
+if [[ "$ZPROF" = true ]]; then
+  zprof
+fi
+
