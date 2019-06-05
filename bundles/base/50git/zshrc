@@ -48,3 +48,15 @@ if [ -f $HOME/.host/config/gitrepos ]; then
     . $HOME/.host/config/gitrepos
 fi
 
+
+#
+# Use Git's colored diff even for non-git stuff
+# From: https://github.com/mathiasbynens/dotfiles/blob/master/.functions
+#
+hash git &>/dev/null;
+if [ $? -eq 0 ]; then
+  function diff() {
+    git diff --no-index --color-words "$@";
+  }
+fi;
+
