@@ -74,8 +74,6 @@ add_path_back ()
             export PATH="$*"
         fi
     fi
-
-    save_path_to_cache
 }
 
 # Add to the beginning of the path.  Doesn't check for duplicates
@@ -88,8 +86,6 @@ add_path_front ()
             export PATH="$*"
         fi
     fi
-
-    save_path_to_cache
 }
 
 #

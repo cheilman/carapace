@@ -50,3 +50,8 @@ setopt INC_APPEND_HISTORY_TIME
 setopt NO_INC_APPEND_HISTORY
 setopt NO_SHARE_HISTORY
 
+#
+# Save the final path to the cache file
+#
+save_path_to_cache
+
