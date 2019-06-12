@@ -35,3 +35,13 @@ Configuration settings here *should* be defined in the sysdash README, but they 
 - `SYSDASH_TWITTER_CONSUMER_(KEY|SECRET)` and `SYSDASH_TWITTER_ACCESS_TOKEN(_SECRET)?` -- credentials for connecting to the Twitter API
 - `SYSDASH_WEATHER_LOCATION` -- What city or zip code to display weather from.
 
+Subdirectories
+--------------
+
+### login_certs
+
+`carapaceprompt` has built-in support for Kerberos and Midway tickets, but also
+supports a pluggable system for other login flags to appear on the prompt.  Any
+executable file in the `login_certs/` folder will be run, and if it has a
+non-empty ouput it will be added to the prompt.
+

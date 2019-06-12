@@ -8,6 +8,7 @@ per-host settings that are not managed by the global repository.
 ~/.host/
     |- bin/
     |- config/
+        |- login_certs/
     |- modules/
     |- pretty-hostname
     |- timezone
