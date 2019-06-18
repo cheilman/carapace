@@ -11,13 +11,16 @@ add_git_repo_search_path() {
     local searchDepth=$2
 
     if [ -d "$repoPath" -a $searchDepth -gt 0 ]; then
-      case "$repoPath" in
-        (*"$GIT_REPO_SEARCH_PATH"*)
+      case "$GIT_REPO_SEARCH_PATH" in
+        (*"$repoPath"*)
           # Already in there, skip adding
           ;;
         (*)
           # Add it
-          export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH},${repoPath}:${searchDepth}"
+          if [ -n "$GIT_REPO_SEARCH_PATH" ]; then
+            export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH},"
+          fi
+          export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH}${repoPath}:${searchDepth}"
           ;;
       esac
     fi
