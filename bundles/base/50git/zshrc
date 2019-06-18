@@ -10,23 +10,16 @@ add_git_repo_search_path() {
     local repoPath="$1"
     local searchDepth=$2
 
-    if [ -d "$repoPath" ]; then
-        if [ $searchDepth -gt 0 ]; then
-            if [ -z "$GIT_REPO_SEARCH_PATH" ]; then
-                export GIT_REPO_SEARCH_PATH="${repoPath}:${searchDepth}"
-            else
-                # See if it's already in the list
-                echo $GIT_REPO_SEARCH_PATH | grep -F "$repoPath:" &>/dev/null
-                if [ $? -ne 0 ]; then
-                    # Not found
-                    export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH},${repoPath}:${searchDepth}"
-                fi
-            fi
-        else
-            # >&2 echo "Depth must be greater than or equal to 1"
-        fi
-    else
-        # >&2 echo "Path '$repoPath' does not exist."
+    if [ -d "$repoPath" -a $searchDepth -gt 0 ]; then
+      case "$repoPath" in
+        (*"$GIT_REPO_SEARCH_PATH"*)
+          # Already in there, skip adding
+          ;;
+        (*)
+          # Add it
+          export GIT_REPO_SEARCH_PATH="${GIT_REPO_SEARCH_PATH},${repoPath}:${searchDepth}"
+          ;;
+      esac
     fi
 }
 
