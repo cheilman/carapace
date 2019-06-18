@@ -12,7 +12,7 @@ save_path_to_cache ()
 #
 # Path cache file
 #
-# Generated: $(/bin/date -u)"
+# Generated: $(/bin/date -u)
 #
 
 export PATH="$PATH"
