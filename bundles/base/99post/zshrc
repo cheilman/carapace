@@ -15,12 +15,6 @@ add_path_front "$HOME/bin"
 add_path_front "$HOME/.host/bin"
 
 #
-# Finalize the path cache file
-#
-
-mv -f "$pathCache" "$HOME/.path-carapace"
-
-#
 # Re-call zsh highlighting
 #
 source ${ZGEN_DIR}/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
@@ -51,7 +45,8 @@ setopt NO_INC_APPEND_HISTORY
 setopt NO_SHARE_HISTORY
 
 #
-# Save the final path to the cache file
+# Save the final path to the cache file and finalize
 #
 save_path_to_cache
+cp -f "$pathCache" "$HOME/.path-carapace"
 
