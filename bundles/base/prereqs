@@ -1,4 +1,3 @@
-
 ag
 aspell
 awk
@@ -7,21 +6,16 @@ curl
 dig
 dirname
 entr
-ffprobe
 fortune
 git
-grc
 host
 howdoi
-identify
 ifconfig
 ifconfig
 less
 less
 locate
 nice
-nmcli
-notify-send
 perl
 ping
 powerline
@@ -39,5 +33,4 @@ tput
 uniq
 updatedb
 vim
-xdg-open
 zsh

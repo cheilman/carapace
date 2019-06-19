@@ -110,9 +110,6 @@ onport()
 # Fancier tail
 alias tl='less +F'
 
-# Open a file like you "double-clicked" on it
-alias click='xdg-open'
-
 # Don't try to be (too) fancy in our ssh terminal
 alias ssh='TERM=xterm-256color ssh'
 
@@ -131,11 +128,6 @@ alias uu="sort | uniq -c | sort -n"
 # Better pager
 export LESS="-FMRiX -x2"
 export PAGER=less
-
-#
-# Wifi related aliases
-#
-alias wifi-ssid='nmcli -f SSID device wifi list | grep -v SSID | sort | uniq'
 
 #
 # Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
