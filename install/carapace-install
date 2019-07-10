@@ -143,9 +143,16 @@ done
 #
 # Now start checking modules
 #
+# Failed modules are written to the temporary file specified
+#
 module_failed=0
+failed_modules=$(mktemp)
 
 (
+    if [ ! -w "$failed_modules" ]; then
+      carapace-message "boldred" "Can't write failed module names!!"
+    fi
+
     err=0
     carapace-message "cyan" "evaluating modules"
     export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
@@ -156,6 +163,7 @@ module_failed=0
             carapace-install-module "$i" "$(readlink -f $i)" "$CARAPACE_GENERATED_INTERMEDIATE" || {
                 carapace-message "boldred" "$i module failed!"
                 err=1
+                echo "$i" >> "$failed_modules"
             }
         fi
     done
@@ -237,6 +245,20 @@ carapace-message "boldcyan" "Carapace Installation Complete!"
 
 if [ $module_failed -ne 0 ]; then
     carapace-message "boldred" "One or more modules failed!"
+
+    if [ -r "$failed_modules" ]; then
+      export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+      for mod in $(cat "$failed_modules"); do
+        carapace-message "red" "!! ${mod}"
+      done
+
+      export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+    fi
     exit 1
 fi
+
+# Clean up failed module list
+rm -f "$failed_modules" &> /dev/null || :
+
 
