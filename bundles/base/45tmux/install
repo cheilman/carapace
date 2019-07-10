@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+#
+# Installs Tmux Plugin Manager and other plugins
+#
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# See if we're already installed
+if [ -d "${moduledir}/dotfiles/tmux/plugins/tpm" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/dotfiles/tmux/plugins/tpm" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}/dotfiles/tmux/plugins" && git clone --recurse-submodules https://github.com/tmux-plugins/tpm ./tpm)
+fi
+
+

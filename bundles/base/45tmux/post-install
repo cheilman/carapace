@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# Install/Update/Clean Tmux Plugins
+#
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+  # Start a temporary tmux server
+  tmux new-session -d "sleep 5" || :
+  sleep 1
+
+  # Install plugins
+  $HOME/.tmux/plugins/tpm/bin/install_plugins > /dev/null
+
+  # Update plugins
+  $HOME/.tmux/plugins/tpm/bin/update_plugins all > /dev/null || :
+
+  # Remove unused plugins
+  $HOME/.tmux/plugins/tpm/bin/clean_plugins > /dev/null || :
+else
+  carapace-message 'red' "Tmux Plugin Manager not installed!"
+fi
