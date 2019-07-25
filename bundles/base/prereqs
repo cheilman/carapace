@@ -33,4 +33,5 @@ tput
 uniq
 updatedb
 vim
+wormhole
 zsh
