@@ -17,6 +17,7 @@ repos=(
   "github.com/evanmiller/hecate"
   "github.com/genuinetools/apk-file"
   "github.com/genuinetools/udict"
+  "github.com/golang/protobuf/protoc-gen-go"
   "github.com/jessfraz/netscan"
   "github.com/maxzender/jv"
   "github.com/pranavraja/tldr"
