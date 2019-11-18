@@ -1,0 +1,8 @@
+#!zsh
+#
+# Aliases for hg/fig
+#
+
+# Use chg for improved speed
+[ -x "$(which chg 2>/dev/null)" ] && alias hg=chg
+
