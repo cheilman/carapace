@@ -42,15 +42,15 @@ The 8 Fallacies of Distributed Computing
 2. Latency is zero
 3. Bandwidth is infinite
 4. The network is secure
-5. Topology doesn’t change
+5. Topology doesn't change
 6. There is one administrator
 7. Transport cost is zero
 8. The network is homogeneous
         - Peter Deutsch (https://goo.gl/1yiKg2)
 %
-"Theory is when you know something, but it doesn’t work. Practice is when something works,
-but you don’t know why. Programmers combine theory and practice: Nothing works and they
-don’t know why."
+"Theory is when you know something, but it doesn't work. Practice is when something works,
+but you don't know why. Programmers combine theory and practice: Nothing works and they
+don't know why."
         - Unknown (https://goo.gl/xNbQgj)
 %
 "The most amazing achievement of the computer software industry is its continuing cancellation
@@ -99,8 +99,8 @@ one today!"
 failures and future legacy horrors."
     - Peter Weinberger (https://goo.gl/n8nwgL)
 %
-"When you want to do something differently from the rest of the world, it’s a good idea to
-look into whether the rest of the world knows something you don’t."
+"When you want to do something differently from the rest of the world, it's a good idea to
+look into whether the rest of the world knows something you don't."
     - Unknown (https://goo.gl/uy1jN5)
 %
 "Be curious. Read widely. Try new things. I think a lot of what people call intelligence
@@ -111,8 +111,8 @@ boils down to curiosity."
 indirection. But that usually will create another problem."
     - David Wheeler (https://goo.gl/QdRxk4)
 %
-"When you’re working in somebody else’s module, though, you’d better use his or her
-conventions. It’s part of learning to work with others."
+"When you're working in somebody else's module, though, you'd better use his or her
+conventions. It's part of learning to work with others."
     - Ray Ozzie (https://goo.gl/8Erjrn)
 %
 "The longer it takes for a bug to surface, the harder it is to find."
@@ -126,7 +126,7 @@ I recommend coding if you enjoy aggressively alternating between feeling like th
 the smartest person alive.
     - Justin Mezzell (https://goo.gl/7bqeQ7)
 %
-"It’s not at all important to get it right the first time. It’s vitally important to get
+"It's not at all important to get it right the first time. It's vitally important to get
 it right the last time."
     - The Pragmatic Programmer
     - Andrew Hunt & David Thomas (https://goo.gl/XXiUP3)
@@ -142,7 +142,7 @@ I've said this countless times at Mozilla. Announce an intent to do something an
 indifference or stop energy.  Build a prototype and you will get great feedback and patches.
     - Ted Mielczarek (https://goo.gl/svyUjt)
 %
-"A distributed system is one in which the failure of a computer you didn’t even know existed
+"A distributed system is one in which the failure of a computer you didn't even know existed
 can render your own computer unusable."
     - Leslie Lamport (https://goo.gl/C9dWbK)
 %
@@ -154,7 +154,7 @@ as well have been written by someone else.
     - https://goo.gl/7GHoV9
 %
 "In software, we rarely have meaningful requirements.  Even if we do, the only measure of
-success that matters is whether our solution solves the customer’s shifting idea of what
+success that matters is whether our solution solves the customer's shifting idea of what
 their problem is."
     - Jeff Atwood (https://goo.gl/1FVT28)
 %
@@ -169,11 +169,11 @@ you wrote."
 "No matter how slow you are writing clean code, you will always be slower if you make a mess."
     - Uncle Bob Martin (https://goo.gl/z3tVBS)
 %
-"In the end, regardless of where you are on the development hierarchy, keep coding. It’s where
-you’re most valuable."
+"In the end, regardless of where you are on the development hierarchy, keep coding. It's where
+you're most valuable."
     - The Developer's Code (https://goo.gl/zikbXP)
 %
-"A good design is not the one that correctly predicts the future, it’s one that makes adapting
+"A good design is not the one that correctly predicts the future, it's one that makes adapting
 to the future affordable."
     - Venkat Subramaniam (https://goo.gl/fqKNFe)
 %
@@ -187,14 +187,14 @@ make cuts until you run out of time."
 "The only way to learn a new programming language is by writing programs in it."
     - Dennis Ritchie (https://goo.gl/QzSZz4)
 %
-"Simple doesn’t mean stupid. Thinking that it does, does."
+"Simple doesn't mean stupid. Thinking that it does, does."
     - Paul Krugman (https://goo.gl/DNrB9v)
 %
 "There is nothing more unproductive than to build something efficiently that should not have
 been built at all."
     - Milt Bryce (https://goo.gl/eKSAKT)
 %
-"Don’t worry about what anyone else is going to do. The best way to predict the future is to
+"Don't worry about what anyone else is going to do. The best way to predict the future is to
 invent it."
     - Alan Kay (https://goo.gl/frTvaV)
 %
@@ -207,7 +207,7 @@ their brains a bit, which is why they always seem to be surfing the Internet or 
 when you barge in on them."
     - Joel Spolsky (https://goo.gl/jytPBh)
 %
-"Even if you don’t intend anybody else to read your code, there’s still a very good chance
+"Even if you don't intend anybody else to read your code, there's still a very good chance
 that somebody will have to stare at your code and figure out what it does: That person is
 probably going to be you, twelve months from now. "
     - Raymond Chen (https://goo.gl/5BSggz)
@@ -303,7 +303,7 @@ reversible changes, making it completely unmaintainable by anyone except yoursel
 "A language that doesn't affect the way you think about programming is not worth knowing."
     - Alan J. Perlis (https://goo.gl/SgWMF2)
 %
-"The cost of adding a feature isn’t just the time it takes to code it. The cost also includes
+"The cost of adding a feature isn't just the time it takes to code it. The cost also includes
 the addition of an obstacle to future expansion. The trick is to pick the features that don't
 fight each other."
     - John Carmack (https://goo.gl/8DbQFu)
@@ -381,7 +381,7 @@ easy to write, make it easy to read."
     - Alan Turing (https://goo.gl/7FWXCe)
 %
 "As a software developer, you are your own worst enemy. The sooner you realize that, the
-better off you’ll be."
+better off you'll be."
     - Jeff Atwood (https://goo.gl/iZJdeT)
 %
 "Software being 'Done' is like lawn being 'Mowed'."
@@ -409,8 +409,8 @@ better off you’ll be."
 and the more likely you are to fix problems quickly."
     - Slava Akhmechet (https://goo.gl/Yq2962)
 %
-"If you can get today’s work done today, but you do it in such a way that you can’t
-possibly get tomorrow’s work done tomorrow, then you lose."
+"If you can get today's work done today, but you do it in such a way that you can't
+possibly get tomorrow's work done tomorrow, then you lose."
     - Martin Fowler (https://goo.gl/9QBxqs)
     - Refactoring: Improving the Design of Existing Code
 %
@@ -422,7 +422,7 @@ document it to make it even clearer."
 "Programming is like pinball. The reward for doing it is the opportunity of doing it again."
     - Unknown (https://goo.gl/7zRTpy)
 %
-"If at first, you don’t succeed, call it version 1.0."
+"If at first, you don't succeed, call it version 1.0."
     - Unknown (https://goo.gl/Y9LiWo)
 %
 I'm increasingly thinking that every functioning system has two forms:  The abstraction that
@@ -446,10 +446,10 @@ something else."
 - Fewer race conditions!
     - @wellendonner (https://goo.gl/XVBp75)
 %
-"Dynamic typing: The belief that you can’t explain to a computer why your code works, but you can keep track of it all in your head."
+"Dynamic typing: The belief that you can't explain to a computer why your code works, but you can keep track of it all in your head."
     - @chris__martin (https://goo.gl/XVBp75)
 %
-"Unix will give you enough rope to shoot yourself in the foot. If you didn’t think rope
+"Unix will give you enough rope to shoot yourself in the foot. If you didn't think rope
 would do that, you should have read the man page."
     - @mhoye (https://goo.gl/XVBp75)
 %
@@ -458,7 +458,7 @@ would do that, you should have read the man page."
 %
 "[The common definition of estimate is] "An estimate is the most optimistic prediction that has
 a non-zero probability of coming true" . . . Accepting this definition leads irrevocably toward
-a method called what’s-the-earliest-date-by-which-you-can’t-prove-you-won’t-be-finished
+a method called what's-the-earliest-date-by-which-you-can't-prove-you-won't-be-finished
 estimating."
     - Tom DeMarco (1982) (https://goo.gl/XVBp75)
 %
@@ -474,7 +474,7 @@ to fix it. You will never be able to fix anything. You wrote this code nine seco
 "Make it correct, make it clear, make it concise, make it fast. In that order."
     – Wes Dyer (https://goo.gl/D8Mg9G)
 %
-"Every good work of software starts by scratching a developer’s personal itch."
+"Every good work of software starts by scratching a developer's personal itch."
     - Eric S. Raymond (https://goo.gl/kjizdA)
 %
 "Simplicity is prerequisite for reliability."
@@ -487,11 +487,11 @@ just many people doing things that build on each other, like a wall of mini ston
 "If you're on the internet, you already get a free pentest, just not the report."
     - Zane Lackey (https://goo.gl/uUgKTE)
 %
-"Don’t worry about what anyone else is going to do. The best way to predict the future is
+"Don't worry about what anyone else is going to do. The best way to predict the future is
 to invent it."
     - Alan Kay (https://goo.gl/75kMHz)
 %
-"The trouble with programmers is that you can never tell what a programmer is doing until it’s
+"The trouble with programmers is that you can never tell what a programmer is doing until it's
 too late."
     - Seymour Cray (https://goo.gl/BS3ddw)
 %
@@ -503,8 +503,8 @@ too late."
 framework. Just a function."
     - John Carmack (https://goo.gl/n9rRoY)
 %
-"It’s a curious thing about our industry: not only do we not learn from our mistakes, we also
-don’t learn from our successes."
+"It's a curious thing about our industry: not only do we not learn from our mistakes, we also
+don't learn from our successes."
     - Keith Braithwaite (https://goo.gl/vPYW43)
 %
 "Testing leads to failure, and failure leads to understanding."
@@ -545,7 +545,7 @@ of poor testing. Automating chaos just gives faster chaos."
 of time for supporting the wrong solution."
     - Matthew Noonan (https://goo.gl/8XKC7U)
 %
-"Code is like humor. When you have to explain it, it’s bad."
+"Code is like humor. When you have to explain it, it's bad."
     - Cory House (https://goo.gl/uSMMj3)
 %
 "You haven't mastered a tool until you understand when it should not be used."
@@ -621,7 +621,7 @@ old programs by adding new features."
     - @DynamicWebPaige (https://bit.ly/2GL5dKq)
 %
 Rule 777:
-    If you don’t make a system usable and secure, the user will make it usable and insecure.
+    If you don't make a system usable and secure, the user will make it usable and insecure.
     - @SwiftOnSecurity, @WarPwnie, @RotoPenguin (http://bit.ly/2xC7HXc)
 %
 "In theory, there is no difference between theory and practice. But, in practice, there is."
@@ -631,7 +631,7 @@ Write more words than code.
 
 Blog posts, tutorials, design documents, etc.
 
-One’s ability to communicate clearly is often more important than the elegance of your code.
+One's ability to communicate clearly is often more important than the elegance of your code.
     - Kevin Stewart (http://bit.ly/2HiNxkC)
 %
 "The romantic image of an uber-programmer is someone who fires up Emacs, types like a machine
@@ -640,7 +640,7 @@ who stares quietly into space for a few minutes and then says 'Hmm. I think I've
 like this before.'"
     - John D. Cook (http://bit.ly/2xIltaU)
 %
-"Comparing to another activity is useful if it helps you formulate questions, it’s dangerous
+"Comparing to another activity is useful if it helps you formulate questions, it's dangerous
 when you use it to justify answers."
     - Martin Fowler (http://bit.ly/2t1dctN)
 %
@@ -658,14 +658,14 @@ them."
 it finally works, keep going: you're probably about halfway done."
     - Brandon Rhodes (http://bit.ly/2AUGErL)
 %
-"Post-accident attribution accident to a ‘root cause’ is fundamentally wrong.
+"Post-accident attribution accident to a ‘root cause' is fundamentally wrong.
 
-Because overt failure requires multiple faults, there is no isolated ‘cause’ of an accident.
+Because overt failure requires multiple faults, there is no isolated ‘cause' of an accident.
 There are multiple contributors to accidents. Each of these is necessary insufficient in
 itself to create an accident. Only jointly are these causes sufficient to create an accident.
 Indeed, it is the linking of these causes together that creates the circumstances required
-for the accident. Thus, no isolation of the ‘root cause’ of an accident is possible. The
-evaluations based on such reasoning as ‘root cause’ do not reflect a technical
+for the accident. Thus, no isolation of the ‘root cause' of an accident is possible. The
+evaluations based on such reasoning as ‘root cause' do not reflect a technical
 understanding of the nature of failure but rather the social, cultural need to blame
 specific, localized forces or events for outcomes."
     - Richard Cook (http://bit.ly/2Meox5B and http://bit.ly/2vKLW4b)
@@ -681,7 +681,7 @@ your Craft!"
 "A program is never less than 90% complete, and never more than 95% complete."
     - Terry Baker (http://bit.ly/2CyOlno)
 %
-"When evaluating code remember you are viewing someone’s compromises not their plans. Assume
+"When evaluating code remember you are viewing someone's compromises not their plans. Assume
 good intent."
     - Jonathan Chambers (http://bit.ly/2A1wQdg)
 %
@@ -724,7 +724,7 @@ This is what I do:
 %
 Of course - I try to write code with zero dependencies - code I wrote 25 years ago with zero
 dependencies still works today. Code I wrote 5 years ago with external dependencies often fails.
-It’s my contribution to the war on entropy.
+It's my contribution to the war on entropy.
     - Joe Armstrong (http://bit.ly/2V7imkx)
 %
 I put in some sleeps like a professional programmer.
@@ -769,14 +769,14 @@ what expertise really is: "I fell down this mountain so many damn times, I can f
 you this information!"
     - Sarah Drasner (http://bit.ly/2WIYdWv)
 %
-"Good design systems are extracted from the product. It’s not about making abstract components
+"Good design systems are extracted from the product. It's not about making abstract components
 and try to put them together later"
     - Dan Mall (http://bit.ly/2mzVygG)
 %
 The plural of regex is regrets
     - @ifosteve (http://bit.ly/34uBJYx)
 %
-"...nothing which doesn’t have a named owner gets done, and nothing with more than one named
+"...nothing which doesn't have a named owner gets done, and nothing with more than one named
 owner gets done."
     - Patrick McKenzie (@patio11)
 
@@ -788,8 +788,8 @@ owner gets done."
 
 From: http://bit.ly/2L12Hjp
 %
-As I like to remind people: when you’re on the bleeding edge, it’s not the edge that bleeds,
-it’s you.
+As I like to remind people: when you're on the bleeding edge, it's not the edge that bleeds,
+it's you.
     - Ryan Florence (@ryanflorence, http://bit.ly/37vb4NC)
 %
 When one has finished building one's house, one suddenly realizes that in the process one
