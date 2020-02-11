@@ -795,3 +795,10 @@ it's you.
 When one has finished building one's house, one suddenly realizes that in the process one
 has learned something that one really needed to know in the worst way - before one began.
     - Friedrich Nietzsche
+%
+Periodic Reminder: When debugging, you must first accept that something you believe is true is
+not true. If everything you believed about this system were true, it would work. It doesn't,
+so you're wrong about something.
+
+This is a surprisingly common stumbling block for devs.
+    - Rob Napier (http://bit.ly/3bvCd52)
