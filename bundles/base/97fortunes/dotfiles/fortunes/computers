@@ -802,3 +802,13 @@ so you're wrong about something.
 
 This is a surprisingly common stumbling block for devs.
     - Rob Napier (http://bit.ly/3bvCd52)
+%
+Memory access.
+
+You're making a salad.
+L1 cache: Ingredients are on a chopping board
+L2/3: Ingredients are on a table
+RAM: Ingredients are in a fridge
+DISK: Ingredients are at the grocery
+HTTP API: Ingredients are on a different continent
+  - @dominikran (http://bit.ly/39Q8rH7)
