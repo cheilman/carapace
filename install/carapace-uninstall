@@ -1,0 +1,73 @@
+#!/usr/bin/env zsh
+#
+# Attempt to remove all (most?) files installed by Carapace
+#
+set -e
+
+#
+# Prepare
+#
+
+# Try to autodetect carapace folder
+export CARAPACE="${0:A:h:h}"
+
+if [ ! -d "$CARAPACE" ]; then
+    export CARAPACE="$HOME/.carapace"
+
+    if [ ! -d "$CARAPACE" ]; then
+        >&2 echo "Unable to find carapace folder!"
+        exit 1
+    fi
+fi
+
+export PATH="$CARAPACE/install:$PATH"
+export CARAPACE_GENERATED="$CARAPACE/generated"
+export CARAPACE_GENERATED_INTERMEDIATE="$CARAPACE/generated/intermediate"
+export CARAPACE_MODULES=""
+export CARAPACE_INDENT=""
+
+carapace-message "boldcyan" "Carapace Un-installation Starting..."
+export CARAPACE_INDENT=" >"
+carapace-message "cyan" "using source folder '$CARAPACE'"
+
+#
+# Check variables so we don't screw up the filesystem
+#
+if [ -z "$CARAPACE" ]; then
+  carapace-message "boldred" "Variable \$CARAPACE is empty, aborting!"
+  exit 1
+fi
+if [ -z "$CARAPACE_GENERATED" ]; then
+  carapace-message "boldred" "Variable \$CARAPACE_GENERATED is empty, aborting!"
+  exit 1
+fi
+
+#
+# Remove bin links, everything under bin/carapace should be safe to remove
+#
+carapace-message "cyan" "removing carapace bin folder"
+rm -Rf "$HOME/bin/carapace" || :
+
+#
+# Remove symlinks that point into the carapace tree (unless they're coming
+# from inside the carapace tree).
+#
+carapace-message "cyan" "removing symlinks pointing into \$CARAPACE from outside"
+find -P $HOME -maxdepth 20 -xdev -type l \( -lname "$CARAPACE/*" -a -not -path "$CARAPACE/*" \) -delete || :
+
+#
+# Remove generated files
+#
+carapace-message "cyan" "removing generated files"
+rm -Rf "$CARAPACE_GENERATED" || :
+
+#
+# Things we know we can't fix correctly (yet)
+#
+carapace-message "red" "Unable to clean up crontab, edit it directly"
+
+#
+# All done
+#
+carapace-message "boldcyan" "Uninstall complete!"
+

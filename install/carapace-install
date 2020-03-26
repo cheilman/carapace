@@ -67,6 +67,7 @@ fi
 
 carapace-redirect "$CARAPACE/install/carapace-install" "$HOME/bin/carapace/carapace-install"
 carapace-redirect "$CARAPACE/install/carapace-update" "$HOME/bin/carapace/carapace-update"
+carapace-redirect "$CARAPACE/install/carapace-uninstall" "$HOME/bin/carapace/carapace-uninstall"
 
 #
 # Start by creating the boilerplate/headers for the generated files
