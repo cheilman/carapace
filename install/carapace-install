@@ -8,6 +8,9 @@ set -e
 # Prepare
 #
 
+# Force umask
+umask 022
+
 # Try to autodetect carapace folder
 export CARAPACE="${0:A:h:h}"
 
