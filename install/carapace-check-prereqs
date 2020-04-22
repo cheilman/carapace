@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+#
+# Install a carapace bundle.
+#
+# Usage: carapace-install-bundle <bundle dir> <module root> <generated files directory>
+#
+
+set -e
+
+#
+# Setup
+#
+
+# Try to autodetect carapace folder
+export CARAPACE="${0:A:h:h}"
+if [ ! -d "$CARAPACE" ]; then
+  export CARAPACE="$HOME/.carapace"
+  if [ ! -d "$CARAPACE" ]; then
+    >&2 echo "Unable to find carapace folder!"
+    exit 1
+  fi
+fi
+
+# Environment setup
+export PATH="$CARAPACE/install:$PATH"
+
+#
+# Loop through all bundles
+#
+
+err=0
+if [ -d "${CARAPACE}/bundles" -a -n "$(ls "${CARAPACE}/bundles" 2> /dev/null)" ]; then
+    for i in $CARAPACE/bundles/*; do
+      # Check the prereqs
+      if [ -r "${i}/prereqs" ]; then
+        carapace-message "cyan" "Checking bundle '$(basename "$i")' prerequisites"
+        if ! carapace-prereqs "${i}/prereqs"; then
+          err=1
+        fi
+      fi
+    done
+fi
+
+# Did everything work?
+[ $err -eq 0 ] && exit 0
+
+# Failure
+carapace-message "boldred" "Some prerequisites are missing, behaviour may not be correct."
+exit 1
+
