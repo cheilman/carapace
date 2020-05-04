@@ -77,7 +77,7 @@ carapace-redirect "$CARAPACE/install/carapace-uninstall" "$HOME/bin/carapace/car
 #
 
 carapace-message "cyan" "setting up generated file boilerplate"
-for i in crontab gitconfig gitignore i3config profile ssh_config zshrc hgrc hgignore; do
+for i in crontab gitconfig gitignore i3config profile ssh_config ssh_rc zshrc hgrc hgignore; do
     cp $CARAPACE/docs/templates/$i-template $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
 
     echo "#" >> $CARAPACE_GENERATED_INTERMEDIATE/generated-$i
@@ -222,6 +222,7 @@ carapace-redirect "$CARAPACE_GENERATED/generated-hgrc" "$HOME/.hgrc"
 carapace-redirect "$CARAPACE_GENERATED/generated-hgignore" "$HOME/.hgignore"
 carapace-redirect "$CARAPACE_GENERATED/generated-profile" "$HOME/.profile"
 carapace-redirect "$CARAPACE_GENERATED/generated-ssh_config" "$HOME/.ssh/config"
+carapace-redirect "$CARAPACE_GENERATED/generated-ssh_rc" "$HOME/.ssh/rc"
 carapace-redirect "$CARAPACE_GENERATED/generated-vimrc" "$HOME/.vimrc"
 
 if [ -d "$HOME/.i3" ]; then

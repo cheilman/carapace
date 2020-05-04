@@ -73,6 +73,10 @@ Module `profile` files will be appended to the generated Carapace-wide `generate
 
 Module `ssh_config` files will be appended to the generated Carapace-wide `generated-ssh_config` file, and symlinked to `$HOME/.ssh/config`.
 
+#### ssh_rc_
+
+Module `ssh_rc` files will be appended to the generated Carapace-wide `generated-ssh_rc` file, and symlinked to `$HOME/.ssh/rc`.
+
 #### vimrc
 
 Module `vimrc` files will be appended to the generated Carapace-wide `generated-vimrc` file, and symlinked to `$HOME/.vimrc`.
