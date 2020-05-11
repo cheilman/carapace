@@ -8,7 +8,17 @@ source "${CARAPACE_CURRENT_MODULE_PATH}/ssh-find-agent.sh"
 
 # Check if the agent is valid/running
 function check-ssh-agent() {
-  return $(ssh-add -l >&/dev/null)
+  ssh-add -l >&/dev/null
+  result=$?
+
+  # 0:  Everything is okay
+  # 1:  Agent is up, but empty (no identities)
+  # 2+: Can't talk to agent
+  if [ $result -eq 0 -o $result -eq 1 ]; then
+    return 0
+  else
+    return $result
+  fi
 }
 
 # Add my common ssh keys
@@ -25,7 +35,7 @@ function ssh-setup() {
   else
     # Try to load an ssh agent
     ssh_find_agent -a
-    if [ -z "$SSH_AUTH_SOCK" ]; then
+    if [ $? -ne 0 -o -z "$SSH_AUTH_SOCK" ]; then
       eval $(ssh-agent) > /dev/null
       # We could uncomment this to magically try to load keys on ssh, but let's leave it manual for now.
       #ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add-my-keys && unalias ssh; ssh'
@@ -38,6 +48,8 @@ function ssh-setup() {
     fi
   fi
 }
+
+alias ssh-prep='ssh-setup && ssh-add-my-keys'
 
 ssh-setup
 
