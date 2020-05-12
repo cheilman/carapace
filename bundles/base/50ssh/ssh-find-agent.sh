@@ -38,23 +38,23 @@ _debug_print() {
 }
 
 find_all_ssh_agent_sockets() {
-	_SSH_AGENT_SOCKETS=$( find /tmp/ -type s -name agent.\* 2> /dev/null | grep '/tmp/ssh-.*/agent.*' )
+  _SSH_AGENT_SOCKETS=$( find /tmp/ -maxdepth 2 -type s -regex '/tmp/ssh-.*/agent.*' 2> /dev/null )
 	_debug_print "$_SSH_AGENT_SOCKETS"
 }
 
 find_all_gpg_agent_sockets() {
-	_GPG_AGENT_SOCKETS=$( find /tmp/ -type s -name S.gpg-agent.ssh 2> /dev/null | grep '/tmp/gpg-.*/S.gpg-agent.ssh' )
+  _GPG_AGENT_SOCKETS=$( find /tmp/ -maxdepth 2 -type s -regex '/tmp/gpg-.*/S.gpg-agent.ssh' 2> /dev/null )
 	_debug_print "$_GPG_AGENT_SOCKETS"
 }
 
 find_all_gnome_keyring_agent_sockets() {
-	_GNOME_KEYRING_AGENT_SOCKETS=$( find /tmp/ -type s -name ssh 2> /dev/null | grep '/tmp/keyring-.*/ssh$' )
+	_GNOME_KEYRING_AGENT_SOCKETS=$( find /tmp/ -maxdepth 2 -type s -regex '/tmp/keyring-.*/ssh$' 2> /dev/null )
 	_debug_print "$_GNOME_KEYRING_AGENT_SOCKETS"
 }
 
 find_all_osx_keychain_agent_sockets() {
 	[[ -n "$TMPDIR" ]] || TMPDIR=/tmp
-	_OSX_KEYCHAIN_AGENT_SOCKETS=$( find $TMPDIR/ -type s -regex '.*/ssh-.*/agent..*$' 2> /dev/null )
+	_OSX_KEYCHAIN_AGENT_SOCKETS=$( find $TMPDIR/ -maxdepth 2 -type s -regex '.*/ssh-.*/agent..*$' 2> /dev/null )
 	_debug_print "$_OSX_KEYCHAIN_AGENT_SOCKETS"
 }
 
