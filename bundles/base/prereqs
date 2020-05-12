@@ -3,6 +3,7 @@ aspell
 awk
 basename
 curl
+daemonize
 dig
 dirname
 entr

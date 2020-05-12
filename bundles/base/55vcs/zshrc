@@ -1,0 +1,51 @@
+#!zsh
+#
+# Set up vcsstatus
+#
+
+VCSSTATUS_PID="$HOME/.vcsstatus-pid"
+
+# See if the vcsstatus daemon is running
+check-vcsstatus-daemon() {
+  return $(vcsstatus --exec=client --dir=/ &>/dev/null)
+}
+
+# Start the daemon as necessary
+start-vcsstatus-daemon-if-needed() {
+  vcs="$(which vcsstatus 2>/dev/null)"
+  if [ $? -ne 0 ]; then
+    return 1
+  fi
+  daemonize -p "$VCSSTATUS_PID" -l "$VCSSTATUS_PID" $vcs --exec=daemon -O
+}
+
+# Kill the daemon
+kill-vcsstatus-daemon() {
+  if [ -r "$VCSSTATUS_PID" ]; then
+    pid=$(cat "$VCSSTATUS_PID")
+    # Play nice
+    if kill -0 $pid &>/dev/null; then
+      kill $pid
+      sleep 0.5s
+    fi
+    # Play less nice
+    if kill -0 $pid &>/dev/null; then
+      sleep 5s
+      kill -9 $pid
+    fi
+
+    # Cleanup
+    rm -f "$VCSSTATUS_PID" "$HOME/.vcsstatus-sock"
+  fi
+}
+
+# Restart the daemon
+restart-vcsstatus-daemon() {
+  check-vcsstatus-daemon && kill-vcsstatus-daemon
+  start-vcsstatus-daemon-if-needed
+}
+
+# Kick off the daemon
+start-vcsstatus-daemon-if-needed
+
+
