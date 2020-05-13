@@ -7,15 +7,20 @@ VCSSTATUS_PID="$HOME/.vcsstatus-pid"
 
 # See if the vcsstatus daemon is running
 check-vcsstatus-daemon() {
-  return $(vcsstatus --exec=client --dir=/ &>/dev/null)
+  return $(vcsstatus --exec=daemoncheck &>/dev/null)
 }
 
 # Start the daemon as necessary
 start-vcsstatus-daemon-if-needed() {
+  if check-vcsstatus-daemon; then
+    return 0
+  fi
+
   vcs="$(which vcsstatus 2>/dev/null)"
   if [ $? -ne 0 ]; then
     return 1
   fi
+
   daemonize -p "$VCSSTATUS_PID" -l "$VCSSTATUS_PID" $vcs --exec=daemon -O
 }
 
