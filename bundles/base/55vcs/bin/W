@@ -47,7 +47,7 @@ pad_to_longest() {
 for i in `findGitRepos`; do
   cd $i
 
-  lines=("${(@f)$(vcsstatus --output=statusline --color)}")
+  lines=("${(@f)$(vcsstatus --exec=clientfallback --output=statusline --color)}")
 
   p="$(echo $lines[1] | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g")"
   b="$lines[3]"
