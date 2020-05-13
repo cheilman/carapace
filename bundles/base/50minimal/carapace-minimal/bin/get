@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 #
 # Command to get a file from URL (figure out what command to use)
@@ -23,7 +23,7 @@ case "$get_cmd" in
         #echo "wget based command ($get_cmd)"
         $get_cmd --tries=5 --timeout=30 --waitretry=5 $*
         ;;
-    *)  
+    *)
         echo "unknown command ($get_cmd)"
         ;;
 esac

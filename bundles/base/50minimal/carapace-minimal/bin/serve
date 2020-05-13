@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 #
 # Start a HTTP server in the current directory.  Will run through 10 ports to find an open one.
 #

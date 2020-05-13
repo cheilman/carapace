@@ -9,6 +9,7 @@ GENERATED="${CARAPACE}/generated"
 #
 # Make the right folders
 #
+mkdir -p "$HOME/bin"
 mkdir -p "$CARAPACE/backup"
 mkdir -p "$GENERATED"
 
@@ -52,13 +53,13 @@ done
 
 # Dotfiles
 for i in "$CARAPACE/dotfiles/"*; do
-  "${CARAPACE}/redirect" "$i" "$HOME/.${i:t}"
+  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i")"
 done
 
 # Generated files
 # NOTE: This assumes all generated files go in $HOME/.X
 for i in "$CARAPACE/generated/"generated-*; do
-  "${CARAPACE}/redirect" "$i" "$HOME/.${i:t}"
+  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i")"
 done
 
 # Binary folder

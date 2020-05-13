@@ -28,8 +28,8 @@ cat "${generateddir}/carapace-minimal.tar.gz" | \
                rm -Rf ./.carapace/minimal && \
                mkdir -p ./.carapace/minimal && \
                ( cd ./.carapace/minimal/ && tar zxf - --strip-components=1 ) && \
-               echo "Copied version $(cat ./.carapace/minimal/version)" && \
-               echo "with metadata:" && \
+               echo "Copied:" && \
+               echo Version $(cat ./.carapace/minimal/version)" && \
                cat ./.carapace/minimal/metadata && \
-               echo "Execute: ~/.carapace/minimal/install to complete installation"'
+               ./.carapace/minimal/install'
 
