@@ -3,6 +3,11 @@
 # Carapace Minimal profile
 #
 
+if [ -n "$CARAPACE_MINIMAL_PROFILE" ]; then
+  return 0
+fi
+export CARAPACE_MINIMAL_PROFILE=1
+
 #
 # Set timezone
 #
@@ -67,7 +72,7 @@ fi
 #
 
 # Disable caps lock key
-[ -x "$(which setxkbmap 2>/dev/null)" ] && setxkbmap -option caps:none
+[ -x "$(command -v setxkbmap 2>/dev/null)" ] && setxkbmap -option caps:none
 
 #
 # Other scripts to run for /bin/sh initialization (specifically for dash)

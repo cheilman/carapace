@@ -3,6 +3,11 @@
 # Carapace Minimal bash
 #
 
+if [ -n "$CARAPACE_MINIMAL_BASHRC" ]; then
+  return 0
+fi
+export CARAPACE_MINIMAL_BASHRC=1
+
 #
 # We're going to track our path in a temporary file, and then save it to a well-known location
 #

@@ -19,7 +19,7 @@ remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
 
 if [ "${local_version}" = "${remote_version}" ]; then
   # They match already
-  exit 0
+#  exit 0
 fi
 
 # Extract the tarball and install it
@@ -28,8 +28,9 @@ cat "${generateddir}/carapace-minimal.tar.gz" | \
                rm -Rf ./.carapace/minimal && \
                mkdir -p ./.carapace/minimal && \
                ( cd ./.carapace/minimal/ && tar zxf - --strip-components=1 ) && \
-               echo "Copied:" && \
-               echo Version $(cat ./.carapace/minimal/version)" && \
+               echo "--- Copied --- " && \
+               echo "Version $(cat ./.carapace/minimal/version)" && \
                cat ./.carapace/minimal/metadata && \
+               echo "---- Done ---- " && \
                ./.carapace/minimal/install'
 
