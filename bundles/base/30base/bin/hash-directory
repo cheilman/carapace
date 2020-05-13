@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Build a hash of a directory tree and its contents
+#
+# From: https://stackoverflow.com/a/545413/147354
+#
+
+folder="$1"
+
+(find "$folder" -type f -print0  | sort -z | xargs -0 sha1sum;
+ find "$folder" \( -type f -o -type d \) -print0 | sort -z | \
+      xargs -0 stat -c '%n %a') \
+      | sha1sum | cut -d\  -f1
+
