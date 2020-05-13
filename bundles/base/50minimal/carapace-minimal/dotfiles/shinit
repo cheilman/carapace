@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Initialization files for sh-style shell invocation (such as with dash)
+#
+
+if [ -r "$HOME/.path-carapace" ]; then
+    . "$HOME/.path-carapace"
+elif [ -r "~/.path-carapace" ]; then
+    . "~/.path-carapace"
+else
+    if [ -n "$HOME" ]; then
+        export PATH="$HOME/bin:$HOME/carapace/bin:$PATH:/usr/bin"
+    fi
+fi
+

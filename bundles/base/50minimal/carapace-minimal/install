@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# Install carapace minimal version
+#
+
+CARAPACE="$HOME/.carapace/minimal"
+GENERATED="${CARAPACE}/generated"
+
+#
+# Make the right folders
+#
+mkdir -p "$HOME/bin"
+mkdir -p "$CARAPACE/backup"
+mkdir -p "$GENERATED"
+
+#
+# Build generated files
+#
+
+# Things that use '#' as comments
+for i in gitconfig hgrc; do
+  cat > "${GENERATED}/generated-$i" <<EOF
+#####
+# Generated: $(date --iso-8601=seconds)
+#
+# DO NOT EDIT
+#####
+
+EOF
+  cat "${CARAPACE}/special/$i" >> "${GENERATED}/generated-$i"
+done
+
+# Things that use '"' as comments
+for i in vimrc; do
+  cat > "${GENERATED}/generated-$i" <<EOF
+"""""
+" Generated: $(date --iso-8601=seconds)
+"
+" DO NOT EDIT
+"""""
+
+EOF
+  cat "${CARAPACE}/special/$i" >> "${GENERATED}/generated-$i"
+done
+
+#
+# Useful functions
+#
+
+#
+# Link in important things
+#
+
+# Dotfiles
+for i in "$CARAPACE/dotfiles/"*; do
+  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i")"
+done
+
+# Generated files
+# NOTE: This assumes all generated files go in $HOME/.X
+for i in "$CARAPACE/generated/"generated-*; do
+  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i")"
+done
+
+# Binary folder
+"${CARAPACE}/redirect" "${CARAPACE}/bin" "$HOME/bin/carapace-minimal"
+

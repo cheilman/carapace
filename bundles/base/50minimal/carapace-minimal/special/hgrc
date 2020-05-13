@@ -1,0 +1,7 @@
+#
+# Carapace Minimal hgrc
+#
+
+[pager]
+pager = less -FMRiX -x4
+

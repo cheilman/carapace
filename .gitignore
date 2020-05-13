@@ -1,5 +1,6 @@
 # Git ignore
 
-generated/[^.]*
 backup/[^.]*
+generated/[^.]*
+minimal/*
 

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+local target="$*"
+local cwd="`pwd`"
+
+while true; do
+    if [[ -e "$target" ]]; then
+        echo "`pwd -P`"
+        cd "$cwd"
+        return 0
+    fi
+
+    if [[ `pwd` == '/' ]]; then
+        # Can't find
+        cd "$cwd"
+        return 1
+    fi
+
+    cd -P ..
+done

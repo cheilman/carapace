@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Just load the profile/bashrc
+#
+
+if [ -n "$CARAPACE_MINIMAL_BASH_PROFILE" ]; then
+  return 0
+fi
+export CARAPACE_MINIMAL_BASH_PROFILE=1
+
+source "$HOME/.profile"
+source "$HOME/.bashrc"
+

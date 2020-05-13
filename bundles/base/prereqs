@@ -27,6 +27,7 @@ python2.7
 python3
 scp
 sed
+sha1sum
 sort
 ssh
 strfile

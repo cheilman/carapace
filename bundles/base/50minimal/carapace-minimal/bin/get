@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+#
+# Command to get a file from URL (figure out what command to use)
+#
+
+get_cmd="`which kcurl 2> /dev/null`"
+if [ ! -x "$get_cmd" ]; then
+    get_cmd="`which curl`"
+fi
+if [ ! -x "$get_cmd" ]; then
+    get_cmd="`which wget`"
+fi
+
+case "$get_cmd" in
+    *curl)
+        # So many -O's are a HACK to make it work when you pass multiple
+        # urls on the command line.  TODO: Make this better
+        #echo "curl based command ($get_cmd)"
+        $get_cmd -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O -O --connect-timeout 30 --retry 5 --retry-delay 5 --retry-max-time 0 $*
+        ;;
+    *wget)
+        #echo "wget based command ($get_cmd)"
+        $get_cmd --tries=5 --timeout=30 --waitretry=5 $*
+        ;;
+    *)
+        echo "unknown command ($get_cmd)"
+        ;;
+esac
+

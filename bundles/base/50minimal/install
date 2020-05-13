@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+#
+# Package up carapace-minimal for use later
+#
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+carapaceminimal="${moduledir}/carapace-minimal"
+
+# Compute hash of minimal install (to use as a version)
+rm -f "$carapaceminimal/version" "$carapaceminimal/metadata"
+
+version="$(hash-directory "$carapaceminimal")"
+
+echo $version > "$carapaceminimal/version"
+echo "Build date: $(date --iso-8601=seconds)" > "$carapaceminimal/metadata"
+
+# Build tarball
+(cd $(dirname "$carapaceminimal") && tar zcf "${generateddir}/carapace-minimal.tar.gz" carapace-minimal)
+

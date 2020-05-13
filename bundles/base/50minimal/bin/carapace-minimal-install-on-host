@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+#
+# Install Carapace Minimal on a Host (using ssh)
+#
+
+generateddir="${CARAPACE}/generated"
+
+host="$1"
+
+# Make sure that we have a tarball
+if [ ! -r "${generateddir}/carapace-minimal.tar.gz" ]; then
+  >&2 echo "Failed to find Carapace Minimal installation at: '${moduledir}'"
+  exit 1
+fi
+
+# Check the version currently installed on the host
+local_version="$(tar zxf ${generateddir}/carapace-minimal.tar.gz -O carapace-minimal/version)"
+remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
+
+if [ "${local_version}" = "${remote_version}" ]; then
+  # They match already
+  exit 0
+fi
+
+# Extract the tarball and install it
+cat "${generateddir}/carapace-minimal.tar.gz" | \
+  ssh ${host} 'cd && \
+               rm -Rf ./.carapace/minimal && \
+               mkdir -p ./.carapace/minimal && \
+               ( cd ./.carapace/minimal/ && tar zxf - --strip-components=1 ) && \
+               echo "--- Copied --- " && \
+               echo "Version $(cat ./.carapace/minimal/version)" && \
+               cat ./.carapace/minimal/metadata && \
+               echo "---- Done ---- " && \
+               ./.carapace/minimal/install'
+

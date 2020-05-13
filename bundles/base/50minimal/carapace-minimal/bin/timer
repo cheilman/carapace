@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Time a command and output how long it took
+#
+
+# Record start
+local start="`date +"%s.%N"`"
+
+# Execute script parameters
+$@
+
+# Record end
+local end="`date +"%s.%N"`"
+
+# Line break
+echo "---------------------------------------"
+
+# Figure out various elapsed metrics
+local totalSeconds=$(($end - $start))
+local totalNS=$(($totalSeconds * 1000000000))
+local totalUS=$(($totalSeconds * 1000000))
+local totalMS=$(($totalSeconds * 1000))
+
+# Print raw data
+printf "%0.3fs %0.3fms %0.3fus %0dns\n" "${totalSeconds}" "${totalMS}" "${totalUS}" "${totalNS}"
+
+# Figure out pretty data
+local ms=$(($totalMS % 1000))
+local s=$(( ($totalMS / 1000) % 60))
+local m=$(( ($totalMS / (1000 * 60)) % 60))
+local h=$(( ($totalMS / (1000 * 60 * 60)) ))
+
+# Print pretty data
+printf "Elapsed: %01d:%02d:%02d.%03d\n" "$h" "$m" "$s" "$ms"
