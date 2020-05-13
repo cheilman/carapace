@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# Carapace Minimal profile
+#
+
+#
+# Set timezone
+#
+
+export TZ='America/New_York'
+
+#
+# Set locale
+#
+
+for lc in "en_US.utf8" "C.UTF-8" "POSIX" "C"; do
+  if locale -a | grep $lc >/dev/null 2>/dev/null; then
+    export LC_ALL="$lc"
+    export LC_CTYPE="$lc"
+    export LANG="$lc"
+    break
+  fi
+done
+
+
+#
+# Editor/Pager
+#
+
+export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
+
+#
+# Path
+#
+
+if [ -z "$HOME" ]; then
+    # From https://stackoverflow.com/a/630645o
+    prg=$0
+    if [ ! -e "$prg" ]; then
+        prg=$(command -v -- "$prg")
+    fi
+    dir=$(
+      cd -P -- "$(dirname -- "$prg")" && pwd -P
+    )
+    prg=$dir/$(basename -- "$prg")
+
+    if [ -d "$prg" ]; then
+        export HOME="$prg"
+    fi
+fi
+
+if [ -n "$HOME" ]; then
+  if [ -r "$HOME/.path-carapace" ]; then
+    # Load pre-generated path file
+    # shellcheck source=/dev/null
+    . "$HOME/.path-carapace"
+  else
+    # Semi-decent fallback
+    export PATH=$HOME/bin:$HOME/bin/carapace:$PATH:/usr/bin
+  fi
+fi
+
+#
+# Keyboard settings
+#
+
+# Disable caps lock key
+[ -x "$(which setxkbmap 2>/dev/null)" ] && setxkbmap -option caps:none
+
+#
+# Other scripts to run for /bin/sh initialization (specifically for dash)
+#
+if [ -r "$HOME/.shinit" ]; then
+  export ENV="$HOME/.shinit"
+fi
+
+# Double-check path (uses .shinit)
+if [ -r "$HOME/.shinit" ]; then
+  . "$HOME/.shinit"
+fi
+

@@ -1,0 +1,80 @@
+#
+# Carapace Minimal gitconfig
+#
+
+
+[user]
+    name = Chris Heilman
+    email = chris.heilman@gmail.com
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[color "diff"]
+    meta = yellow
+    frag = magenta bold # line info
+    commit = yellow bold
+    old = red bold # deletions
+    new = green bold # additions
+    whitespace = red reverse
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
+[diff]
+    # Detect copies as well as renames
+    renames = copies
+
+[core]
+    editor = vim -X
+    pager = "diff-so-fancy | less -FMRiX -x4"
+    excludesfile = ~/.gitignore
+    autocrlf = input
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+[help]
+    autocorrect = 10
+
+[branch]
+    autosetupmerge = always
+    autosetuprebase = always
+
+[merge]
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
+    conflictstyle = diff3
+
+[push]
+    default = upstream
+
+[commit]
+    verbose = true
+
+[alias]
+    st = status
+    ts = status
+    ci = commit
+    br = branch
+    co = checkout
+    stash-unapply = !git stash show -p | git apply -R
+    stash-apply = !git stash show -p | git apply
+
+    lg = "!git log --color --graph --oneline --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cred#START#%s %b#END# %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -- | perl -0pe 's/#START#((?!#END#).)*cr https:\\/\\/cr.amazon.com\\/r\\/([0-9]*)\\/((?!#END#).)*#END#/(cr \\2)/sg' | perl -0pe 's/#START#((?!#END#).)*#END#/(no cr)/sg'"
+    lg2 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    lgh = "!git log -n 15 --color --graph --oneline --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cred#START#%s %b#END# %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -- | perl -0pe 's/#START#((?!#END#).)*cr https:\\/\\/cr.amazon.com\\/r\\/([0-9]*)\\/((?!#END#).)*#END#/(cr \\2)/sg' | perl -0pe 's/#START#((?!#END#).)*#END#/(no cr)/sg'"
+    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%ar%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+

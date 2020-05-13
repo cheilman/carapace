@@ -1,0 +1,21 @@
+#
+# Carapace Minimal gitconfig
+#
+
+#
+# Files to ignore
+#
+
+# IntelliJ stuff
+*.iml
+.idea/
+.IntelliJ_dep_jars
+IntelliJ_dep_jars
+
+# Logs
+*.log
+logs
+
+# Vim junk
+.*.swp
+

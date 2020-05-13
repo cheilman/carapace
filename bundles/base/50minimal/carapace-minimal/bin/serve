@@ -1,0 +1,48 @@
+#!/usr/bin/env zsh
+#
+# Start a HTTP server in the current directory.  Will run through 10 ports to find an open one.
+#
+
+port=${1:-9876}
+counter=0
+python='python'
+python_module="SimpleHTTPServer"
+
+# Find a python install with fallbacks
+if python3 --version &>/dev/null; then
+  python='python3'
+  # Python 3 uses a different module name
+  python_module="http.server"
+elif python2.7 --version &>/dev/null; then
+  python='python2.7'
+elif python2 --version &>/dev/null; then
+  python='python2'
+elif python --version &>/dev/null; then
+  python='python'
+else
+  >&2 echo "Failed to find a python installation!"
+  exit 1
+fi
+
+until [[ $counter -gt 9 ]]; do
+  error=`${python} -m ${python_module} $(( port + counter )) 3>&1 1>&2 2>&3 3>&-`
+
+  errcode=$?
+  if [[ $errcode -eq 130 ]]; then
+    echo "Exiting because of manual cancellation (ctrl-c)"
+    exit 0
+  fi
+
+  echo $error | grep "Address already in use" &> /dev/null
+  if [ $? -eq 0 ]; then
+    # Continue, trying again
+    counter=$(( counter + 1 ))
+  else
+    echo $error
+    exit $errcode
+  fi
+done
+
+echo "No open ports found from [$port..$(( port + counter )))"
+exit 1
+

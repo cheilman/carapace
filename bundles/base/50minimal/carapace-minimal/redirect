@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+#
+# Install a symlink between two files.
+#
+# Does some basic checking to see if this is unnecessary, and backs up existing files.
+#
+
+set -e
+
+#
+# Prepare
+#
+
+export CARAPACE="$HOME/.carapace/minimal"
+
+#
+# Set up the symlink if we need it
+#
+
+local source_file="$(readlink -f "$1")"
+local dest_file="$2"
+
+# Does the source exist?
+if [ ! -e "$source_file" ]; then
+  echo "! file does not exist: $1"
+  exit 1
+fi
+
+# Did we already install this file?
+if [ -L "$dest_file" ]; then
+    # It's a symlink
+
+    # Does the symlink match what we want?
+    if [ "$source_file" = "$(readlink -f "$dest_file")" ]; then
+        # Probably a symlink to the same place
+        return 0
+    fi
+fi
+
+# Do we need to back up an existing file?
+if [ -e "$dest_file" ]; then
+    mv -f "$dest_file" "$CARAPACE/backup/${${dest_file:t}#.}.$(date -u -I)"
+fi
+
+# Destroy the file for sure
+rm -rf "$dest_file"
+
+# Link it up
+ln -s "$source_file" "$dest_file"
+

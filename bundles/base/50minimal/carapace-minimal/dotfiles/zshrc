@@ -1,0 +1,977 @@
+#!zsh
+#
+# Carapace Minimal zshrc
+#
+
+#
+# We're going to track our path in a temporary file, and then save it to a well-known location
+#
+
+pathCache="$(mktemp)"
+
+save_path_to_cache ()
+{
+    /bin/cat >$pathCache <<EOF
+#
+# Path cache file
+#
+# Generated: $(/bin/date -u)
+#
+
+export PATH="$PATH"
+
+EOF
+}
+
+#
+# Source profile
+#
+
+. "$HOME/.profile"
+
+# Disable ^S/^Q flow control
+[[ $- == *i* ]] && stty -ixon
+
+#
+# Set umask
+#
+umask 022
+
+#
+# Set timezone
+#
+
+# Allow it to be overridden at the host
+if [ -r "$HOME/.host/timezone" ]; then
+    . "$HOME/.host/timezone"
+else
+    export TZ='America/New_York'
+fi
+
+#
+# Load system-level environment stuff
+#
+
+if [ -f /etc/environment ]; then
+    for line in $( cat /etc/environment ) ; do
+        export $line
+    done
+fi
+
+#
+# Autoload Functions
+#
+autoload -U is-at-least
+
+#
+# Path Helper Functions
+#
+
+# Add to the end of the path.  Doesn't check for duplicates
+add_path_back ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$PATH" ]]; then
+            export PATH="$PATH:$*"
+        else
+            export PATH="$*"
+        fi
+    fi
+}
+
+# Add to the beginning of the path.  Doesn't check for duplicates
+add_path_front ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$PATH" ]]; then
+            export PATH="$*:$PATH"
+        else
+            export PATH="$*"
+        fi
+    fi
+}
+
+#
+# Set up some paths
+#
+
+export PATH=""
+
+add_path_back "$HOME/bin"
+add_path_back "$HOME/bin/carapace"
+add_path_back "$HOME/bin/carapace-minimal"
+add_path_back "$HOME/.local/bin"
+add_path_back "/usr/local/bin"
+add_path_back "/usr/bin"
+add_path_back "/bin"
+add_path_back "/usr/local/sbin"
+add_path_back "/usr/sbin"
+add_path_back "/sbin"
+add_path_back "/usr/X11R6/bin"
+add_path_back "/usr/X11/bin"
+add_path_back "$HOME/programs/games"
+add_path_back "/usr/games"
+
+#
+# Colors
+#
+
+autoload colors
+colors
+
+#
+# Color definitions (taken from Color Bash Prompt HowTo).
+# Some colors might look different of some terminals.
+# For example, I see 'Bold Red' as 'orange' on my screen,
+# hence the 'Green' 'BRed' 'Red' sequence I often use in my prompt.
+#
+
+for COLOR in Black Red Green Yellow Blue Magenta Cyan White; do
+    eval $COLOR='%{$fg_no_bold[${(L)COLOR}]%}'
+    eval B$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+    eval On_$COLOR='%{$bg[${(L)COLOR}]%}'
+done
+eval RESET='%{$reset_color%}'
+
+# Colors are ${Color} or ${BColor} for bold.
+NC=${RESET}
+
+ALERT=${BWhite}${On_Red} # Bold White on red background
+
+#
+# Include host scripts
+#
+
+if [ -r "$HOME/.host/minimal/zshrc-pre" ]; then
+  source "$HOME/.host/minimal/zshrc-pre"
+fi
+
+#################
+# Shell Options #
+#################
+
+#
+# Key bindings
+#
+
+# emacs bindings
+bindkey -e
+
+# ctrl + left/right go forward/backwords words
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
+
+# del/home/end
+bindkey '^[[3~' delete-char
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+
+# push current command to the stack, give blank line, after execution
+# original command pops back out
+bindkey "^T" push-line-or-edit
+
+# delete previous word (include path components as 'words')
+# http://www.zsh.org/mla/users/2001/msg00870.html
+tcsh-backward-delete-word () {
+    local WORDCHARS="${WORDCHARS:s#/#}"
+    zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+bindkey '^H' tcsh-backward-delete-word
+
+#
+# Changing directories
+#
+setopt AUTO_PUSHD
+
+#
+# Completion
+#
+setopt AUTO_LIST
+unsetopt AUTO_NAME_DIRS
+setopt ALWAYS_TO_END
+unsetopt GLOB_COMPLETE
+setopt LIST_AMBIGUOUS
+unsetopt LIST_BEEP
+setopt LIST_TYPES
+
+#
+# Expansion and Globbing
+#
+
+#
+# Initialization
+#
+
+#
+# Input/Output
+#
+setopt ALIASES
+setopt CLOBBER
+setopt CORRECT
+unsetopt CORRECT_ALL
+unsetopt FLOW_CONTROL
+unsetopt MAIL_WARNING
+
+#
+# Job Control
+#
+unsetopt BG_NICE
+setopt CHECK_JOBS
+setopt LONG_LIST_JOBS
+setopt NOTIFY
+
+#
+# Prompting
+#
+setopt PROMPT_CR
+setopt PROMPT_SP
+setopt PROMPT_PERCENT
+setopt PROMPT_SUBST
+
+#
+# Scripts and Functions
+#
+setopt C_BASES
+setopt C_PRECEDENCES
+
+#
+# Shell Emulation
+#
+
+#
+# Zle
+#
+unsetopt BEEP
+
+#
+# Re-add our bin folder(s) to the path
+#
+add_path_front "$HOME/usr/bin"
+add_path_front "$HOME/home/bin"
+
+#
+# More settings
+#
+
+# long date format in ls(1)
+# https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
+export TIME_STYLE=long-iso
+
+# Better 'time' command format
+# https://unix.stackexchange.com/a/453339
+export TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*U\nsystem\t%*S\ntotal\t%*E'
+
+#
+# Autoload Functions
+#
+autoload -U compinit
+
+#
+# Completion configuration
+#
+
+zstyle ':completion:*' completer _expand _complete _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' use-compctl true
+
+#
+# Completion
+#
+autoload -U compinit
+compinit
+
+setopt COMPLETE_IN_WORD
+
+#
+# Set up some aliases
+# Some of these 'aliases' are functions to allow fancy arguments
+#
+
+# Fancy listing
+alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
+alias lf='ls -F'
+alias la='ls -Fa'
+alias ll='ls -Flh'
+alias lla='ls -Flha'
+alias lll='ls -ltrh'
+
+# Grep stuff
+alias grep='grep --color=auto'
+
+which ag &> /dev/null
+if [ $? -eq 0 ]; then
+    # We have ag
+    rgrep()
+    {
+        # Note that this doesn't respect .gitignore/.hgignore
+        ag -iUf "$@"
+    }
+else
+    # No ag
+    rgrep()
+    {
+        grep -Hid recurse "$@" .
+    }
+fi
+
+# Less
+export LESS="-fFiMRX -x4"
+alias less="less $LESS"     # redundant?
+
+# No-X Vim
+alias vim='vim -X'
+alias view='view -X'
+
+# Text processing
+alias trim='sed -e "s/[ \t]*//g"'
+
+# Don't try to autocorrect sudo commands
+alias sudo="nocorrect sudo"
+
+# Don't glob on common commands
+alias scp='noglob scp'
+
+# Sum stdin
+alias sum="awk '{sum+=\$1} END {printf \"%0.0f\\n\", sum}'"
+
+# Find out what's running on a (tcp) port
+onport()
+{
+    sudo lsof -w -n -i tcp:$*
+}
+
+# Fancier tail
+alias tl='less +F'
+
+# Don't try to be (too) fancy in our ssh terminal
+alias ssh='TERM=xterm-256color ssh'
+
+# Get size of the terminal window
+alias termsize='echo $(tput cols)x$(tput lines)'
+
+# Run nicely
+alias n='nice -n 10'
+
+# Better less
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Give unique counts of output
+alias uu="sort | uniq -c | sort -n"
+
+# Better pager
+export LESS="-FMRiX -x2"
+export PAGER=less
+
+#
+# Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
+#
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# IP addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; autoalert
+# TODO: This almost never guesses the running command correctly
+alias autoalert='alert "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*autoalert$//'\'')"'
+
+#
+# Extract Function
+#
+# From: https://github.com/stoooops/dotfiles/blob/master/zsh.functions
+#
+function extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)  tar xjf $1      ;;
+            *.tar.gz)   tar xzf $1      ;;
+            *.bz2)      bunzip2 $1      ;;
+            *.rar)      rar x $1        ;;
+            *.gz)       gunzip $1       ;;
+            *.tar)      tar xf $1       ;;
+            *.tbz2)     tar xjf $1      ;;
+            *.tgz)      tar xzf $1      ;;
+            *.zip)      unzip $1        ;;
+            *.Z)        uncompress $1   ;;
+            *)          echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+#
+# Colorized man pages (from https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/colored-man-pages/colored-man-pages.plugin.zsh)
+#
+
+function man() {
+        env \
+                LESS_TERMCAP_mb=$(printf "\e[1;34m") \
+                LESS_TERMCAP_md=$(printf "\e[1;34m") \
+                LESS_TERMCAP_me=$(printf "\e[0m") \
+                LESS_TERMCAP_se=$(printf "\e[0m") \
+                LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+                LESS_TERMCAP_ue=$(printf "\e[0m") \
+                LESS_TERMCAP_us=$(printf "\e[1;32m") \
+                PAGER="${commands[less]:-$PAGER}" \
+                _NROFF_U=1 \
+                PATH="$HOME/bin:$PATH" \
+                        man "$@"
+}
+
+#
+# Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
+#
+
+# simple calculator
+calc_f() {
+        local result=""
+        result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
+        #                                               └─ default (when `--mathlib` is used) is 20
+
+        if [[ "$result" == *.* ]]; then
+                # improve the output for decimal numbers
+                # add "0" for cases like ".5"
+                # add "0" for cases like "-.5"
+                # remove trailing zeros
+                printf "%s" "$result" |
+                sed -e 's/^\./0./'  \
+                        -e 's/^-\./-0./' \
+                        -e 's/0*$//;s/\.$//'
+        else
+                printf "%s" "$result"
+        fi
+        printf "\n"
+}
+
+alias calc='noglob calc_f'
+
+#
+# TMux stuff
+#
+
+alias tmux="LC_CTYPE=POSIX tmux -ul2"
+
+#!zsh
+#
+# Load fzf
+#
+
+export FZF_DEFAULT_OPTS='--no-mouse --height=50% --border --ansi --color=16 --black'
+export FZF_DEFAULT_COMMAND='ag -al'
+export FZF_DEFAULT_WIDGET_HEIGHT='20%'
+
+alias fzfzf='fzf --preview '"'"'[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -500'"'"
+
+#
+# Below taken from the generated .fzf.zsh file so I don't have to run the install
+#
+
+# Key bindings
+# I don't want ^T, so I pulled things out and copied them below
+# ------------
+# source ".../fzf/shell/key-bindings.zsh"
+
+#
+# Fancy change directory
+#
+
+# Ensure precmds are run after cd
+fzf-redraw-prompt() {
+  local precmd
+  for precmd in $precmd_functions; do
+    $precmd
+  done
+  zle reset-prompt
+}
+zle -N fzf-redraw-prompt
+
+# Directory selection based on z - frecency
+fzf-cd-widget-z() {
+  local cmd="${FZF_ALT_C_COMMAND:-"z -l | sed -e 's/^[0-9.]*[ ]*//'"}"
+  setopt localoptions pipefail 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} --reverse  $FZF_ALT_C_OPTS" fzf +m --tac)"
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  cd "$dir"
+  local ret=$?
+  zle fzf-redraw-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N    fzf-cd-widget-z
+
+# Directory selection based on find (slow, but complete)
+fzf-cd-widget-find() {
+    local cmd="${FZF_ALT_C_COMMAND:-"command find -L . -mindepth 1 \\( -path '*/.toolbox/*' -o -path '*/brazil-pkg-cache/*' -o -path '*/build/*' -o -path '*/runtime/*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune -o -type d -print 2> /dev/null | cut -b3-"}"
+  setopt localoptions pipefail 2> /dev/null
+  local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} --reverse $FZF_ALT_C_OPTS" fzf +m --tac)"
+  if [[ -z "$dir" ]]; then
+    zle redisplay
+    return 0
+  fi
+  cd "$dir"
+  local ret=$?
+  zle fzf-redraw-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N    fzf-cd-widget-find
+
+#
+# Bind directory stuff
+#
+
+# Alt-C
+bindkey '\ec' fzf-cd-widget-z
+
+# Shift-Alt-C
+bindkey '\eC' fzf-cd-widget-find
+
+#
+# History Search Functions
+#
+
+function reformat_hist() {
+    local history_file=${HISTFILE:="$HOME/.zshhistory"}
+
+    # Read from history file reformatting the output (mostly for timestamp)
+    while IFS=';' read tmes cmd; do
+        IFS=':' read a timestamp duration <<< $tmes
+        printf "%25s | %5ds | %s\n" "$(date -d @${timestamp// /} +'%Y-%m-%d %H:%M:%S %Z')" "${duration}" "$cmd"
+    done < $history_file
+}
+
+fzf-history-widget() {
+    local selected num
+    setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+    selected=( $(fc -rl 1 |
+        FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height ${FZF_TMUX_HEIGHT:-${FZF_DEFAULT_WIDGET_HEIGHT}} -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
+    local ret=$?
+    if [ -n "$selected" ]; then
+        num=$selected[1]
+        if [ -n "$num" ]; then
+            zle vi-fetch-history -n $num
+        fi
+    fi
+    zle redisplay
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N   fzf-history-widget
+
+#
+# Bind history search
+#
+
+bindkey '^R' fzf-history-widget
+
+# Use chg for improved speed
+[ -x "$(which chg 2>/dev/null)" ] && alias hg=chg
+
+#
+# "z" directory tracking
+#
+
+# Copyright (c) 2009 rupa deadwyler. Licensed under the WTFPL license, Version 2
+
+# maintains a jump-list of the directories you actually use
+#
+# INSTALL:
+#     * put something like this in your .bashrc/.zshrc:
+#         . /path/to/z.sh
+#     * cd around for a while to build up the db
+#     * PROFIT!!
+#     * optionally:
+#         set $_Z_CMD in .bashrc/.zshrc to change the command (default z).
+#         set $_Z_DATA in .bashrc/.zshrc to change the datafile (default ~/.z).
+#         set $_Z_MAX_SCORE lower to age entries out faster (default 9000).
+#         set $_Z_NO_RESOLVE_SYMLINKS to prevent symlink resolution.
+#         set $_Z_NO_PROMPT_COMMAND if you're handling PROMPT_COMMAND yourself.
+#         set $_Z_EXCLUDE_DIRS to an array of directories to exclude.
+#         set $_Z_OWNER to your username if you want use z while sudo with $HOME kept
+#
+# USE:
+#     * z foo     # cd to most frecent dir matching foo
+#     * z foo bar # cd to most frecent dir matching foo and bar
+#     * z -r foo  # cd to highest ranked dir matching foo
+#     * z -t foo  # cd to most recently accessed dir matching foo
+#     * z -l foo  # list matches instead of cd
+#     * z -e foo  # echo the best match, don't cd
+#     * z -c foo  # restrict matches to subdirs of $PWD
+
+[ -d "${_Z_DATA:-$HOME/.z}" ] && {
+    echo "ERROR: z.sh's datafile (${_Z_DATA:-$HOME/.z}) is a directory."
+}
+
+_z() {
+
+    local datafile="${_Z_DATA:-$HOME/.z}"
+
+    # if symlink, dereference
+    [ -h "$datafile" ] && datafile=$(readlink "$datafile")
+
+    # bail if we don't own ~/.z and $_Z_OWNER not set
+    [ -z "$_Z_OWNER" -a -f "$datafile" -a ! -O "$datafile" ] && return
+
+    _z_dirs () {
+        local line
+        while read line; do
+            # only count directories
+            [ -d "${line%%\|*}" ] && echo "$line"
+        done < "$datafile"
+        return 0
+    }
+
+    # add entries
+    if [ "$1" = "--add" ]; then
+        shift
+
+        # $HOME isn't worth matching
+        [ "$*" = "$HOME" ] && return
+
+        # don't track excluded directory trees
+        local exclude
+        for exclude in "${_Z_EXCLUDE_DIRS[@]}"; do
+            case "$*" in "$exclude*") return;; esac
+        done
+
+        # maintain the data file
+        local tempfile="$datafile.$RANDOM"
+        local score=${_Z_MAX_SCORE:-9000}
+        _z_dirs | awk -v path="$*" -v now="$(date +%s)" -v score=$score -F"|" '
+            BEGIN {
+                rank[path] = 1
+                time[path] = now
+            }
+            $2 >= 1 {
+                # drop ranks below 1
+                if( $1 == path ) {
+                    rank[$1] = $2 + 1
+                    time[$1] = now
+                } else {
+                    rank[$1] = $2
+                    time[$1] = $3
+                }
+                count += $2
+            }
+            END {
+                if( count > score ) {
+                    # aging
+                    for( x in rank ) print x "|" 0.99*rank[x] "|" time[x]
+                } else for( x in rank ) print x "|" rank[x] "|" time[x]
+            }
+        ' 2>/dev/null >| "$tempfile"
+        # do our best to avoid clobbering the datafile in a race condition.
+        if [ $? -ne 0 -a -f "$datafile" ]; then
+            env rm -f "$tempfile"
+        else
+            [ "$_Z_OWNER" ] && chown $_Z_OWNER:"$(id -ng $_Z_OWNER)" "$tempfile"
+            env mv -f "$tempfile" "$datafile" || env rm -f "$tempfile"
+        fi
+
+    # tab completion
+    elif [ "$1" = "--complete" -a -s "$datafile" ]; then
+        _z_dirs | awk -v q="$2" -F"|" '
+            BEGIN {
+                q = substr(q, 3)
+                if( q == tolower(q) ) imatch = 1
+                gsub(/ /, ".*", q)
+            }
+            {
+                if( imatch ) {
+                    if( tolower($1) ~ q ) print $1
+                } else if( $1 ~ q ) print $1
+            }
+        ' 2>/dev/null
+
+    else
+        # list/go
+        local echo fnd last list opt typ
+        while [ "$1" ]; do case "$1" in
+            --) while [ "$1" ]; do shift; fnd="$fnd${fnd:+ }$1";done;;
+            -*) opt=${1:1}; while [ "$opt" ]; do case ${opt:0:1} in
+                    c) fnd="^$PWD $fnd";;
+                    e) echo=1;;
+                    h) echo "${_Z_CMD:-z} [-cehlrtx] args" >&2; return;;
+                    l) list=1;;
+                    r) typ="rank";;
+                    t) typ="recent";;
+                    x) sed -i -e "\:^${PWD}|.*:d" "$datafile";;
+                esac; opt=${opt:1}; done;;
+             *) fnd="$fnd${fnd:+ }$1";;
+        esac; last=$1; [ "$#" -gt 0 ] && shift; done
+        [ "$fnd" -a "$fnd" != "^$PWD " ] || list=1
+
+        # if we hit enter on a completion just go there
+        case "$last" in
+            # completions will always start with /
+            /*) [ -z "$list" -a -d "$last" ] && builtin cd "$last" && return;;
+        esac
+
+        # no file yet
+        [ -f "$datafile" ] || return
+
+        local cd
+        cd="$( < <( _z_dirs ) awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -F"|" '
+            function frecent(rank, time) {
+              # relate frequency and time
+              dx = t - time
+              return int(10000 * rank * (3.75/((0.0001 * dx + 1) + 0.25)))
+            }
+            function output(matches, best_match, common) {
+                # list or return the desired directory
+                if( list ) {
+                    if( common ) {
+                        printf "%-10s %s\n", "common:", common > "/dev/stderr"
+                    }
+                    cmd = "sort -n >&2"
+                    for( x in matches ) {
+                        if( matches[x] ) {
+                            printf "%-10s %s\n", matches[x], x | cmd
+                        }
+                    }
+                } else {
+                    if( common ) best_match = common
+                    print best_match
+                }
+            }
+            function common(matches) {
+                # find the common root of a list of matches, if it exists
+                for( x in matches ) {
+                    if( matches[x] && (!short || length(x) < length(short)) ) {
+                        short = x
+                    }
+                }
+                if( short == "/" ) return
+                for( x in matches ) if( matches[x] && index(x, short) != 1 ) {
+                    return
+                }
+                return short
+            }
+            BEGIN {
+                gsub(" ", ".*", q)
+                hi_rank = ihi_rank = -9999999999
+            }
+            {
+                if( typ == "rank" ) {
+                    rank = $2
+                } else if( typ == "recent" ) {
+                    rank = $3 - t
+                } else rank = frecent($2, $3)
+                if( $1 ~ q ) {
+                    matches[$1] = rank
+                } else if( tolower($1) ~ tolower(q) ) imatches[$1] = rank
+                if( matches[$1] && matches[$1] > hi_rank ) {
+                    best_match = $1
+                    hi_rank = matches[$1]
+                } else if( imatches[$1] && imatches[$1] > ihi_rank ) {
+                    ibest_match = $1
+                    ihi_rank = imatches[$1]
+                }
+            }
+            END {
+                # prefer case sensitive
+                if( best_match ) {
+                    output(matches, best_match, common(matches))
+                    exit
+                } else if( ibest_match ) {
+                    output(imatches, ibest_match, common(imatches))
+                    exit
+                }
+                exit(1)
+            }
+        ')"
+
+        if [ "$?" -eq 0 ]; then
+          if [ "$cd" ]; then
+            if [ "$echo" ]; then echo "$cd"; else builtin cd "$cd"; fi
+          fi
+        else
+          return $?
+        fi
+    fi
+}
+
+alias ${_Z_CMD:-z}='_z 2>&1'
+
+[ "$_Z_NO_RESOLVE_SYMLINKS" ] || _Z_RESOLVE_SYMLINKS="-P"
+
+if type compctl >/dev/null 2>&1; then
+    # zsh
+    [ "$_Z_NO_PROMPT_COMMAND" ] || {
+        # populate directory list, avoid clobbering any other precmds.
+        if [ "$_Z_NO_RESOLVE_SYMLINKS" ]; then
+            _z_precmd() {
+                (_z --add "${PWD:a}" &)
+                : $RANDOM
+            }
+        else
+            _z_precmd() {
+                (_z --add "${PWD:A}" &)
+                : $RANDOM
+            }
+        fi
+        [[ -n "${precmd_functions[(r)_z_precmd]}" ]] || {
+            precmd_functions[$(($#precmd_functions+1))]=_z_precmd
+        }
+    }
+    _z_zsh_tab_completion() {
+        # tab completion
+        local compl
+        read -l compl
+        reply=(${(f)"$(_z --complete "$compl")"})
+    }
+    compctl -U -K _z_zsh_tab_completion _z
+elif type complete >/dev/null 2>&1; then
+    # bash
+    # tab completion
+    complete -o filenames -C '_z --complete "$COMP_LINE"' ${_Z_CMD:-z}
+    [ "$_Z_NO_PROMPT_COMMAND" ] || {
+        # populate directory list. avoid clobbering other PROMPT_COMMANDs.
+        grep "_z --add" <<< "$PROMPT_COMMAND" >/dev/null || {
+            PROMPT_COMMAND="$PROMPT_COMMAND"$'\n''(_z --add "$(command pwd '$_Z_RESOLVE_SYMLINKS' 2>/dev/null)" 2>/dev/null &);'
+        }
+    }
+fi
+
+#
+# Prompt
+#
+# Use carapaceprompt if installed, default to something terrible otherwise
+#
+
+# Hook for additional prompt params
+carapace_prompt_additional_params() {
+  echo ""
+}
+
+# Wrapper that adds shell-based flags to the prompt
+carapace_prompt_wrapper() {
+    local exitcode=$1
+    local running=""
+    local suspended=""
+    local battery=""
+    local jbs="$(jobs 2>/dev/null)"
+    local extra="$(carapace_prompt_additional_params)"
+
+    [[ "$jbs" =~ "run" ]] && running="--runningjobs"
+    [[ "$jbs" =~ "sus" ]] && running="--suspendedjobs"
+    [ -x "$(which ibam-battery-prompt 2>/dev/null)" ] && battery="--showBattery"
+
+    carapaceprompt --color --exitcode $exitcode $running $suspended $battery "${=extra}"
+}
+
+if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
+    export PS1='%{$(carapace_prompt_wrapper $?)%}
+${Green}--${BCyan}%#${NC} '
+
+else
+    export PS1='${Green}--${BCyan}%#${NC} '
+fi
+
+# Directory/workspace-based right prompt
+carapace_prompt_right() {
+  local origwd="$(pwd)"
+  local rprompt=""
+
+  # Let the host explain
+  if [ -x "$HOME/.host/bin/host-rprompt-text" ]; then
+    rprompt="$($HOME/.host/bin/host-rprompt-text 2> /dev/null)"
+  fi
+
+  # Let the standard script explain
+  if [ -z "$rprompt" ]; then
+    rprompt="$(carapace_rprompt 2> /dev/null)"
+  fi
+
+  # Let the directory tree itself explain
+  if [ -z "$rprompt" ]; then
+    local cwd=$origwd
+    while [ "$cwd" != "/" ]; do
+      if [ -x "${cwd}/.carapace-rprompt" ]; then
+        rprompt="$(${cwd}/.carapace-rprompt)"
+        break
+      fi
+      cwd="${cwd:h}"
+    done
+
+    cd $origwd
+  fi
+
+  if [ -n "$rprompt" ]; then
+    echo -n "${Green}[${BCyan}${rprompt}${Green}]-"
+  else
+    echo -n ""
+  fi
+}
+
+export ZLE_RPROMPT_INDENT=0
+export RPROMPT='$(carapace_prompt_right)'
+
+#
+# Disable ctrl-s flow control (again)
+#
+
+[[ $- == *i* ]] && stty -ixon
+
+#
+# Force my bin folders to be first
+#
+
+add_path_front "$HOME/bin/carapace"
+add_path_front "$HOME/bin"
+add_path_front "$HOME/.host/bin"
+
+#
+# oh-my-zsh messes with zsh/aliases
+#
+alias la='ls -Fa'
+
+HISTSIZE=16000
+SAVEHIST=$HISTSIZE
+HISTFILE=~/.zshhistory
+
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_FUNCTIONS
+setopt HIST_NO_STORE
+setopt HIST_VERIFY
+setopt HIST_REDUCE_BLANKS
+
+setopt INC_APPEND_HISTORY_TIME
+setopt NO_INC_APPEND_HISTORY
+setopt NO_SHARE_HISTORY
+
+#
+# Save the final path to the cache file and finalize
+#
+save_path_to_cache
+cp -f "$pathCache" "$HOME/.path-carapace"
+
+#
+# Include host scripts
+#
+
+if [ -r "$HOME/.host/minimal/zshrc-post" ]; then
+  source "$HOME/.host/minimal/zshrc-post"
+fi
+
+
+
