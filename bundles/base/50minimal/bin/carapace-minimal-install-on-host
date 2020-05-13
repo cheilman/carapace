@@ -19,7 +19,7 @@ remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
 
 if [ "${local_version}" = "${remote_version}" ]; then
   # They match already
-#  exit 0
+  exit 0
 fi
 
 # Extract the tarball and install it
