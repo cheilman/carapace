@@ -3,33 +3,33 @@
 # Install Carapace Minimal on a Host (using ssh)
 #
 
-moduledir="$(dirname "${0:a:h}")/.."
+generateddir="${CARAPACE}/generated"
 
 host="$1"
 
 # Make sure that we have a tarball
-if [ ! -r "${moduledir}/carapace-minimal.tar.gz" ]; then
+if [ ! -r "${generateddir}/carapace-minimal.tar.gz" ]; then
   >&2 echo "Failed to find Carapace Minimal installation at: '${moduledir}'"
   exit 1
 fi
 
 # Check the version currently installed on the host
-local_version="$(cat "${moduledir}/carapace-minimal/version")"
+local_version="$(tar zxf ${generateddir}/carapace-minimal.tar.gz -O carapace-minimal/version)"
 remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
 
-if [ "${local_version}" == "${remote_version}" ]; then
+if [ "${local_version}" = "${remote_version}" ]; then
   # They match already
   exit 0
 fi
 
 # Extract the tarball and install it
-cat "${moduledir}/carapace-minimal.tar.gz" | \
+cat "${generateddir}/carapace-minimal.tar.gz" | \
   ssh ${host} 'cd && \
                rm -Rf ./.carapace/minimal && \
-               tar zxf - && \
-               ./.carapace/minimal/install && \
-               echo "Installed version $(cat ./.carapace/minimal/version)" && \
+               mkdir -p ./.carapace/minimal && \
+               ( cd ./.carapace/minimal/ && tar zxf - --strip-components=1 ) && \
+               echo "Copied version $(cat ./.carapace/minimal/version)" && \
                echo "with metadata:" && \
-               cat ./.carapace/minimal/metadata'
-
+               cat ./.carapace/minimal/metadata && \
+               echo "Execute: ~/.carapace/minimal/install to complete installation"'
 

@@ -17,5 +17,5 @@ echo $version > "$carapaceminimal/version"
 echo "Build date: $(date --iso-8601=seconds)" > "$carapaceminimal/metadata"
 
 # Build tarball
-tar zcf "${generateddir}/carapace-minimal.tar.gz" "${carapaceminimal}"
+(cd $(dirname "$carapaceminimal") && tar zcf "${generateddir}/carapace-minimal.tar.gz" carapace-minimal)
 
