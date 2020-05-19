@@ -5,6 +5,12 @@
 
 generateddir="${CARAPACE}/generated"
 
+force=0
+if [ "$1" = '-f' ]; then
+  force=1
+  shift
+fi
+
 host="$1"
 
 # Make sure that we have a tarball
@@ -14,12 +20,14 @@ if [ ! -r "${generateddir}/carapace-minimal.tar.gz" ]; then
 fi
 
 # Check the version currently installed on the host
-local_version="$(tar zxf ${generateddir}/carapace-minimal.tar.gz -O carapace-minimal/version)"
-remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
+if [ $force -eq 0 ]; then
+  local_version="$(tar zxf ${generateddir}/carapace-minimal.tar.gz -O carapace-minimal/version)"
+  remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
 
-if [ "${local_version}" = "${remote_version}" ]; then
-  # They match already
-  exit 0
+  if [ "${local_version}" = "${remote_version}" ]; then
+    # They match already
+    exit 0
+  fi
 fi
 
 # Extract the tarball and install it
@@ -31,6 +39,7 @@ cat "${generateddir}/carapace-minimal.tar.gz" | \
                echo "--- Copied --- " && \
                echo "Version $(cat ./.carapace/minimal/version)" && \
                cat ./.carapace/minimal/metadata && \
-               echo "---- Done ---- " && \
-               ./.carapace/minimal/install'
+               echo "---- Installing ---- " && \
+               ./.carapace/minimal/install && \
+               echo "---- Done ---- "'
 
