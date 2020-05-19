@@ -11,6 +11,7 @@ source "${HOME}/bin/carapace/goenv-cache"
 
 # Install a bunch of go repos
 repos=(
+  "github.com/Feh/guess"
   "github.com/cheilman/countunique"
   "github.com/christophberger/goman"
   "github.com/emojisum/emojisum"
@@ -18,12 +19,12 @@ repos=(
   "github.com/genuinetools/apk-file"
   "github.com/genuinetools/udict"
   "github.com/golang/protobuf/protoc-gen-go"
+  "github.com/jesseduffield/lazygit"
   "github.com/jessfraz/netscan"
   "github.com/maxzender/jv"
   "github.com/pranavraja/tldr"
   "github.com/tianon/gosleep"
   "github.com/variadico/noti/cmd/noti"
-  "github.com/Feh/guess"
   )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
