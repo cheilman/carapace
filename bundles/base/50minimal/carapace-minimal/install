@@ -59,7 +59,7 @@ done
 # Generated files
 # NOTE: This assumes all generated files go in $HOME/.X
 for i in "$CARAPACE/generated/"generated-*; do
-  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i")"
+  "${CARAPACE}/redirect" "$i" "$HOME/.$(basename "$i" | sed -e 's/generated-//')"
 done
 
 # Binary folder
