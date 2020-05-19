@@ -25,7 +25,7 @@ mymod/
 
 ### bin/
 
-This folder contains binaries.  The contents will be symlinked to `$HOME/bin/Carapace/`
+This folder contains binaries.  The contents will be symlinked into the `$HOME/bin/carapace/` folder.
 
 ### config/
 
@@ -59,11 +59,11 @@ Module `crontab` files will be appended to the generated Carapace-wide `generate
 
 #### gitconfig
 
-Module `gitconfig` files will be appended to the generated Carapae-wide `generated-gitconfig` file, and then symlinke to `$HOME/.gitconfig`.
+Module `gitconfig` files will be appended to the generated Carapae-wide `generated-gitconfig` file, and then symlinked to `$HOME/.gitconfig`.
 
 #### gitignore
 
-Module `gitignore` files will be appended to the generated Carapae-wide `generated-gitignore` file, and then symlinke to `$HOME/.gitignore`.
+Module `gitignore` files will be appended to the generated Carapae-wide `generated-gitignore` file, and then symlinked to `$HOME/.gitignore`.
 
 #### profile
 
