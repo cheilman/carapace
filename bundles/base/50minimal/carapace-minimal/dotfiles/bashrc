@@ -166,7 +166,7 @@ bind -m emacs
 
 # delete previous word (include path components as 'words')
 # TODO: Make sure it includes path components
-bind '^H:backward-kill-word'
+bind '"\C-H": backward-kill-word' 
 
 #
 # Re-add our bin folder(s) to the path
