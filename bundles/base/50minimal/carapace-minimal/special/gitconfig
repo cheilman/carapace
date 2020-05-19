@@ -40,7 +40,7 @@
 
 [core]
     editor = vim -X
-    pager = "diff-so-fancy | less -FMRiX -x4"
+    pager = "less -FMRiX -x4"
     excludesfile = ~/.gitignore
     autocrlf = input
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
