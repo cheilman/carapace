@@ -12,6 +12,12 @@ GENERATED="${CARAPACE}/generated"
 mkdir -p "$HOME/bin"
 mkdir -p "$CARAPACE/backup"
 mkdir -p "$GENERATED"
+mkdir -p "$HOME/.host/minimal"
+
+#
+# Link in docs
+#
+"${CARAPACE}/redirect" "${CARAPACE}/docs/Host.md" "$HOME/.host/minimal/README.md"
 
 #
 # Build generated files
