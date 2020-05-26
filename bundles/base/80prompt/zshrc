@@ -18,7 +18,7 @@ carapace_prompt_wrapper() {
     local extra="$(carapace_prompt_additional_params)"
 
     [[ "$jbs" =~ "run" ]] && running="--runningjobs"
-    [[ "$jbs" =~ "sus" ]] && running="--suspendedjobs"
+    [[ "$jbs" =~ "sus" ]] && suspended="--suspendedjobs"
     [ -x "$(which ibam-battery-prompt 2>/dev/null)" ] && battery="--showBattery"
 
     carapaceprompt --color --exitcode $exitcode $running $suspended $battery "${=extra}"
