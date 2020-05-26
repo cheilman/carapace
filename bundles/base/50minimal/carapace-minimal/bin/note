@@ -1,16 +1,1 @@
-#!/bin/sh
-
-if [ ! -z "$1" ]; then
-	if [ ! -f "$1" ]; then
-		touch $1
-	fi
-	echo >> $1
-	echo "---- ($USER) "`date +"%A, %B %e %Y -- %r" `" ----" >> $1
-	cat >> $1
-	echo
-	echo Noted.
-else
-	cat > /dev/null
-	echo
-	echo Ignored.
-fi
+../../../30base/bin/note
