@@ -166,7 +166,7 @@ bind -m emacs
 
 # delete previous word (include path components as 'words')
 # TODO: Make sure it includes path components
-bind '"\C-H": backward-kill-word' 
+bind '"\C-H": backward-kill-word'
 
 #
 # Re-add our bin folder(s) to the path
@@ -1066,7 +1066,29 @@ carapace_minimal_bash_prompt() {
 
   export PS1="${green}-[${hiblue}\\u@${host}${green}]----{${higreen}\\w${green}}--\\n${green}--${brown}\\A${green}<> ${hired}${exitcode}\\n${green}--${hicyan}\\$ ${reset}"
 }
-export PROMPT_COMMAND=carapace_minimal_bash_prompt
+
+carapace_prompt_bash_prompt() {
+  local exitcode=$1
+
+  local reset="\\[\\e[0m\\]"
+  local green="\\[\\e[0;32m\\]"
+  local hicyan="\\[\\e[1;36m\\]"
+
+  local running=""
+  local suspended=""
+  local jbs="$(jobs 2>/dev/null)"
+  [[ "$jbs" =~ "Run" ]] && running="--runningjobs"
+  [[ "$jbs" =~ "Stop" ]] && suspended="--suspendedjobs"
+  carapaceprompt --color --exitcode $exitcode $running $suspended
+
+  export PS1="${green}--${hicyan}\\$ ${reset}"
+}
+
+if carapaceprompt --vcs=none &>/dev/null; then
+  export PROMPT_COMMAND="carapace_prompt_bash_prompt $?"
+else
+  export PROMPT_COMMAND=carapace_minimal_bash_prompt
+fi
 
 #
 # Disable ctrl-s flow control (again)
