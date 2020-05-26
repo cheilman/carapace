@@ -258,6 +258,9 @@ alias uu="sort | uniq -c | sort -n"
 export LESS="-FMRiX -x2"
 export PAGER=less
 
+# Fancy cat
+alias cat='bat --paging never'
+
 #
 # Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
 #
@@ -1103,6 +1106,51 @@ fi
 add_path_front "$HOME/bin/carapace"
 add_path_front "$HOME/bin"
 add_path_front "$HOME/.host/bin"
+
+#
+# Complicated toybox magic
+#
+
+if toybox --version &>/dev/null; then
+  toyboxSupports() {
+    local cmd="$1"
+
+    for i in $(toybox); do
+      if [ "$cmd" = "$i" ]; then
+        return 0
+      fi
+    done
+
+    return 1
+  }
+
+  toyboxCheckAndAlias() {
+    local cmd="$1"
+
+    # See if command exists
+    if command -v "$cmd" &> /dev/null; then
+        return
+    fi
+
+    # See if toybox supports the command
+    toyboxSupports "$cmd" || return
+
+    # Set up the alias
+    alias $cmd='toybox $cmd'
+  }
+
+  alias check-toybox-aliases='alias | grep toybox'
+
+  # Add everything (too much)
+  #for c in `toybox --list`; do
+  #    toyboxCheckAndAlias $c
+  #done
+
+  # Add some curated commands we care about
+  for c in awk base64 basename bunzip2 bzcat bzip2 cal cat catv cksum clear cut date df diff dirname dos2unix egrep eject fgrep file find ftpget ftpput getopt grep gunzip gzip head hexdump hexedit hostname ifconfig install ip ipaddr iproute kill killall link ln less ls lsusb md5sum mktemp nc netstat nl od patch pgrep ping ping6 pipe_progress printf readlink realpath reboot renice reset route run-parts sed seq sha1sum sha256sum sha3sum sha512sum sleep sort split tail tar tee telnet test time timeout top touch tr traceroute traceroute6 truncate uname unix2dos unzip uptime usleep vi watch wc wget xargs zcat; do
+    toyboxCheckAndAlias $c
+  done
+fi
 
 #
 # oh-my-zsh messes with zsh/aliases
