@@ -16,6 +16,7 @@ repos=(
   "github.com/christophberger/goman"
   "github.com/emojisum/emojisum"
   "github.com/evanmiller/hecate"
+  "github.com/fiatjaf/jiq/cmd/jiq"
   "github.com/genuinetools/apk-file"
   "github.com/genuinetools/udict"
   "github.com/golang/protobuf/protoc-gen-go"
