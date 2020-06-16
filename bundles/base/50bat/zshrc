@@ -3,5 +3,7 @@
 # Set up alias
 #
 
-alias cat='bat --paging never'
+if bat --version 2>&1; then
+  alias cat='bat --paging never'
+fi
 
