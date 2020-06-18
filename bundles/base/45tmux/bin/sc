@@ -10,9 +10,7 @@ fi
 # Start up my session group as needed
 CAH_TMUX_SESSION_GROUP="main"
 
-tmux has-session -t $CAH_TMUX_SESSION_GROUP
-
-if [ $? -ne 0 ]; then
+if ! tmux has-session -t $CAH_TMUX_SESSION_GROUP; then
     # Create the new session (without attaching)
     tmux new-session -d -s $CAH_TMUX_SESSION_GROUP -n "Idle" nice -n 19 idle
 
@@ -22,7 +20,13 @@ if [ $? -ne 0 ]; then
     # Set options for idle window
     tmux set-window-option -t ${CAH_TMUX_SESSION_GROUP}:0 monitor-activity off
 
-    if [ -x "`which tasksh 2> /dev/null`" ]; then
+    # Set the shell for tmux panes to zsh if we have it
+    if sh=$(command -v zsh 2> /dev/null); then
+      tmux set-option -g default-shell "$sh"
+    fi
+    # Otherwise, defaults to $SHELL
+
+    if [ -x "$(command -v tasksh 2> /dev/null)" ]; then
         # Add task support
 
         # Set up the task window and dashboard
@@ -37,8 +41,8 @@ fi
 newSession=$(tmux new-session -d -t $CAH_TMUX_SESSION_GROUP -P)
 
 # Attach to it
-tmux attach-session -d -t $newSession
+tmux attach-session -d -t "$newSession"
 
 # Allow this session to be destroyed
-tmux set-option -t $newSession destroy-unattached on
+tmux set-option -t "$newSession" destroy-unattached on
 
