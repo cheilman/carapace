@@ -812,3 +812,52 @@ RAM: Ingredients are in a fridge
 DISK: Ingredients are at the grocery
 HTTP API: Ingredients are on a different continent
   - @dominikran (http://bit.ly/39Q8rH7)
+%
+Boring code:
+- is consistent
+- is not clever
+- is easily understandable
+- makes locating features easy
+- adheres to Principle of Least Surprise (things do what I assume they would)
+- takes a minimal amount of effort to change
+- uses the right tool (paradigm, language) for the job
+  - Khalil Stemmler (@stemmlerjs, https://bit.ly/3jEGHuh)
+%
+Ten Thousand Mistakes
+
+A novice asked master Banzen: "What separates the monk from the master?"
+
+Banzen replied: "Ten thousand mistakes!"
+
+The novice, not understanding, sought to avoid all error. An abbot observed and brought the
+novice to Banzen for correction.
+
+Banzen explained: "I have made ten thousand mistakes; Suku has made ten thousand mistakes;
+the patriarchs of Open Source have each made ten thousand mistakes."
+
+Asked the novice: "What of the old monk who labors in the cubicle next to mine? Surely he
+has made ten thousand mistakes."
+
+Banzen shook his head sadly. "Ten mistakes, a thousand times each."
+  - Qi, The Codeless Code (http://thecodelesscode.com/case/100)
+%
+UNIX will happily give you enough rope to shoot yourself in the foot. If you didn’t think
+rope would do that, you should have paid closer attention to the manual.
+  - @bob_zim (quoting someone) (https://bit.ly/302biKl)
+%
+Why I code against a mock API:
+1.  I control the speed
+2.  It's never down
+3.  No internet required
+4.  No cross-team dependency
+5.  I can force it to throw errors to simulate server errors
+6.  I can write fast, reliable app tests
+7.  When I find a bug, I can enhance mock data and test it
+  - Cory House (@housecor, https://bit.ly/2EsOiMt)
+%
+Enterprise security is just operational excellence in action.
+  - @SwiftOnSecurity (https://bit.ly/39A3TVC)
+%
+Error: Your password must contain at least two characters who talk to each other about something
+other than a man.
+  - @SwiftOnSecurity (https://bit.ly/3hLgLvf)
