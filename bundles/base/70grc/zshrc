@@ -1,24 +1,53 @@
 #!zsh
 #
-# Set up grc
+# cah: Add command aliases for grc
+# cah: From github repo: https://github.com/garabik/grc/blob/master/grc.zsh
 #
+if [[ "$TERM" != dumb ]] && (( $+commands[grc] )) ; then
 
-# From Ivan Smirnov
+  # Supported commands
+  typeset -A cmds
+  for command in \
+    cc \
+    configure \
+    cvs \
+    df \
+    diff \
+    dig \
+    gcc \
+    gmake \
+    ifconfig \
+    last \
+    ldap \
+    ls \
+    make \
+    mount \
+    mtr \
+    netstat \
+    ping \
+    ping6 \
+    ps \
+    traceroute \
+    traceroute6 \
+    wdiff \
+    whois \
+    iwconfig \
+  ; do
+    cmds[$command]="true"
+  done
 
-# Grc plugin
-# Uses config from ~/.grc
-# vim:ft=zsh
-_grc_injector(){
-  if (( ! ${+DISABLE_GRC} )); then
-    for f in $(ls ~/.grc/conf*); do
-      local prog=${f:e}
-      if [[ "$BUFFER" =~ "(^|[/\w\.]+/|sudo\s+)$prog\s" && ! "$BUFFER" =~ "grcat conf*" ]]; then
-        BUFFER=$BUFFER" | grcat conf.$prog"
-        break
-      fi
-    done
-  fi
-  zle .accept-line
-}
-zle -N accept-line  _grc_injector
+  # cah: Added detection what we have config files for
+  for conf in $(ls -1 ~/.grc/conf.* | sed -e 's,^.*/conf\.,,'); do
+    cmds[$conf]="true"
+  done
 
+  # Set alias for available commands.
+  for cmd in print ${(k)cmds}; do
+    if (( $+commands[$cmd] )) ; then
+      alias $cmd="grc --colour=auto $(whence $cmd)"
+    fi
+  done
+
+  # Clean up variables
+  unset cmds cmd
+fi
