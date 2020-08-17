@@ -11,6 +11,9 @@ fi
 CAH_TMUX_SESSION_GROUP="main"
 
 if ! tmux has-session -t $CAH_TMUX_SESSION_GROUP; then
+    # Always start in the home directory
+    cd
+
     # Create the new session (without attaching)
     tmux new-session -d -s $CAH_TMUX_SESSION_GROUP -n "Idle" nice -n 19 idle
 
