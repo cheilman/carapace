@@ -9,6 +9,8 @@ repo="https://github.com/tarjoilija/zgen.git"
 moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
 
+carapace-redirect "${moduledir}/zgen" "$HOME/.zgen"
+
 # See if we're already installed
 if [ -d "${moduledir}/${repodir}" ]; then
     # Assume the repo exists, update it
