@@ -870,3 +870,29 @@ you succeed by being really good at driving change, or really good at predicting
 If the architecture of the system and of the organization are at odds, the architecture of the
 organization wins.
   - Ruth Malan, via Jayson McIntosh (https://bit.ly/3ds32IQ)
+%
+I'm not actually good at computers...
+   I'm just bad at giving up.
+
+       ¯\_(ツ)_/¯
+%
+We do this a lot in Windows: “feature sounds cool, cool enough to maintain for 30 years?”
+  - @gwizzzleMSFT (https://bit.ly/2X6sn3E)
+%
+Description of Technical Debt for non-technical stakeholders:
+  I've had to explain this to non-technical stakeholders many, many times over the years,
+  and I always use the restaurant metaphor:
+
+  If you run a commercial kitchen and you only ever cook food, because selling cooked food is
+  your business -- if you never clean the dishes, never scrape the grill, never organize the
+  freerzer -- the health inspector will shut your shit down pretty quickly.
+
+  Software, on the other hand, doesn't have health inspectors.  It has kitchen staff who
+  become more alarmed over time at the state of the kicthen they're working in every day,
+  and if nothing is done about it, there will come a point where the kitchen starts failing to
+  produce edible meals.
+
+  Generally, you can either convince decision makers that cleaning the kitchen is more profitible
+  in the long run or you can dust off your resume and get out before it burns down.
+
+    (from reddit via twitter: https://bit.ly/3hTgwzD)
