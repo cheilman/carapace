@@ -5,7 +5,7 @@
 
 while true; do
     clear
-    tw
+    mytasks
     \sleep 10s
 done
 
