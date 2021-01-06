@@ -30,9 +30,12 @@ _forcecolor=yes
 ##include /usr/share/taskwarrior/no-color.theme
 
 #include /usr/share/taskwarrior/dark-256.theme
-include /usr/share/taskwarrior/dark-blue-256.theme
+#include /usr/share/taskwarrior/dark-blue-256.theme
 #include /usr/share/taskwarrior/dark-violets-256.theme
 #include /usr/share/taskwarrior/solarized-dark-256.theme
+
+#include ~/.task/dark-blue-256-1.9.theme
+include ~/.task/dark-blue-256-2.4.theme
 
 #taskd.server=localhost:53589
 #taskd.key=~/.task/freecinc_48e10478.key.pem
