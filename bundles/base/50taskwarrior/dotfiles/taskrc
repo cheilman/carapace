@@ -70,6 +70,9 @@ color.tag.hire=magenta
 color.tag.personal=blue bold
 color.tag.career=cyan
 color.tag.work=cyan bold
+color.tag.oncall=yellow bold
+color.tag.arcata=yellow
+color.tag.catchup=rgb310
 
 alias.complete=done
 
