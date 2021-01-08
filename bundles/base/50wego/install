@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+#
+# Get and install the executables for useful go utilities
+#
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+# Load go environment
+source "${HOME}/bin/carapace/goenv-cache"
+
+# Install a bunch of go repos
+repos=(
+  "github.com/schachmat/wego"
+  )
+
+if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    for i in $repos; do
+        (
+            ${GOROOT}/bin/go get -u "$i"
+            if [ $? -ne 0 ]; then
+                carapace-message "himagenta" "Failed to install go utility: $i"
+            else
+                carapace-message "green" "installed: ${i:t}"
+            fi
+        )
+    done
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+fi
+
