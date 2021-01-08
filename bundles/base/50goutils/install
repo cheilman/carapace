@@ -23,6 +23,7 @@ repos=(
   "github.com/jessfraz/netscan"
   "github.com/maxzender/jv"
   "github.com/pranavraja/tldr"
+  "github.com/schachmat/wego"
   "github.com/tianon/gosleep"
   "github.com/variadico/noti/cmd/noti"
   )
