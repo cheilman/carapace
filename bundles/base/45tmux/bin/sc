@@ -33,7 +33,7 @@ if ! tmux has-session -t $CAH_TMUX_SESSION_GROUP; then
         # Add task support
 
         # Set up the task window and dashboard
-        tmux new-window -d -t ${CAH_TMUX_SESSION_GROUP}:1 -n "Tasks" twdash
+        tmux new-window -d -t ${CAH_TMUX_SESSION_GROUP}:1 -n "Tasks" watchmytasks
 
         # Split the task window and set up the shell pane
         tmux split-window -t ${CAH_TMUX_SESSION_GROUP}:1  -v tasksh
