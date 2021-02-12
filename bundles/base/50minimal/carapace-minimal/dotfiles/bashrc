@@ -146,7 +146,6 @@ shopt -u autocd
 shopt -s cdspell
 shopt -s checkjobs
 shopt -s checkwinsize
-shopt -s complete_fullquote
 shopt -s dirspell
 shopt -s expand_aliases
 shopt -s extglob
@@ -223,12 +222,6 @@ alias view='view -X'
 
 # Text processing
 alias trim='sed -e "s/[ \t]*//g"'
-
-# Don't try to autocorrect sudo commands
-alias sudo="nocorrect sudo"
-
-# Don't glob on common commands
-alias scp='noglob scp'
 
 # Find out what's running on a (tcp) port
 onport()
