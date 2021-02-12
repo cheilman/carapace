@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 #
 # Print stdin in a box.
 #
@@ -56,7 +56,7 @@ header_title = ""
 if args.title:
     header_title = " " + args.title + " "
 
-print str.format("{color}{title:{fill}^{width}}{reset}", color=args.color, reset=RESET, fill=BOXHORIZ, width=boxwidth, title=header_title)
+print(str.format("{color}{title:{fill}^{width}}{reset}", color=args.color, reset=RESET, fill=BOXHORIZ, width=boxwidth, title=header_title))
 
 #
 # Print the text
@@ -68,10 +68,10 @@ for line in lines:
 
     text=str.format("{line:<{width}}", line=line, width=maxinputwidth)
 
-    print prefix + text + suffix
+    print(prefix + text + suffix)
 
 #
 # Print the footer
 #
-print "%s%s%s" % (args.color, "".center(boxwidth, BOXHORIZ), RESET)
+print("%s%s%s" % (args.color, "".center(boxwidth, BOXHORIZ), RESET))
 
