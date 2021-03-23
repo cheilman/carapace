@@ -19,5 +19,9 @@ else
 fi
 
 # Grab/update binary
-( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null )
+( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null ) || (
+  # It failed, just use the fallback binary
+  carapace-message "yellow" "Could not build/install fzf, falling back to prebuilt binary."
+  carapace-redirect "${moduledir}/bin/fzf-fallback" "${moduledir}/bin/fzf"
+)
 
