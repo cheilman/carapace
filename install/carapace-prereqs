@@ -34,7 +34,8 @@ err=0
 while read -r line
 do
   cmd=$(echo $line | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-  if [ -n "$cmd" ]; then
+  # Skip commented out lines
+  if [ -n "$cmd" ] && [[ "$cmd" != \#*  ]]; then
     if ! which "$line" &> /dev/null; then
       carapace-message "red" "- command not found: $line"
       err=1
