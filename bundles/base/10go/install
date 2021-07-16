@@ -23,10 +23,10 @@ currentver=""
 
 for i in ${install_locations}; do
     if [ -x "$i" ]; then
-        foundver="$( /usr/bin/env -i ${i} version 2> /dev/null | grep -Eoe '([0-9]+\.)+[0-9]+' )"
+        foundver="$( /usr/bin/env -i GOPATH=$GOPATH ${i} version 2> /dev/null | grep -Eoe '([0-9]+\.)+[0-9]+' )"
         if is-at-least "${desired_version}" "${foundver}" && is-at-least "${currentver}" "${foundver}"; then
             # Grab the go root
-            found_goroot="$( /usr/bin/env -i "${i}" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
+            found_goroot="$( /usr/bin/env -i GOPATH=$GOPATH "${i}" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
             currentver=${foundver}
         fi
     fi
@@ -83,7 +83,7 @@ else
     fi
 
     # Save go root
-    found_goroot="$( /usr/bin/env -i "${godir}/bin/go" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
+    found_goroot="$( /usr/bin/env -i GOPATH=$GOPATH "${godir}/bin/go" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
 fi
 
 #
@@ -92,7 +92,7 @@ fi
 
 if [ -x "${found_goroot}/bin/go" ]; then
     carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
-    /usr/bin/env -i "${found_goroot}/bin/go" env | grep '^GO' | grep -v GOPATH | sed -e 's/^/export /' > "${goenv_cache}"
+    /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env | grep '^GO' | grep -v GOPATH | sed -e 's/^/export /' > "${goenv_cache}"
 
     # There are new GOCACHE requirements that don't always show up in the 'env'
     mkdir -p "$HOME/tmp/gocache" &>/dev/null || :
