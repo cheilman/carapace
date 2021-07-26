@@ -13,6 +13,8 @@ goenv_cache="${moduledir}/bin/goenv-cache"
 arch="linux-amd64"
 desired_version="1.11"
 
+export GOPATH="$HOME/go"
+
 #
 # Try to detect a go install of the correct version
 # NOTE: Highest version number wins, preference is given to items earlier in the list
