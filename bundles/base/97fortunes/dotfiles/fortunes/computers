@@ -896,3 +896,8 @@ Description of Technical Debt for non-technical stakeholders:
   in the long run or you can dust off your resume and get out before it burns down.
 
     (from reddit via twitter: https://bit.ly/3hTgwzD)
+%
+The major difference between a thing that might go wrong and a thing that cannot possibly go
+wrong is that when a thing that cannot possibly go wrong goes wrong it usually turns out to be
+impossible to get at and repair.
+  - Douglas Adams, "Mostly Harmless"
