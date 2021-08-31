@@ -901,3 +901,7 @@ The major difference between a thing that might go wrong and a thing that cannot
 wrong is that when a thing that cannot possibly go wrong goes wrong it usually turns out to be
 impossible to get at and repair.
   - Douglas Adams, "Mostly Harmless"
+%
+OH: the problem with spite driven development is that you end up specializing in things that
+you got the most mad at
+  - @dbsmasher (https://twitter.com/dbsmasher/status/1427381834321563655)
