@@ -11,7 +11,7 @@ generateddir="${2:-/dev/null}"
 goenv_cache="${moduledir}/bin/goenv-cache"
 
 arch="linux-amd64"
-desired_version="1.11"
+desired_version="1.16"
 
 export GOPATH="$HOME/go"
 

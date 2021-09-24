@@ -26,6 +26,7 @@ repos=(
   "github.com/schachmat/wego"
   "github.com/tianon/gosleep"
   "github.com/variadico/noti/cmd/noti"
+  "mvdan.cc/sh/v3/cmd/shfmt@latest"
   )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
