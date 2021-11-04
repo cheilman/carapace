@@ -31,6 +31,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'uarun/vim-protobuf'
 Plugin 'haishanh/night-owl.vim'
 Plugin 'tmux-plugins/vim-tmux'
+Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
