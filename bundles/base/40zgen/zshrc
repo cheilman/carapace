@@ -68,7 +68,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/colorize
 
     zgen oh-my-zsh plugins/copybuffer
-    zgen oh-my-zsh plugins/copydir
+    zgen oh-my-zsh plugins/copypath
     zgen oh-my-zsh plugins/copyfile
 
     zgen oh-my-zsh plugins/emoji-clock
