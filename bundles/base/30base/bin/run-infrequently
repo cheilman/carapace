@@ -36,6 +36,11 @@ fi
 # Do the processing
 #
 
+which gtouch &>/dev/null
+if [ $? -eq 0 ]; then
+  alias touch=gtouch
+fi
+
 #echo "Running '$command' every '$frequency' based on file '$timestamp_file'"
 
 timestamp_file_now="${timestamp_file}_now"
@@ -53,6 +58,4 @@ if [ $timestamp_file_now -nt $timestamp_file ]; then
     # Run the command
     eval "$@"
 fi
-
-
 

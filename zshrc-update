@@ -29,6 +29,10 @@ export CARAPACE="$(findCarapace)"
 #
 # Check for new updates
 #
+which gtouch &>/dev/null
+if [ $? -eq 0 ]; then
+  alias touch=gtouch
+fi
 
 update_freq="9 days"
 update_timestamp="$CARAPACE/generated/carapace-update-timestamp"
