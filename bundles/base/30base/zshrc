@@ -55,7 +55,22 @@ setopt COMPLETE_IN_WORD
 #
 
 # Fancy listing
-alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
+which gls &> /dev/null
+if [ $? -eq 0 ]; then
+  # Prefer gnu ls
+  alias ls='gls --color=auto --dereference-command-line-symlink-to-dir'
+else
+  # See if ls supports the symlink dereference param
+  ls --dereference-command-line-symlink-to-dir / &> /dev/null
+  if [ $? -eq 0 ]; then
+    # It works well enough
+    alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
+  else
+    # Don't use it
+    alias ls='ls --color=auto'
+  fi
+
+fi
 alias lf='ls -F'
 alias la='ls -Fa'
 alias ll='ls -Flh'
@@ -80,6 +95,14 @@ else
         grep -Hid recurse "$@" .
     }
 fi
+
+# Prefer the GNU version of some commands
+for cmd in date touch stat; do
+  which g${cmd} &>/dev/null
+  if [ $? -eq 0 ]; then
+    alias ${cmd}=g${cmd}
+  fi
+done
 
 # Less
 export LESS="-fFiMRX -x4"

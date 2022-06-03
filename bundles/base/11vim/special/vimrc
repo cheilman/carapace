@@ -5,6 +5,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+scriptencoding utf-8
+set encoding=utf-8
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -168,6 +171,8 @@ set novisualbell
 
 " Show sneaky hidden characters
 set list listchars=tab:»\ ,trail:°
+" but turn them off by default
+set nolist
 
 " Add a vertical line to show where to stop typing
 "set colorcolumn=100
