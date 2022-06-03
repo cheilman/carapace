@@ -11,7 +11,7 @@ source "${HOME}/bin/carapace/goenv-cache"
 
 # Install a bunch of go repos
 repos=(
-  "github.com/jesseduffield/lazydocker"
+  "github.com/jesseduffield/lazydocker@latest"
   )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
@@ -19,7 +19,7 @@ if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
 
     for i in $repos; do
         (
-            ${GOROOT}/bin/go get -u "$i"
+            ${GOROOT}/bin/go install "$i"
             if [ $? -ne 0 ]; then
                 carapace-message "himagenta" "Failed to install go utility: $i"
             else
