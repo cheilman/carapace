@@ -7,8 +7,14 @@
 
 folder="$1"
 
+st="stat"
+which gstat &>/dev/null
+if [ $? -eq 0 ]; then
+  st="gstat"
+fi
+
 (find "$folder" -type f -print0  | sort -z | xargs -0 sha1sum;
  find "$folder" \( -type f -o -type d \) -print0 | sort -z | \
-      xargs -0 stat -c '%n %a') \
+      xargs -0 ${st} -c '%n %a') \
       | sha1sum | cut -d\  -f1
 

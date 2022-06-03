@@ -6,7 +6,7 @@
 moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
 
-repo="github.com/cheilman/sysdash@install"
+repo="github.com/cheilman/sysdash@latest"
 
 # Load go environment
 source "${HOME}/bin/carapace/goenv-cache"
