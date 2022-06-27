@@ -10,7 +10,7 @@ export TZ='America/New_York'
 # Set locale
 #
 
-for lc in "en_US.utf8" "C.UTF-8" "POSIX" "C"; do
+for lc in "en_US.utf8" "en_US.UTF-8" "C.UTF-8" "POSIX" "C"; do
   if locale -a | grep $lc >/dev/null 2>/dev/null; then
     export LC_ALL="$lc"
     export LC_CTYPE="$lc"
