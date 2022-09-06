@@ -908,3 +908,45 @@ you got the most mad at
 %
 The plural of regex is regrets.
   - John Opdenakker (https://bit.ly/3k6OQdb)
+%
+Just remember the Celcius rhyme:
+30 is hot
+20 is pleasing
+10 is not
+0 is freezing
+  - Jonathan Roth (https://twitter.com/RothAnim/status/1539495314268119040)
+%
+This is the reason experienced people will often tell you to "learn the fundamentals". Not
+because they think you need to "pay your dues" or some shit. It's because it allows you to
+learn new things more quickly. It's an extremely practical piece of advice.
+  - Marco Rogers (https://twitter.com/polotek/status/1536872530891243520)
+%
+The best way I've found to talk about tech debt respectfully is to just say "smart people in
+a hurry made this"
+
+It's there because it solved a problem. It may be some of the most thoughtful, delicate
+engineering work you have. Don't insult it!
+  - Jules Glegg (https://twitter.com/catacalypto/status/1536498799728037889)
+%
+  | Gall's Law
+  |
+  | "A complex system that works is invariably found to have evolved from a simple system that
+  | worked.  The inverse proposition also appears to be true: a complex system designed from scratch
+  | never works and cannot be made to work.  You have to start over, beginning with a simple system."
+
+I could tweet this at least once a week. Work small, boil things down to its essence, be
+intentional & diligent in adding to it later.
+  - Carlos Delagado (https://twitter.com/RobertGReeve/status/1534901837085696001)
+%
+Junior engineer:
+Take this tightly defined feature & build it
+
+Mid-level engineer:
+Take this vaguely defined feature & build it
+
+Senior engineer:
+Take this known problem & figure out how to solve it
+
+Staff engineer:
+Take this goal & find the problems we should be solving
+  - Zain Rizvi (https://twitter.com/ZainRzv/status/1502550200396750851)
