@@ -11,18 +11,6 @@ generated_vimrc="${generated}/generated-vimrc"
 vim -u "${generated_vimrc}" +PluginInstall\! +qall
 vim -u "${generated_vimrc}" +PluginClean\! +qall
 
-# Re-compile YouCompleteMe
-#YCMDir="${moduledir}/dotfiles/vim/bundle/YouCompleteMe"
-#if [ -d "$YCMDir" ]; then
-#    (
-#        if [ ! -f "${YCMDir}/third_party/ycmd/ycm_core.so" -o "${YCMDir}/third_party" -nt "${YCMDir}/third_party/ycmd/ycm_core.so" ]; then
-#            carapace-message "yellow" "(Re-)compiling YouCompleteMe plugin."
-#            cd "$YCMDir"
-#            python3 install.py --clang-completer --go-completer --java-completer 1> /dev/null 2> /dev/null || :  # We don't care about failing on this failure
-#        fi
-#    )
-#fi
-
 # Install vim-go binaries
 goenv_cache="${HOME}/bin/carapace/goenv-cache"
 
@@ -31,10 +19,10 @@ if [ -r "${goenv_cache}" ]; then
 
     if [ -d "${GOROOT}" ]; then
         carapace-message "yellow" "(Re-)installing vim-go binaries."
-        vim +GoInstallBinaries\! +qall
+        vim -u "${generated_vimrc}" +GoInstallBinaries\! +qall
     fi
 fi
 
 # Update helps
-vim +helptags ALL\! +qall
+vim -u "${generated_vimrc}" +helptags ALL\! +qall
 

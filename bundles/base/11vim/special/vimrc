@@ -20,11 +20,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Add plugins here
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" requires too new a vim now, may come back
-" to it
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'powerman/ansiesc.vim'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'dense-analysis/ale'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-endwise'
@@ -34,7 +31,6 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'uarun/vim-protobuf'
 Plugin 'haishanh/night-owl.vim'
 Plugin 'tmux-plugins/vim-tmux'
-Plugin 'rust-lang/rust.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
