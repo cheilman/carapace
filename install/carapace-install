@@ -42,7 +42,7 @@ carapace-message "cyan" "creating necessary folders"
 mkdir -p "$HOME/bin/carapace" &> /dev/null || :
 mkdir -p "$CARAPACE_GENERATED_INTERMEDIATE" &> /dev/null || :
 mkdir -p "$HOME/.config" &> /dev/null || :
-mkdir -p "$HOME/.ssh" --mode 700 &> /dev/null || :
+(mkdir -p "$HOME/.ssh" &> /dev/null && chmod 700 "$HOME/.ssh") || :
 mkdir -p "$HOME/.host/config" &> /dev/null || :
 mkdir -p "$HOME/.host/config/login_certs" &> /dev/null || :
 mkdir -p "$HOME/.host/modules" &> /dev/null || :
