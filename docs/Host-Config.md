@@ -24,6 +24,10 @@ add_git_repo_search_path "$HOME/prj" 3
 ...
 ```
 
+### skip_goutils
+
+Some locations (Amazon, Meta) don't allow installing go modules/binaries from github.  If this flag is set this will skip installing any go utilities.  :sadface:
+
 ### sysdash
 
 Defines environment variables that control [sysdash](https://github.com/cheilman/sysdash) configuration.  Eventually these lines will be loaded as environment variables, but currently it just is directly sourced.

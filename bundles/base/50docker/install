@@ -6,6 +6,11 @@
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
+if [ -r "$HOME/.host/config/skip_goutils" ]; then
+    carapace-message "magenta" "Skipping all go utilities due to host config flag."
+    exit
+fi
+
 # Load go environment
 source "${HOME}/bin/carapace/goenv-cache"
 
