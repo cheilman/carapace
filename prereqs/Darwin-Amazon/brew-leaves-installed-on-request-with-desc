@@ -1,0 +1,44 @@
+ninja-dev-sync: Brazil workspace sync tool
+aspell: Spell checker with better logic than ispell
+unison-fsmonitor: unison-fsmonitor for macOS
+bash-completion@2: Programmable completion for Bash 4.2+
+coreutils: GNU File, Shell, and Text utilities
+daemonize: Run a command as a UNIX daemon
+dash: POSIX-compliant descendant of NetBSD's ash (the Almquist SHell)
+dateutils: Tools to manipulate dates with a focus on financial data
+diffutils: File comparison utilities
+entr: Run arbitrary commands when files change
+findutils: Collection of GNU find, xargs, and locate
+fortune: Infamous electronic fortune-cookie generator
+gawk: GNU awk utility
+git: Distributed revision control system
+gnu-indent: C code prettifier
+gnu-sed: GNU implementation of the famous stream editor
+gnu-tar: GNU version of the tar archiving utility
+gnu-time: GNU implementation of time utility
+gnu-which: GNU implementation of which utility
+go: Open source programming language to build simple/reliable/efficient software
+grep: GNU grep, egrep and fgrep
+gzip: Popular GNU data compression program
+imagemagick: Tools and libraries to manipulate images in many formats
+lazygit: A simple terminal UI for git commands, written in Go
+jid: Json incremental digger
+jq: Lightweight and flexible command-line JSON processor
+languagetool: Style and grammar checker
+libffi: Portable Foreign Function Interface library
+md5sha1sum: Hash utilities
+node@14: Platform built on V8 to build network applications
+noti: Trigger notifications when a process completes
+pandoc: Swiss-army knife of markup format conversion
+powerline-go: Beautiful and useful low-latency prompt for your shell
+pv: Monitor data's progress through a pipe
+pyenv: Python version management
+rbenv: Ruby version manager
+shellcheck: Static analysis and lint tool, for (ba)sh scripts
+the_silver_searcher: Code-search similar to ack
+tmux: Terminal multiplexer
+tree: Display directories as trees (with optional color/HTML output)
+vim: Vi 'workalike' with many additional features
+watch: Executes a program periodically, showing output fullscreen
+wget: Internet file retriever
+zsh: UNIX shell (command interpreter)
