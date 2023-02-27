@@ -98,9 +98,13 @@ add_path_back "$HOME/bin"
 add_path_back "$HOME/bin/carapace"
 add_path_back "$HOME/.local/bin"
 add_path_back "$HOME/.cargo/bin"
-for gnuprog in sed time; do
+for prog in coreutils findutils grep gawk; do
+  add_path_back "/opt/homebrew/opt/${prog}/libexec/gnubin"
+done
+for gnuprog in sed time indent which tar ; do
   add_path_back "/opt/homebrew/opt/gnu-${gnuprog}/libexec/gnubin"
 done
+add_path_back "/opt/homebrew/opt/coreutils/libexec/gnubin"
 add_path_back "/opt/homebrew/bin"
 add_path_back "/opt/homebrew/sbin"
 add_path_back "/snap/bin"
