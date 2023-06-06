@@ -54,29 +54,6 @@ setopt COMPLETE_IN_WORD
 # Some of these 'aliases' are functions to allow fancy arguments
 #
 
-# Fancy listing
-which gls &> /dev/null
-if [ $? -eq 0 ]; then
-  # Prefer gnu ls
-  alias ls='gls --color=auto --dereference-command-line-symlink-to-dir'
-else
-  # See if ls supports the symlink dereference param
-  ls --dereference-command-line-symlink-to-dir / &> /dev/null
-  if [ $? -eq 0 ]; then
-    # It works well enough
-    alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
-  else
-    # Don't use it
-    alias ls='ls --color=auto'
-  fi
-
-fi
-alias lf='ls -F'
-alias la='ls -Fa'
-alias ll='ls -Flh'
-alias lla='ls -Flha'
-alias lll='ls -ltrh'
-
 # Grep stuff
 alias grep='grep --color=auto'
 
