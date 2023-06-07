@@ -30,5 +30,10 @@ if [ -d "$GOROOT" ]; then
     if [ -n "$GOPATH" ]; then
         add_path_front "$GOPATH/bin"
     fi
+
+    if [ -r "$HOME/.host/config/disable_goproxy" ]; then
+      /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env -u GOPROXY 2> /dev/null
+      /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env -w GOPROXY=direct 2>/dev/null
+    fi
 fi
 

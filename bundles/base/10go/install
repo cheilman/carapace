@@ -94,11 +94,23 @@ fi
 
 if [ -x "${found_goroot}/bin/go" ]; then
     carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
+
+    if [ -r "$HOME/.host/config/disable_goproxy" ]; then
+      carapace-message "yellow" "Setting GOPROXY to direct..."
+      /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env -u GOPROXY 2> /dev/null
+      /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env -w GOPROXY=direct 2>/dev/null
+    fi
+
     /usr/bin/env -i GOPATH=$GOPATH "${found_goroot}/bin/go" env | grep '^GO' | grep -v GOPATH | sed -e 's/^/export /' > "${goenv_cache}"
 
     # There are new GOCACHE requirements that don't always show up in the 'env'
     mkdir -p "$HOME/tmp/gocache" &>/dev/null || :
     echo "export GOCACHE='$HOME/tmp/gocache'" >> "${goenv_cache}"
+
+    if [ -r "$HOME/.host/config/disable_goproxy" ]; then
+      carapace-message "yellow" "Removing Google's go proxy url from goenv-cache..."
+      sed -i -e 's;https://proxy.golang.org,;;' "${goenv_cache}"
+    fi
 else
     carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
     exit 1

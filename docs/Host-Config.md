@@ -14,6 +14,10 @@ If present, carapaceprompt and other things will check for the presence of an ac
 
 If present, carapaceprompt and other things will check for the presence of an active midway certificate, and display accordingly.
 
+### disable_goproxy
+
+If present, sets `GOPROXY` to `direct` and removes references to `https://proxy.golang.org`.  Useful for restrictive corporate environments that block Google's proxy.
+
 ### gitrepos
 
 Defines the search paths and depths for dynamically discovering git repositories.  Eventually this will be in some kind of format, but currently the file is just directly sourced.  It should contain calls to `add_git_repo_search_path` as:
