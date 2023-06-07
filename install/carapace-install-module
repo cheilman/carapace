@@ -155,7 +155,7 @@ if [ -x "${moduledir}/install" ]; then
         exit $err
     fi
 elif [ -e "${moduledir}/install" ]; then
-    carapace-message "brown" "Warning, '$modulename' has an install file that is NOT executable."
+    carapace-message "hired" "Warning, '$modulename' has an install file that is NOT executable."
 fi
 
 #
@@ -290,7 +290,7 @@ if [ -x "${moduledir}/post-install" ]; then
         exit $err
     fi
 elif [ -e "${moduledir}/post-install" ]; then
-    carapace-message "brown" "Warning, '$modulename' has a post-install file that is NOT executable."
+    carapace-message "hired" "Warning, '$modulename' has a post-install file that is NOT executable."
 fi
 
 #
