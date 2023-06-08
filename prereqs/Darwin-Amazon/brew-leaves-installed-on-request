@@ -1,12 +1,14 @@
 amazon/amazon/ninja-dev-sync
 aspell
 autozimu/formulas/unison-fsmonitor
+aws/tap/aws-sam-cli
 bash-completion@2
 coreutils
 daemonize
 dash
 dateutils
 diffutils
+docker
 entr
 findutils
 fortune
@@ -19,6 +21,7 @@ gnu-time
 gnu-which
 go
 grep
+groff
 gzip
 imagemagick
 jesseduffield/lazygit/lazygit
@@ -27,7 +30,9 @@ jq
 languagetool
 libffi
 md5sha1sum
+node
 node@14
+node@18
 noti
 pandoc
 powerline-go
