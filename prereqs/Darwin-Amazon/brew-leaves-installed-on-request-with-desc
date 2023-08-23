@@ -1,4 +1,6 @@
+ninja-dev-sync: Brazil workspace sync tool
 aspell: Spell checker with better logic than ispell
+unison-fsmonitor: unison-fsmonitor for macOS
 aws-sam-cli: AWS SAM CLI 🐿 is a tool for local development and testing of Serverless applications
 bash-completion@2: Programmable completion for Bash 4.2+
 coreutils: GNU File, Shell, and Text utilities
@@ -22,13 +24,12 @@ grep: GNU grep, egrep and fgrep
 groff: GNU troff text-formatting system
 gzip: Popular GNU data compression program
 imagemagick: Tools and libraries to manipulate images in many formats
+lazygit: A simple terminal UI for git commands, written in Go
 jid: Json incremental digger
 jq: Lightweight and flexible command-line JSON processor
 languagetool: Style and grammar checker
-lazygit: A simple terminal UI for git commands, written in Go
 libffi: Portable Foreign Function Interface library
 md5sha1sum: Hash utilities
-ninja-dev-sync: Brazil workspace sync tool
 node: Platform built on V8 to build network applications
 node@14: Platform built on V8 to build network applications
 node@18: Platform built on V8 to build network applications
@@ -42,8 +43,8 @@ shellcheck: Static analysis and lint tool, for (ba)sh scripts
 the_silver_searcher: Code-search similar to ack
 tmux: Terminal multiplexer
 tree: Display directories as trees (with optional color/HTML output)
-unison-fsmonitor: unison-fsmonitor for macOS
 vim: Vi 'workalike' with many additional features
 watch: Executes a program periodically, showing output fullscreen
 wget: Internet file retriever
+youtube-dl: Download YouTube videos from the command-line
 zsh: UNIX shell (command interpreter)
