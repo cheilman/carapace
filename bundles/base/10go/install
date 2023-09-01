@@ -109,7 +109,7 @@ if [ -x "${found_goroot}/bin/go" ]; then
 
     if [ -r "$HOME/.host/config/disable_goproxy" ]; then
       carapace-message "yellow" "Removing Google's go proxy url from goenv-cache..."
-      sed -i -e 's;https://proxy.golang.org,;;' "${goenv_cache}"
+      sed -e 's;https://proxy.golang.org,;;' -i "${goenv_cache}"
     fi
 else
     carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
