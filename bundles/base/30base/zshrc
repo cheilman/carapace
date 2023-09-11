@@ -130,6 +130,13 @@ export LESS="-FMRiX -x2"
 export PAGER=less
 
 #
+# Figure out terminfo directories
+#
+if [ -d "${HOME}/.local/share/terminfo" ]; then
+  export TERMINFO_DIRS=${TERMINFO_DIRS:-/usr/share/terminfo}:${HOME}/.local/share/terminfo
+fi
+
+#
 # Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
 #
 
