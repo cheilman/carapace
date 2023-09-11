@@ -32,6 +32,12 @@ add_git_repo_search_path "$HOME/prj" 3
 
 Some locations (Amazon, Meta) don't allow installing go modules/binaries from github.  If this flag is set this will skip installing any go utilities.  :sadface:
 
+### support_manual_go_install
+
+If we can't determine a supported pre-installed `go` version, and this file exists, then we will attempt to download `go` from the official Google repository and install it locally.
+
+If this fails, or this file does not exist, then we may end up with no `go` installation.
+
 ### sysdash
 
 Defines environment variables that control [sysdash](https://github.com/cheilman/sysdash) configuration.  Eventually these lines will be loaded as environment variables, but currently it just is directly sourced.
