@@ -5,4 +5,3 @@
 
 alias tmux="LC_CTYPE=POSIX tmux -ul2"
 
-

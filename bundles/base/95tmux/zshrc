@@ -1,0 +1,8 @@
+#!zsh
+#
+# TMux stuff
+#
+
+# get rid of any sc aliases
+unalias sc &>/dev/null || :
+
