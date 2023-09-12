@@ -15,6 +15,11 @@ carapace-redirect "${moduledir}/zgen" "$HOME/.zgen"
 if [ -d "${moduledir}/${repodir}" ]; then
     # Assume the repo exists, update it
     ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+
+    # Update the plugins and remove init script (forcing regeneration)
+    if which zgen &>/dev/null; then
+      zgen update
+    fi
 else
     # Assume the repo does not exist
     ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
