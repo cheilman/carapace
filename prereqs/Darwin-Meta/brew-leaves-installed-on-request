@@ -5,6 +5,7 @@ dateutils
 diff-so-fancy
 diffutils
 entr
+fasttext
 findutils
 fortune
 gawk

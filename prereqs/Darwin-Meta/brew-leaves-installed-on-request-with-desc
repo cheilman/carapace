@@ -5,6 +5,7 @@ dateutils: Tools to manipulate dates with a focus on financial data
 diff-so-fancy: Good-lookin' diffs with diff-highlight and more
 diffutils: File comparison utilities
 entr: Run arbitrary commands when files change
+fasttext: Library for fast text representation and classification
 findutils: Collection of GNU find, xargs, and locate
 fortune: Infamous electronic fortune-cookie generator
 gawk: GNU awk utility
