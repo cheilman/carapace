@@ -106,6 +106,9 @@ done
 for gnuprog in sed time indent which tar ; do
   add_path_back "$HOME/homebrew/opt/gnu-${gnuprog}/libexec/gnubin"
 done
+for prog in llvm; do
+  add_path_back "$HOME/homebrew/opt/${prog}/bin"
+done
 add_path_back "$HOME/homebrew/opt/coreutils/libexec/gnubin"
 add_path_back "$HOME/homebrew/bin"
 add_path_back "$HOME/homebrew/sbin"
@@ -116,6 +119,9 @@ for prog in coreutils findutils grep gawk; do
 done
 for gnuprog in sed time indent which tar ; do
   add_path_back "/opt/homebrew/opt/gnu-${gnuprog}/libexec/gnubin"
+done
+for prog in llvm; do
+  add_path_back "/opt/homebrew/opt/${prog}/bin"
 done
 add_path_back "/opt/homebrew/opt/coreutils/libexec/gnubin"
 add_path_back "/opt/homebrew/bin"
