@@ -29,15 +29,16 @@ if ! tmux has-session -t $CAH_TMUX_SESSION_GROUP; then
     fi
     # Otherwise, defaults to $SHELL
 
-    if [ -x "$(command -v tasksh 2> /dev/null)" ]; then
-        # Add task support
-
-        # Set up the task window and dashboard
-        tmux new-window -d -t ${CAH_TMUX_SESSION_GROUP}:1 -n "Tasks" watchmytasks
-
-        # Split the task window and set up the shell pane
-        tmux split-window -t ${CAH_TMUX_SESSION_GROUP}:1  -v tasksh
-    fi
+    # Don't add taskwarrior support
+#    if [ -x "$(command -v tasksh 2> /dev/null)" ]; then
+#        # Add task support
+#
+#        # Set up the task window and dashboard
+#        tmux new-window -d -t ${CAH_TMUX_SESSION_GROUP}:1 -n "Tasks" watchmytasks
+#
+#        # Split the task window and set up the shell pane
+#        tmux split-window -t ${CAH_TMUX_SESSION_GROUP}:1  -v tasksh
+#    fi
 fi
 
 # We never attach to the main session, always create a new one
