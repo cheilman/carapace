@@ -6,6 +6,10 @@ The `~/.host/config` folder is used by [Carapace](https://github.com/cheilman/ca
 Flags/Files
 -----------
 
+### auto\_update\_carapace
+
+If present, carapace will automatically run `carapace-update` periodically at startup (every 9 days at the time of writing).
+
 ### check\_kerberos
 
 If present, carapaceprompt and other things will check for the presence of an active kerberos ticket, and display accordingly.
@@ -14,7 +18,7 @@ If present, carapaceprompt and other things will check for the presence of an ac
 
 If present, carapaceprompt and other things will check for the presence of an active midway certificate, and display accordingly.
 
-### disable_goproxy
+### disable\_goproxy
 
 If present, sets `GOPROXY` to `direct` and removes references to `https://proxy.golang.org`.  Useful for restrictive corporate environments that block Google's proxy.
 
@@ -28,11 +32,11 @@ add_git_repo_search_path "$HOME/prj" 3
 ...
 ```
 
-### skip_goutils
+### skip\_goutils
 
 Some locations (Amazon, Meta) don't allow installing go modules/binaries from github.  If this flag is set this will skip installing any go utilities.  :sadface:
 
-### support_manual_go_install
+### support\_manual\_go\_install
 
 If we can't determine a supported pre-installed `go` version, and this file exists, then we will attempt to download `go` from the official Google repository and install it locally.
 
@@ -52,7 +56,7 @@ Configuration settings here *should* be defined in the sysdash README, but they 
 Subdirectories
 --------------
 
-### login_certs
+### login\_certs
 
 `carapaceprompt` has built-in support for Kerberos and Midway tickets, but also
 supports a pluggable system for other login flags to appear on the prompt.  Any
