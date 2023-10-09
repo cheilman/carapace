@@ -37,3 +37,6 @@ if [ -d "$GOROOT" ]; then
     fi
 fi
 
+# Add a default gopath just in case we have detection issues
+add_path_back "${HOME}/go/bin"
+
