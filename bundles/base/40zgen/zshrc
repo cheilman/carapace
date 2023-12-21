@@ -92,7 +92,7 @@ fi
 
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%30<..<%~%<<"
 
-export ZSH_COMMAND_TIME_MIN_SECONDS=30
+export ZSH_COMMAND_TIME_MIN_SECONDS=5
 export ZSH_COMMAND_TIME_MSG="Execution time: %s"
 export ZSH_COMMAND_TIME_COLOR="cyan" # might be overriden by function?
 zsh_command_time() {
@@ -117,3 +117,12 @@ zsh_command_time() {
     fi
 }
 
+#
+# Print the current time before every command
+#
+
+show_current_time() {
+  printf "$fg[green]--$fg[yellow]$(date +"%H:%M:%S")$fg[green]--${reset_color}\n"
+}
+# Not sure I like how spammy this is, but checking it in at least...
+#preexec_functions+=(show_current_time)
