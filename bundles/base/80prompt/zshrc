@@ -24,13 +24,13 @@ carapace_prompt_wrapper() {
     carapaceprompt --color --exitcode $exitcode $running $suspended $battery "${=extra}"
 }
 
-if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
-    export PS1='%{$(carapace_prompt_wrapper $?)%}
-${Green}--${BCyan}%#${NC} '
-
-else
-    export PS1='${Green}--${BCyan}%#${NC} '
-fi
+#if [ -x "$(which carapaceprompt 2> /dev/null)" ]; then
+#    export PS1='%{$(carapace_prompt_wrapper $?)%}
+#${Green}--${BCyan}%#${NC} '
+#
+#else
+#    export PS1='${Green}--${BCyan}%#${NC} '
+#fi
 
 # Directory/workspace-based right prompt
 carapace_prompt_right() {
@@ -68,6 +68,6 @@ carapace_prompt_right() {
   fi
 }
 
-export ZLE_RPROMPT_INDENT=0
-export RPROMPT='$(carapace_prompt_right)'
+#export ZLE_RPROMPT_INDENT=0
+#export RPROMPT='$(carapace_prompt_right)'
 
