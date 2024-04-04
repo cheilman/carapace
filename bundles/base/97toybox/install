@@ -13,7 +13,7 @@ generateddir="${2:-/dev/null}"
 machine="$(uname -m)"
 if [ -x "${moduledir}/arch-bin/toybox-${machine}" ]; then
   echo here
-  carapace-redirect "${moduledir}/bin/toybox" "${moduledir}/arch-bin/toybox-${machine}"
+  carapace-redirect "${moduledir}/arch-bin/toybox-${machine}" "${moduledir}/bin/toybox"
 elif [ "${machine}" = "arm64" ]; then
   # TODO: Figure out how to get mac support...
   carapace-message "brown" "Did not find toybox-${machine}..."
