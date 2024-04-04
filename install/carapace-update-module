@@ -1,0 +1,57 @@
+#!/usr/bin/env zsh
+#
+# Updatea carapace module.
+#
+# Usage: carapace-update-module <module name> <module directory>
+#
+
+set -e
+
+#
+# Setup
+#
+
+modulefullname="$1"
+moduledir="$2"
+modulepriority="${${modulefullname}:0:2}"
+module="$(echo ${${modulefullname}:2} | cut -d- -f1)"
+bundlename="$(echo ${modulefullname} | cut -d- -f2)"
+
+modulename="${bundlename}/${module}"
+
+carapace-message "boldblue" "processing module [${modulepriority}] ${modulename}"
+
+export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+TRAPEXIT() {
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+}
+
+#
+# Execute update script
+#
+
+if [ -x "${moduledir}/update" ]; then
+    ${moduledir}/update "$moduledir"
+    err=$?
+
+    if [ $err -ne 0 ]; then
+        carapace-message "boldbrown" "Skipping '$modulename' becase of update check: $err"
+        exit $err
+    fi
+elif [ -e "${moduledir}/update" ]; then
+    carapace-message "hired" "Warning, '$modulename' has an update file that is NOT executable."
+fi
+
+#
+# All done!
+# Append module name as a success!
+#
+
+carapace-message "boldgreen" "$modulename updated successfully"
+
+if [ -z "$CARAPACE_MODULES" ]; then
+    export CARAPACE_MODULES="${modulename}"
+else
+    export CARAPACE_MODULES="${CARAPACE_MODULES},${modulename}"
+fi

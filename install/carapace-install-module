@@ -2,7 +2,7 @@
 #
 # Install a carapace module.
 #
-# Usage: carapace-install-module <module directory> <generated files directory>
+# Usage: carapace-install-module <module name> <module directory> <generated files directory>
 #
 
 set -e

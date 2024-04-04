@@ -1,8 +1,0 @@
-#!zsh
-
-# Add thefuck aliases
-command -v thefuck &> /dev/null
-if [ $? -eq 0 ]; then
-    eval "$(thefuck --alias)"
-fi
-

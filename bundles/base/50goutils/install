@@ -6,46 +6,10 @@
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
-if [ -r "$HOME/.host/config/skip_goutils" ]; then
-  carapace-message "magenta" "Skipping all go utilities due to host config flag."
-  exit
+# Feh/guess post-install support.  It has a couple of scripts that need to be linked to bin,
+# and the executable needs to be in the same path as the scripts :/
+if [ -x "${GOPATH}/bin/guess" ]; then
+  carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess"
+  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g"
+  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify"
 fi
-
-# Load go environment
-source "${HOME}/bin/carapace/goenv-cache"
-
-# Install a bunch of go repos
-repos=(
-  "github.com/Feh/guess@latest"
-  "github.com/evanmiller/hecate@latest"
-  "github.com/maxzender/jv@latest"
-  "github.com/pranavraja/tldr@latest"
-  "github.com/schachmat/wego@latest"
-  "github.com/tianon/gosleep@latest"
-  )
-
-if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
-    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
-
-    for i in $repos; do
-        (
-            ${GOROOT}/bin/go install "$i"
-            if [ $? -ne 0 ]; then
-                carapace-message "himagenta" "Failed to install go utility: $i"
-            else
-                carapace-message "green" "installed: ${i:t}"
-            fi
-        )
-    done
-
-    # Feh/guess post-install support.  It has a couple of scripts that need to be linked to bin,
-    # and the executable needs to be in the same path as the scripts :/
-    if [ -x "${GOPATH}/bin/guess" ]; then
-      carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess"
-      carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g"
-      carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify"
-    fi
-
-    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
-fi
-

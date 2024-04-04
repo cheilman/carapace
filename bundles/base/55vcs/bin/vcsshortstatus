@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-#
-# Get some short status
-#
-
-lines=( $(vcsstatus --exec=clientfallback --output=statusline --color) )
-
-echo "$lines[1]:$lines[2] | $lines[3] | $lines[4]"
-

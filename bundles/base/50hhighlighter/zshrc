@@ -1,7 +1,0 @@
-#!zsh
-#
-# Source the function
-#
-
-source "${CARAPACE_CURRENT_MODULE_PATH}/hhighlighter/h.sh"
-

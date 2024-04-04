@@ -1,28 +1,55 @@
 #!/usr/bin/env zsh
-#
-# Grab/update the repo
-#
 
-repodir="zgen"
-repo="https://github.com/tarjoilija/zgen.git"
+#
+# Configure zgen and plugins
+#
 
 moduledir="${1:-${0:a:h}}"
-generated="${2:-/dev/null}"
 
-carapace-redirect "${moduledir}/zgen" "$HOME/.zgen"
+# zgen
+export ZGEN_DIR=${moduledir}/zgen
 
-# See if we're already installed
-if [ -d "${moduledir}/${repodir}" ]; then
-    # Assume the repo exists, update it
-    ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+# alias-tips configuration
+export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
 
-    # Update the plugins and remove init script (forcing regeneration)
-    if which zgen &>/dev/null; then
-      zgen update
-    fi
-else
-    # Assume the repo does not exist
-    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
-fi
+#
+# Load zgen stuff
+#
 
+source $ZGEN_DIR/zgen.zsh
+
+#
+# Enable run-once
+#
+zgen load zsh-users/zsh-syntax-highlighting
+zgen load zsh-users/zsh-autosuggestions
+zgen load zsh-users/zsh-completions
+
+zgen load romkatv/powerlevel10k powerlevel10k
+
+zgen load unixorn/autoupdate-zgen
+
+zgen load popstas/zsh-command-time
+
+zgen oh-my-zsh
+zgen oh-my-zsh plugins/safe-paste
+
+bgnotify_threshold=15
+zgen oh-my-zsh plugins/bgnotify
+
+zgen oh-my-zsh plugins/catimg
+
+zgen oh-my-zsh plugins/colorize
+
+zgen oh-my-zsh plugins/copybuffer
+zgen oh-my-zsh plugins/copypath
+zgen oh-my-zsh plugins/copyfile
+
+zgen oh-my-zsh plugins/emoji-clock
+
+zgen oh-my-zsh plugins/golang
+
+zgen oh-my-zsh plugins/httpie
+
+zgen save
 

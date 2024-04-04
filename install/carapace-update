@@ -8,6 +8,9 @@ set -e
 # Prepare
 #
 
+# Force umask
+umask 022
+
 # Try to autodetect carapace folder
 export CARAPACE="${0:A:h:h}"
 
@@ -21,12 +24,17 @@ if [ ! -d "$CARAPACE" ]; then
 fi
 
 export PATH="$CARAPACE/install:$PATH"
+export CARAPACE_MODULES=""
+export CARAPACE_INDENT=""
+
+carapace-message "boldcyan" "Carapace Update Starting on folder '$CARAPACE' ..."
+export CARAPACE_INDENT=" >"
+carapace-message "cyan" "using source folder '$CARAPACE'"
 
 #
 # Update main folder
 #
 
-carapace-message "boldcyan" "Carapace Update Starting on folder '$CARAPACE' ..."
 ( cd $CARAPACE && git pull -q --recurse-submodules )
 
 #
@@ -57,13 +65,64 @@ carapace-message "boldcyan" "Carapace Update Starting on folder '$CARAPACE' ..."
 )
 
 #
+# Update individual modules
+#
+module_failed=0
+failed_modules=$(mktemp)
+
+(
+    if [ ! -w "$failed_modules" ]; then
+      carapace-message "boldred" "Can't write failed module names!!"
+    fi
+
+		err=0
+    carapace-message "cyan" "updating modules"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    cd $CARAPACE/modules
+    for i in *; do
+        if [ -d "$i" ]; then
+            carapace-update-module "$i" "$(readlink -f $i)" || {
+                carapace-message "boldred" "$i module failed!"
+                err=1
+                echo "$i" >> "$failed_modules"
+            }
+        fi
+    done
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+
+    exit $err
+) || module_failed=1
+
+#
 # Done
 #
 
 carapace-message "boldcyan" "Carapace Update Finished"
 
+if [ $module_failed -ne 0 ]; then
+    carapace-message "boldred" "One or more modules failed to update!"
+
+    if [ -r "$failed_modules" ]; then
+      export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+      for mod in $(cat "$failed_modules"); do
+        carapace-message "red" "!! ${mod}"
+      done
+
+      export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+    fi
+    exit 1
+fi
+
+# Clean up failed module list
+rm -f "$failed_modules" &> /dev/null || :
+
 #
 # Reinstall
 #
 
-carapace-install
+if [ "$*" -eq "--install" ]; then
+		carapace-install
+fi

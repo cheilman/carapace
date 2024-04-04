@@ -10,7 +10,6 @@ entr
 fortune
 git
 host
-howdoi
 ifconfig
 less
 locate
@@ -18,7 +17,6 @@ nice
 perl
 ping
 powerline
-protoc
 pv
 python3
 scp
@@ -31,7 +29,5 @@ sudo
 tmux
 tput
 uniq
-updatedb
 vim
-wormhole
 zsh

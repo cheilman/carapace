@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+#
+# Grab/update the repo
+#
+
+repodir="fzf"
+repo="https://github.com/junegunn/fzf.git"
+
+moduledir="${1:-${0:a:h}}"
+generated="${2:-/dev/null}"
+
+# See if we're already installed
+if [ -d "${moduledir}/${repodir}" ]; then
+    # Assume the repo exists, update it
+    ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+else
+    # Assume the repo does not exist
+    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
+fi
+
+# Grab/update binary
+( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null ) || (
+  # It failed, just use the fallback binary
+  carapace-message "yellow" "Could not build/install fzf, falling back to prebuilt binary."
+  carapace-redirect "${moduledir}/bin/fzf-fallback" "${moduledir}/bin/fzf"
+)
+

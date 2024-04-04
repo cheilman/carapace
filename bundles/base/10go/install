@@ -39,64 +39,7 @@ done
 #
 
 if [ -d "${found_goroot}" -a -x "${found_goroot}/bin/go" ]; then
-else
-    #
-    # We need to install it ourselves
-    #
-
-    if [ -e "${HOME}/.host/config/support_manual_go_install" ]; then
-      dlfile="go${desired_version}.${arch}.tar.gz"
-      dlurl="https://dl.google.com/go/${dlfile}"
-
-      godir="${moduledir}/go"
-      oldgodir="${godir}.old"
-
-      carapace-message "magenta" "Unable to find go installation at least version ${desired_version}, downloading."
-
-      ( cd /tmp && ${moduledir}/../01pre/bin/get $dlurl )
-
-      if [ ! -r "/tmp/$dlfile" ]; then
-          carapace-message "boldred" "Failed to download: ${dlurl}"
-          exit 1
-      fi
-
-      # Move the existing install
-      if [ -d "${godir}" ]; then
-          mv "${godir}" "${oldgodir}"
-      fi
-
-      # Untar the install
-      ( cd "${moduledir}" && pv -cN "un-tar" "/tmp/${dlfile}" | tar zxf - )
-      err=$?
-
-      if [ $err -ne 0 ]; then
-          # Restore the old version as a fallback
-          rm -Rf "${godir}"
-          mv "${oldgodir}" "${godir}"
-          carapace-message "boldred" "Failed to extract downloaded go install."
-          exit $err
-      fi
-
-      # Remove downloaded file
-      rm -f "/tmp/${dlfile}" || :
-
-      # Remove old version
-      if [ -d "${oldgodir}" ]; then
-          rm -rf "${oldgodir}" || :
-      fi
-
-      # Save go root
-      found_goroot="$( /usr/bin/env -i GOPATH=$GOPATH "${godir}/bin/go" env | grep GOROOT | cut -d= -f2 | cut -d\" -f2 )"
-    else
-      carapace-message "magenta" "Not manually installing go due to config setting.  Go will probably not work."
-    fi
-fi
-
-#
-# Assuming we have it discovered/installed, save the environment details for later
-#
-
-if [ -x "${found_goroot}/bin/go" ]; then
+    # Assuming we have it discovered, save the environment details for later
     carapace-message "cyan" "found go ${currentver} at ${found_goroot}"
 
     if [ -r "$HOME/.host/config/disable_goproxy" ]; then
