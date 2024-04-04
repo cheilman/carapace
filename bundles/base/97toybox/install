@@ -7,6 +7,29 @@
 moduledir="${1:-/dev/null}"
 generateddir="${2:-/dev/null}"
 
+#
+# Figure out which toybox to use
+#
+machine="$(uname -m)"
+if [ -x "${moduledir}/arch-bin/toybox-${machine}" ]; then
+  echo here
+  carapace-redirect "${moduledir}/bin/toybox" "${moduledir}/arch-bin/toybox-${machine}"
+elif [ "${machine}" = "arm64" ]; then
+  # TODO: Figure out how to get mac support...
+  carapace-message "brown" "Did not find toybox-${machine}..."
+else
+  carapace-message "brown" "Did not find toybox-${machine}..."
+fi
+
+if [ ! -x "${moduledir}/bin/toybox" ]; then
+  carapace-message "red" "Failed to find appropriate architecture for toybox (${machine})..."
+  exit
+fi
+
+#
+# Figure out what commands we want to use
+#
+
 tb_alias_zshrc="${moduledir}/tbaliases"
 
 cat > ${tb_alias_zshrc} <<EOF
