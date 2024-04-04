@@ -123,6 +123,6 @@ rm -f "$failed_modules" &> /dev/null || :
 # Reinstall
 #
 
-if [ "$*" -eq "--install" ]; then
+if [ "$*" == "--install" ]; then
 		carapace-install
 fi
