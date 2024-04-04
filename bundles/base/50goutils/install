@@ -9,7 +9,7 @@ generateddir="${2:-/dev/null}"
 # Feh/guess post-install support.  It has a couple of scripts that need to be linked to bin,
 # and the executable needs to be in the same path as the scripts :/
 if [ -x "${GOPATH}/bin/guess" ]; then
-  carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess"
-  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g"
-  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify"
+  carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess" || :
+  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g" || :
+  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify" || :
 fi
