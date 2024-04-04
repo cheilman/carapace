@@ -11,12 +11,14 @@ if [ -r "$HOME/.host/config/skip_goutils" ]; then
     exit
 fi
 
-repo="github.com/cheilman/sysdash@latest"
-
-# Load go environment
-source "${HOME}/bin/carapace/goenv-cache"
-
-if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
-    ${GOROOT}/bin/go install "$repo"
-fi
-
+# TODO: This is broken for now
+#
+#repo="github.com/cheilman/sysdash@latest"
+#
+## Load go environment
+#source "${HOME}/bin/carapace/goenv-cache"
+#
+#if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
+#    ${GOROOT}/bin/go install "$repo"
+#fi
+#

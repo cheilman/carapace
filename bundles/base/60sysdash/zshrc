@@ -3,12 +3,13 @@
 # Load environment configuration for sysdash
 #
 
-# Could have custom SYSDASH_REPO_SEARCH_PATHS here, but just fall back to the 
+# Could have custom SYSDASH_REPO_SEARCH_PATHS here, but just fall back to the
 # standard list
 
 # Load/override host sysdash configuration
-if [ -f $HOME/.host/config/sysdash ]; then
-    # TODO: Could be smarter and only load environment variables
-    . $HOME/.host/config/sysdash
-fi
-
+# TODO: Not working at the moment
+#if [ -f $HOME/.host/config/sysdash ]; then
+#    # TODO: Could be smarter and only load environment variables
+#    . $HOME/.host/config/sysdash
+#fi
+#
