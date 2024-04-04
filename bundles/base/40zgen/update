@@ -18,6 +18,7 @@ if [ -d "${moduledir}/${repodir}" ]; then
 
     # Update the plugins and remove init script (forcing regeneration)
     if which zgen &>/dev/null; then
+      zgen selfupdate
       zgen update
     fi
 else
