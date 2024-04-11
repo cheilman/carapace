@@ -3,13 +3,11 @@
 # Grab/update the repo
 #
 
-repodir="zgen"
-repo="https://github.com/tarjoilija/zgen.git"
+repodir="zgenom"
+repo="https://github.com/jandamm/zgenom.git"
 
 moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
-
-carapace-redirect "${moduledir}/zgen" "$HOME/.zgen"
 
 # See if we're already installed
 if [ -d "${moduledir}/${repodir}" ]; then
@@ -17,13 +15,14 @@ if [ -d "${moduledir}/${repodir}" ]; then
     ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
 
     # Update the plugins and remove init script (forcing regeneration)
-    if which zgen &>/dev/null; then
-      zgen selfupdate
-      zgen update
+    if which zgenom &>/dev/null; then
+      zgenom selfupdate
+      zgenom update
     fi
 else
     # Assume the repo does not exist
     ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
 fi
 
+carapace-redirect "${moduledir}/zgenom" "$HOME/.zgenom"
 

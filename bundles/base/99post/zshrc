@@ -17,7 +17,7 @@ add_path_front "$HOME/.host/bin"
 #
 # Re-call zsh highlighting
 #
-source ${ZGEN_DIR}/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
+#source ${ZGEN_DIR}/zsh-users/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 
 #
 # zgen/oh-my-zsh might mess up my ls aliases, so I moved them to post-process

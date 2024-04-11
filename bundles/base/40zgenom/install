@@ -1,0 +1,76 @@
+#!/usr/bin/env zsh
+
+#
+# Configure zgenom and plugins
+#
+
+moduledir="${1:-${0:a:h}}"
+
+#
+# Load zgenom stuff
+#
+
+unset ZGEN_DIR
+if [ -z "${ZGENOM_DIR}" ]; then
+  ZGENOM_DIR="${HOME}/.zgenom/"
+fi
+ZGEN_DIR="${ZGENOM_DIR}/sources"
+ZGEN_INIT="${ZGENOM_DIR}/init.zsh"
+source $ZGENOM_DIR/zgenom.zsh
+
+#
+# Enable run-once
+#
+
+zgenom reset
+
+# Add this if you experience issues with missing completions or errors mentioning compdef.
+#zgenom compdef
+
+zgenom load zdharma-continuum/fast-syntax-highlighting
+
+zgenom load zsh-users/zsh-autosuggestions
+
+zgenom load zsh-users/zsh-completions
+
+zgenom load romkatv/powerlevel10k powerlevel10k
+
+zgenom load popstas/zsh-command-time
+
+zgenom ohmyzsh
+
+[[ "$(uname -s)" = Darwin ]] && zgenom ohmyzsh plugins/macos
+
+zgenom ohmyzsh plugins/ag
+
+bgnotify_threshold=15
+zgenom ohmyzsh plugins/bgnotify
+
+zgenom ohmyzsh plugins/colored-man-pages
+
+zgenom ohmyzsh plugins/colorize
+
+zgenom ohmyzsh plugins/copybuffer
+
+zgenom ohmyzsh plugins/copypath
+
+zgenom ohmyzsh plugins/copyfile
+
+zgenom ohmyzsh plugins/gnu-utils
+
+#zgenom ohmyzsh plugins/grc
+
+zgenom ohmyzsh plugins/safe-paste
+
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent quiet yes
+zstyle :omz:plugins:ssh-agent lazy yes
+zgenom ohmyzsh plugins/ssh-agent
+
+zgenom ohmyzsh plugins/tmux
+
+zgenom ohmyzsh plugins/z
+
+zgenom save
+zgenom apply
+

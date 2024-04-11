@@ -7,16 +7,18 @@
 # zgen
 export DISABLE_AUTO_UPDATE=true
 
-export ZGEN_DIR=${CARAPACE_CURRENT_MODULE_PATH}/zgen
-
-# alias-tips configuration
-export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES="_"
+unset ZGEN_DIR
+export ZGENOM_DIR=${CARAPACE_CURRENT_MODULE_PATH}/zgenom
+ZGEN_DIR="${ZGENOM_DIR}/sources"
+ZGEN_INIT="${ZGENOM_DIR}/init.zsh"
 
 #
 # Load zgen stuff
 #
 
-source $ZGEN_DIR/zgen.zsh
+source $ZGENOM_DIR/zgenom.zsh
+
+zgenom saved || echo "!! no zgenom init.zsh !!"
 
 #
 # Override some settings
