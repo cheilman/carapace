@@ -1,0 +1,10 @@
+#
+# General SSH configration
+#
+
+ForwardAgent yes
+
+ControlMaster auto
+ControlPath ~/.ssh/control-%C
+ControlPersist 3600
+
