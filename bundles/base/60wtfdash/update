@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+#
+# Get and install the executables for useful go utilities
+#
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+
+if [ -r "$HOME/.host/config/skip_goutils" ]; then
+  carapace-message "magenta" "Skipping all go utilities due to host config flag."
+  exit
+fi
+
+# Load go environment
+source "${HOME}/bin/carapace/goenv-cache"
+
+# Install a bunch of go repos
+repos=(
+  "github.com/wtfutil/wtf@latest"
+  )
+
+if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    (
+        export GO111MODULE=on
+
+        ${GOROOT}/bin/go install "github.com/wtfutil/wtf@latest"
+        latest=$(ls -1t "${GOPATH}/pkg/mod/github.com/wtfutil" | grep -e '^wtf' | head -1)
+        carapace-message "blue" "Installing version ${latest}"
+        cd "${GOPATH}/pkg/mod/github.com/wtfutil/${latest}"
+
+        ${GOROOT}/bin/go build
+        make install
+    )
+
+    export CARAPACE_INDENT="${CARAPACE_INDENT:2}"
+fi
+
