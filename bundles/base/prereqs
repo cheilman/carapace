@@ -1,12 +1,10 @@
 ag
-aspell
 awk
 basename
 curl
 daemonize
 dig
 dirname
-entr
 fortune
 git
 host
