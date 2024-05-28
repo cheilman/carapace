@@ -18,10 +18,10 @@ wtf:
     shortcuts: false
   grid:
     # How _wide_ the columns are, in terminal characters.
-    columns: [-1, -1, -1, -1]
+    columns: [-1, -1, -1, -1, -1]
     # How _high_ the rows are, in terminal lines.
-    rows: [-3, -3, -1, -1, -1, -1, -1, -1]
-  refreshInterval: 1
+    rows: [-1, -4]
+  refreshInterval: 1s
   openFileUtil: "open"
   mods:
     # You can have multiple widgets of the same type.
@@ -39,7 +39,7 @@ wtf:
         width: 1
       hourFormat: 24
       font: digitalfont
-      refreshInterval: 1
+      refreshInterval: 1s
       withDatePrefix: false
     clocks:
       title: "Clocks"
@@ -58,19 +58,8 @@ wtf:
         left: 1
         height: 1
         width: 1
-      refreshInterval: 15
+      refreshInterval: 15s
       sort: "natural"
-    weather:
-      type: prettyweather
-      enabled: true
-      city: "Pittsburgh, PA"
-      position:
-        top: 1
-        left: 0
-        height: 1
-        width: 1
-      refreshInterval: 15m
-      unit: "u"
     urlcheck:
       type: urlcheck
       enabled: true
@@ -92,21 +81,33 @@ wtf:
       title: "⚡️"
       enabled: true
       position:
-        top: 1
-        left: 2
+        top: 0
+        left: 3
         height: 1
         width: 1
-      refreshInterval: 15
+      refreshInterval: 15s
     resources:
       type: resourceusage
       enabled: true
       position:
         top: 0
-        left: 3
-        height: 8
+        left: 4
+        height: 2
         width: 1
-      refreshInterval: 1
+      refreshInterval: 1s
       #cpuCombined: true
       cpuCombined: false
       graphIcon: "█"
+    carapaceUtilDash:
+      type: cmdrunner
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 4
+      refreshInterval: 15s
+      args: ['hello', 'world', '!']
+      cmd: 'echo'
+
 
