@@ -108,7 +108,7 @@ set noerrorbells
 set novisualbell
 
 " Show sneaky hidden characters
-set list listchars=tab:»\ ,trail:°
+"set list listchars=tab:»\ ,trail:°
 
 " Add a vertical line to show where to stop typing
 "set colorcolumn=100

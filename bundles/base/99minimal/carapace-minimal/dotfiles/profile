@@ -18,7 +18,13 @@ export TZ='America/New_York'
 # Set locale
 #
 
-for lc in "en_US.utf8" "C.UTF-8" "POSIX" "C"; do
+# Force locale to C for compatibility
+export LC_ALL="C"
+export LC_CTYPE="C"
+export LANG="C"
+
+# Try to upgrade locale
+for lc in "en_US.utf8" "C.UTF-8" "C.utf8" "POSIX" "C"; do
   if locale -a | grep $lc >/dev/null 2>/dev/null; then
     export LC_ALL="$lc"
     export LC_CTYPE="$lc"

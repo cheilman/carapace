@@ -15,7 +15,7 @@ host="$1"
 
 # Make sure that we have a tarball
 if [ ! -r "${generateddir}/carapace-minimal.tar.gz" ]; then
-  >&2 echo "Failed to find Carapace Minimal installation at: '${moduledir}'"
+  >&2 echo "Failed to find Carapace Minimal installation at: '${generateddir}'"
   exit 1
 fi
 
