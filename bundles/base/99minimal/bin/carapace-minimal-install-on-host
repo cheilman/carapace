@@ -22,7 +22,7 @@ fi
 # Check the version currently installed on the host
 if [ $force -eq 0 ]; then
   local_version="$(tar zxf ${generateddir}/carapace-minimal.tar.gz -O carapace-minimal/version)"
-  remote_version="$(ssh ${host} cat './.carapace/minimal/version' 2>/dev/null)"
+  remote_version="$(ssh ${host} /usr/bin/env cat './.carapace/minimal/version' 2>/dev/null)"
 
   if [ "${local_version}" = "${remote_version}" ]; then
     # They match already
