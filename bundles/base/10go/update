@@ -19,7 +19,7 @@ export GOPATH="$HOME/go"
 # Try to detect a go install of the correct version
 # NOTE: Highest version number wins, preference is given to items earlier in the list
 #
-install_locations=( "${GOROOT}/bin/go" "/usr/lib/google-golang/bin/go" "/usr/local/bin/go" "/usr/bin/go" "/bin/go" "${HOME}/homebrew/bin/go" "/opt/homebrew/bin/go" "${moduledir}/go/bin/go" )
+install_locations=( "${GOROOT}/bin/go" "/usr/lib/google-golang/bin/go" "/usr/local/bin/go" "/usr/bin/go" "/bin/go" "${HOMEBREW_PREFIX}/bin/go" "${moduledir}/go/bin/go" )
 found_goroot=""
 currentver=""
 

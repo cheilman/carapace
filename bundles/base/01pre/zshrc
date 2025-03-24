@@ -88,6 +88,13 @@ add_path_front ()
     fi
 }
 
+# Homebrew variables
+if [ -x "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x "${HOME}/homebrew/bin/brew" ]; then
+  eval "$(${HOME}/homebrew/bin/brew shellenv)"
+fi
+
 #
 # Set up some paths
 #
@@ -99,33 +106,19 @@ add_path_back "$HOME/bin/carapace"
 add_path_back "$HOME/.local/bin"
 add_path_back "$HOME/.cargo/bin"
 
-# Homebrew (user dir)
+# Homebrew
 for prog in coreutils findutils grep gawk; do
-  add_path_back "$HOME/homebrew/opt/${prog}/libexec/gnubin"
+  add_path_back "${HOMEBREW_PREFIX}/opt/${prog}/libexec/gnubin"
 done
 for gnuprog in sed time indent which tar ; do
-  add_path_back "$HOME/homebrew/opt/gnu-${gnuprog}/libexec/gnubin"
+  add_path_back "${HOMEBREW_PREFIX}/opt/gnu-${gnuprog}/libexec/gnubin"
 done
 for prog in llvm; do
-  add_path_back "$HOME/homebrew/opt/${prog}/bin"
+  add_path_back "${HOMEBREW_PREFIX}/opt/${prog}/bin"
 done
-add_path_back "$HOME/homebrew/opt/coreutils/libexec/gnubin"
-add_path_back "$HOME/homebrew/bin"
-add_path_back "$HOME/homebrew/sbin"
-
-# Homebrew (global dir)
-for prog in coreutils findutils grep gawk; do
-  add_path_back "/opt/homebrew/opt/${prog}/libexec/gnubin"
-done
-for gnuprog in sed time indent which tar ; do
-  add_path_back "/opt/homebrew/opt/gnu-${gnuprog}/libexec/gnubin"
-done
-for prog in llvm; do
-  add_path_back "/opt/homebrew/opt/${prog}/bin"
-done
-add_path_back "/opt/homebrew/opt/coreutils/libexec/gnubin"
-add_path_back "/opt/homebrew/bin"
-add_path_back "/opt/homebrew/sbin"
+add_path_back "${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
+add_path_back "${HOMEBREW_PREFIX}/bin"
+add_path_back "${HOMEBREW_PREFIX}/sbin"
 
 add_path_back "/snap/bin"
 add_path_back "/usr/local/bin"
