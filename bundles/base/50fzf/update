@@ -10,18 +10,23 @@ moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
 
 # See if we're already installed
-if [ -d "${moduledir}/${repodir}" ]; then
-    # Assume the repo exists, update it
-    ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
-else
-    # Assume the repo does not exist
-    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
-fi
+if [ ! which fzf &>/dev/null ]; then
+  carapace-message "blue" "Installing fzf..."
+  if [ -d "${moduledir}/${repodir}" ]; then
+      # Assume the repo exists, update it
+      ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
+  else
+      # Assume the repo does not exist
+      ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
+  fi
 
-# Grab/update binary
-( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null ) || (
-  # It failed, just use the fallback binary
-  carapace-message "yellow" "Could not build/install fzf, falling back to prebuilt binary."
-  carapace-redirect "${moduledir}/bin/fzf-fallback" "${moduledir}/bin/fzf"
-)
+  # Grab/update binary
+  ( cd "${moduledir}/${repodir}" && ./install --bin > /dev/null ) || (
+    # It failed, just use the fallback binary
+    carapace-message "yellow" "Could not build/install fzf, falling back to prebuilt binary."
+    carapace-redirect "${moduledir}/bin/fzf-fallback" "${moduledir}/bin/fzf"
+  )
+else
+  carapace-message "blue" "fzf already installed at $(which fzf 2>/dev/null)"
+fi
 
