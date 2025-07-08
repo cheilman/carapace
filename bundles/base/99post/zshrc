@@ -23,27 +23,33 @@ add_path_front "$HOME/.host/bin"
 # zgen/oh-my-zsh might mess up my ls aliases, so I moved them to post-process
 #
 # Fancy listing
-which gls &> /dev/null
-if [ $? -eq 0 ]; then
-  # Prefer gnu ls
-  alias ls='gls --color=auto --dereference-command-line-symlink-to-dir'
+if which eza &> /dev/null; then
+  # Prefer eza
+  alias ls='eza'
+  alias lf='eza -F --color=auto --icons=auto'
+  alias la='eza -F --color=auto --icons=auto --all'
+  alias ll='eza -F --color=auto --icons=auto --git --long --group'
+  alias lla='eza -F --color=auto --icons=auto --git --long --group --all'
+  alias lll='eza -F --color=auto --icons=auto --git --long --group --sort=newest'
 else
-  # See if ls supports the symlink dereference param
-  ls --dereference-command-line-symlink-to-dir / &> /dev/null
-  if [ $? -eq 0 ]; then
-    # It works well enough
+  # Use something ls-based
+  if which gls &> /dev/null; then
+    # Try gnu ls
+    alias ls='gls --color=auto --dereference-command-line-symlink-to-dir'
+  elif ls --dereference-command-line-symlink-to-dir / &> /dev/null; then
+    # Ls supports the symlink dereference param
     alias ls='ls --color=auto --dereference-command-line-symlink-to-dir'
   else
-    # Don't use it
+    # Plain-ish ls I guess
     alias ls='ls --color=auto'
   fi
 
+  alias lf='ls -F'
+  alias la='ls -Fa'
+  alias ll='ls -Flh'
+  alias lla='ls -Flha'
+  alias lll='ls -ltrh'
 fi
-alias lf='ls -F'
-alias la='ls -Fa'
-alias ll='ls -Flh'
-alias lla='ls -Flha'
-alias lll='ls -ltrh'
 
 #
 # on-my-zsh also messes with zsh history
