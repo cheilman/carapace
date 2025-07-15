@@ -1,0 +1,7 @@
+provider = "OpenMeteo"
+api_key = ""
+city = "Pittsburgh"
+units = "imperial"
+showcityname = true
+use_colors = true
+compact = false
