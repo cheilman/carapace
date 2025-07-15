@@ -5,6 +5,7 @@ apr-util
 aribb24
 aspell
 autoconf
+bat
 bazelisk
 berkeley-db@5
 bison
@@ -21,7 +22,9 @@ diff-so-fancy
 diffutils
 docutils
 entr
+eza
 fasttext
+fd
 feh
 ffmpeg
 findutils
@@ -31,6 +34,7 @@ fortune
 freetype
 frei0r
 fribidi
+fzf
 gawk
 gcc
 gd
@@ -60,6 +64,7 @@ htop
 hugo
 icu4c@75
 icu4c@76
+icu4c@77
 imagemagick
 imath
 imlib2
@@ -146,6 +151,7 @@ oniguruma
 opencore-amr
 openexr
 openjdk@11
+openjdk@17
 openjpeg
 openssl@3
 opus
@@ -181,6 +187,7 @@ snappy
 speex
 sqlite
 srt
+stormy
 subversion
 svt-av1
 swig

@@ -1,5 +1,8 @@
 aspell: Spell checker with better logic than ispell
+autoconf: Automatic configure script builder
+bat: Clone of cat(1) with syntax highlighting and Git integration
 bazelisk: User-friendly launcher for Bazel
+bison: Parser generator
 clang-format: Formatting tools for C, C++, Obj-C, Java, JavaScript, TypeScript
 coreutils: GNU File, Shell, and Text utilities
 daemonize: Run a command as a UNIX daemon
@@ -8,44 +11,63 @@ diff-so-fancy: Good-lookin' diffs with diff-highlight and more
 diffutils: File comparison utilities
 docutils: Text processing system for reStructuredText
 entr: Run arbitrary commands when files change
+eza: Modern, maintained replacement for ls
 fasttext: Library for fast text representation and classification
+fd: Simple, fast and user-friendly alternative to find
 feh: X11 image viewer
 ffmpeg: Play, record, convert, and stream audio and video
 findutils: Collection of GNU find, xargs, and locate
 fortune: Infamous electronic fortune-cookie generator
+fzf: Command-line fuzzy finder written in Go
 gawk: GNU awk utility
 gcc: GNU compiler collection
+ghostscript: Interpreter for PostScript and PDF
 git: Distributed revision control system
 gnu-sed: GNU implementation of the famous stream editor
 gnu-tar: GNU version of the tar archiving utility
 gnu-time: GNU implementation of time utility
 gnu-which: GNU implementation of which utility
 go: Open source programming language to build simple/reliable/efficient software
+gobject-introspection: Generate introspection data for GObject libraries
 graphviz: Graph visualization software from AT&T and Bell Labs
 grep: GNU grep, egrep and fgrep
 gzip: Popular GNU data compression program
 htop: Improved top (interactive process viewer)
 hugo: Configurable static site generator
+icu4c@75: C/C++ and Java libraries for Unicode and globalization
+icu4c@76: C/C++ and Java libraries for Unicode and globalization
 imagemagick: Tools and libraries to manipulate images in many formats
 jq: Lightweight and flexible command-line JSON processor
 languagetool: Style and grammar checker
-libgit2: C library of Git core methods that is re-entrant and linkable
+libgit2@1.8: C library of Git core methods that is re-entrant and linkable
+lzip: LZMA-based compression program similar to gzip or bzip2
 make: Utility for directing compilation
+meson: Fast and user friendly build system
+openjdk@11: Development kit for the Java programming language
+perl: Highly capable, feature-rich programming language
 pillow: Friendly PIL fork (Python Imaging Library)
 powerline-go: Beautiful and useful low-latency prompt for your shell
 protoc-gen-go: Go support for Google's protocol buffers
 protoc-gen-go-grpc: Protoc plugin that generates code for gRPC-Go clients
 protolint: Pluggable linter and fixer to enforce Protocol Buffer style and conventions
 pv: Monitor data's progress through a pipe
+python-packaging: Core utilities for Python packages
+python-setuptools: Easily download, build, install, upgrade, and uninstall Python packages
 python@3.11: Interpreted, interactive, object-oriented programming language
+python@3.12: Interpreted, interactive, object-oriented programming language
+rust: Safe, concurrent, practical language
+scons: Substitute for classic 'make' tool with autoconf/automake functionality
 shellcheck: Static analysis and lint tool, for (ba)sh scripts
+stormy: Minimal, customizable and neofetch-like weather CLI based on rainy
 subversion: Version control system designed to be a better CVS
+swig: Generate scripting interfaces to C/C++ code
 tcl-tk: Tool Command Language
 terminal-notifier: Send macOS User Notifications from the command-line
 texinfo: Official documentation format of the GNU project
 the_silver_searcher: Code-search similar to ack
 tmux: Terminal multiplexer
 tree: Display directories as trees (with optional color/HTML output)
+util-macros: X.Org: Set of autoconf macros used to build other xorg packages
 vim: Vi 'workalike' with many additional features
 watch: Executes a program periodically, showing output fullscreen
 wget: Internet file retriever
