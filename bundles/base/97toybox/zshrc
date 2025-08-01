@@ -4,7 +4,9 @@
 #
 
 # Load the aliases
-source "${CARAPACE_CURRENT_MODULE_PATH}/tbaliases"
+if [ -r "${CARAPACE_CURRENT_MODULE_PATH}/tbaliases" ]; then
+  source "${CARAPACE_CURRENT_MODULE_PATH}/tbaliases"
+fi
 
 # What commands did we set up aliases for?
 alias check-toybox-aliases='alias | grep toybox'
