@@ -23,6 +23,13 @@ if [ $? -eq 0 ]; then
   exit $?
 fi
 
+# I guess wtfutil is called wtf now??
+which wtf &>/dev/null
+if [ $? -eq 0 ]; then
+  wtf
+  exit $?
+fi
+
 # If we have a sysdash program compiled for this host, use that
 which sysdash &>/dev/null
 if [ $? -eq 0 ]; then
