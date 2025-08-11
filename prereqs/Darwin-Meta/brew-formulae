@@ -143,6 +143,7 @@ meson
 mpdecimal
 mpfr
 mpg123
+ncdu
 ncurses
 netpbm
 nettle
@@ -212,6 +213,7 @@ xorgproto
 xtrans
 xvid
 xz
+yazi
 z3
 zeromq
 zimg

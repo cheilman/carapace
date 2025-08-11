@@ -43,6 +43,7 @@ libgit2@1.8
 lzip
 make
 meson
+ncdu
 openjdk@11
 perl
 pillow
@@ -72,4 +73,5 @@ vim
 watch
 wget
 xtrans
+yazi
 zsh
