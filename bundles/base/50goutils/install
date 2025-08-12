@@ -10,6 +10,4 @@ generateddir="${2:-/dev/null}"
 # and the executable needs to be in the same path as the scripts :/
 if [ -x "${GOPATH}/bin/guess" ]; then
   carapace-redirect "${GOPATH}/bin/guess" "${HOME}/bin/carapace/guess" || :
-  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/g" "${HOME}/bin/carapace/g" || :
-  carapace-redirect "${GOPATH}/src/github.com/Feh/guess/guess-notify" "${HOME}/bin/carapace/guess-notify" || :
 fi
