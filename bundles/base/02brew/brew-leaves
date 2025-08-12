@@ -3,6 +3,7 @@ bat
 bazelisk
 bind
 bison
+bottom
 clang-format
 coreutils
 daemonize
