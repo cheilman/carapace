@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+#
+# Install all our brew packages
+#
+
+if ! which brew &>/dev/null; then
+  # No brew, abort (but cleanly)
+  exit 0
+fi
+
+moduledir="${1:-/dev/null}"
+generateddir="${2:-/dev/null}"
+tmpdir="${TMPDIR:-/tmp}/carapace"
+
+mkdir -p "${tmpdir}"
+
+# Get a list of the currently installed brew leaves
+
+cur_leaves="${tmpdir}/cur-brew-leaves"
+brew leaves | sort > ${cur_leaves}
+
+# What do we need to install?
+desired_leaves="${moduledir}/brew-leaves"
+needed_leaves="${tmpdir}/needed-brew-leaves"
+
+grep -F -v -x -f "${cur_leaves}" "${desired_leaves}" > "${needed_leaves}"
+
+brew_count=$(cat "${needed_leaves}" | wc -l)
+
+if [ $brew_count -gt 0 ]; then
+  carapace-message "cyan" "Need to install ${brew_count} brew leaves..."
+  cat "${needed_leaves}" | xargs brew install
+fi
+
