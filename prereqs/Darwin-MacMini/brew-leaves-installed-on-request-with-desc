@@ -43,6 +43,7 @@ libgit2@1.8: C library of Git core methods that is re-entrant and linkable
 lzip: LZMA-based compression program similar to gzip or bzip2
 make: Utility for directing compilation
 meson: Fast and user friendly build system
+ncdu: NCurses Disk Usage
 openjdk@11: Development kit for the Java programming language
 perl: Highly capable, feature-rich programming language
 pillow: Friendly PIL fork (Python Imaging Library)
@@ -72,4 +73,5 @@ vim: Vi 'workalike' with many additional features
 watch: Executes a program periodically, showing output fullscreen
 wget: Internet file retriever
 xtrans: X.Org: X Network Transport layer shared code
+yazi: Blazing fast terminal file manager written in Rust, based on async I/O
 zsh: UNIX shell (command interpreter)
