@@ -26,11 +26,11 @@ add_path_front "$HOME/.host/bin"
 if which eza &> /dev/null; then
   # Prefer eza
   alias ls='eza'
-  alias lf='eza -F --color=auto --icons'
-  alias la='eza -F --color=auto --icons --all'
-  alias ll='eza -F --color=auto --icons --git --long --group'
-  alias lla='eza -F --color=auto --icons --git --long --group --all'
-  alias lll='eza -F --color=auto --icons --git --long --group --sort=newest'
+  alias lf='eza -F --icons --color=auto'
+  alias la='eza -F --icons --color=auto --all'
+  alias ll='eza -F --icons --color=auto --git --long --group'
+  alias lla='eza -F --icons --color=auto --git --long --group --all'
+  alias lll='eza -F --icons --color=auto --git --long --group --sort=newest'
 else
   # Use something ls-based
   if which gls &> /dev/null; then
