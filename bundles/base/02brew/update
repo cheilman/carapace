@@ -14,8 +14,10 @@ tmpdir="${TMPDIR:-/tmp}/carapace"
 
 mkdir -p "${tmpdir}"
 
-# Get a list of the currently installed brew leaves
+# Update brew
+brew update
 
+# Get a list of the currently installed brew leaves
 cur_leaves="${tmpdir}/cur-brew-leaves"
 brew leaves | sort > ${cur_leaves}
 
