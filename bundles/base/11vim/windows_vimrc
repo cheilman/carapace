@@ -1,0 +1,287 @@
+" Manually modified windows vimrc
+"
+"###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+"###
+"### Included from: base/vim
+"###     (/home/cheilman/.carapace/bundles/base/11vim/special/vimrc)
+"###
+
+""
+"" Vundle Configuration
+""
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set shellslash " windows
+
+scriptencoding utf-8
+set encoding=utf-8
+set termencoding=utf-8
+
+set guifont=CaskaydiaMono_NFM:h10:cANSI:qDRAFT
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/vimfiles/bundle/Vundle.vim
+call vundle#begin('~/vimfiles/bundle')
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Add plugins here
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'powerman/ansiesc.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'dense-analysis/ale'
+Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-endwise'
+Plugin 'elzr/vim-json'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'uarun/vim-protobuf'
+Plugin 'haishanh/night-owl.vim'
+Plugin 'tmux-plugins/vim-tmux'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+""
+"" My Configuration
+""
+
+"" Colors
+
+set t_Co=256
+set background=dark
+
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
+
+syntax enable
+
+"colorscheme pablo
+"colorscheme koehler
+colorscheme desert
+"colorscheme night-owl
+
+"" Airline configuration
+
+let g:airline_powerline_fonts=1
+"let g:airline_theme='dark'
+"let g:airline_theme='minimalist'
+"let g:airline_theme='bubblegum'
+let g:airline_theme='simple'
+"let g:airline_theme='angr'
+"let g:airline_theme='murmur'
+
+"" Auto-fix some stuff with ALE
+let g:ale_fixers = {
+\   '*': ['trim_whitespace'],
+\}
+let g:ale_fix_on_save = 1
+
+"" My key mappings
+
+" set 'q' to format a line to 100 characters wide
+:map q :.!fmt -w 100
+" set 'Q' to format a paragraph to 100 characters wide
+:map Q :.;/^$/!fmt -w 100
+
+" set t to transpose the letter under the cursor
+" with the letter to its right
+:map t xph
+
+" Use :w!! to save a file with sudo
+cabbrev w!! w !sudo tee % >/dev/null
+
+"" Default options
+
+" Change vim behavior
+set nobackup
+set nocompatible
+
+" Indentation
+set autoindent
+set cindent
+
+set tabstop=2
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+
+" Match braces, etc.
+set showmatch
+set matchtime=10
+
+" Edit behavior
+set backspace=indent,eol,start
+
+" Command History
+set history=50
+
+" UI
+set laststatus=2
+set ruler
+set scrolloff=2
+set cursorline
+
+" Line wrapping
+set nolinebreak
+set textwidth=0
+set wrap
+set wrapmargin=0
+
+" Fancy searching
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+
+" Line numbers
+set number
+
+" Folding is a pain in the ass
+set nofoldenable
+
+" Spelling
+set spelllang=en_US
+
+" Make go use 4-space tab width, while still using tabs
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
+" Undo persist between vim invocations
+if exists('undodir')
+    set undodir=~/.vim/undodir
+endif
+if exists('undofile')
+    set undofile
+endif
+set undolevels=1000 "maximum number of changes that can be undone
+if exists('undoreload')
+    set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+endif
+
+" Ssshhhhhhh
+set noerrorbells
+set novisualbell
+
+" Show sneaky hidden characters
+set list listchars=tab:»\ ,trail:°
+" but turn them off by default
+set nolist
+
+" Add a vertical line to show where to stop typing
+"set colorcolumn=100
+":highlight ColorColumn ctermbg=blue guibg=blue
+
+" Let ENTER complete YCM recommendations too
+let g:tvm_key_list_stop_completion = ['<C-y>', '<CR>']
+
+"" Syntax Highlighting
+syntax on
+
+"" Add delete previous word
+:inoremap <C-h> <C-W>
+
+"" Disable mouse interaction (I hope)
+:set mouse=""
+:set mouse-=""
+inoremap <ScrollWheelUp> <Nop>
+inoremap <ScrollWheelDown> <Nop>
+nnoremap <ScrollWheelUp> <Nop>
+nnoremap <ScrollWheelDown> <Nop>
+onoremap <ScrollWheelUp> <Nop>
+onoremap <ScrollWheelDown> <Nop>
+vnoremap <ScrollWheelUp> <Nop>
+vnoremap <ScrollWheelDown> <Nop>
+
+"" Increment number
+:nnoremap <F3> ma:.,/^\s*$/g/^\d/exe "normal! \<C-A>"<CR>`a
+:nnoremap <F4> ma:.,/^\s*$/g/^\d/exe "normal! \<C-X>"<CR>`a
+
+"" Option toggling from http://vim.wikia.com/wiki/Quick_generic_option_toggling
+function MapToggle(key, opt)
+    let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+    exec 'nnoremap '.a:key.' '.cmd
+    exec 'inoremap '.a:key." \<C-O>".cmd
+endfunction
+command -nargs=+ MapToggle call MapToggle(<f-args>)
+
+" Toggle Display
+MapToggle <F9> number
+
+" Toggle behavior
+MapToggle <F2> paste
+:set pastetoggle=<F2>
+MapToggle <F11> ignorecase
+
+" Toggle features
+MapToggle <F5> spell
+
+" Plugin hotkeys
+map ; :Files<CR>
+map <C-o> :NERDTreeToggle<CR>
+
+"" Show filename in screen title
+""  from: http://vim.wikia.com/wiki/Automatically_set_screen_title
+""  from: Amazon envImprovement
+
+function! SetTitle()
+    if $TERM =~ "^screen"
+        let l:title = 'vi: ' . expand('%:t')
+        let l:truncTitle = strpart(l:title, 0, 15)
+
+        silent exe '!echo -e -n "\033k' . l:truncTitle . '\033\\"'
+    endif
+endfunction
+
+autocmd BufEnter,BufFilePost * call SetTitle()
+
+"###
+"### End include from: base/vim
+"###
+"###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+"###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+"###
+"### Included from: base/vim
+"###     (/home/cheilman/.carapace/bundles/base/98vim/special/vimrc)
+"###
+
+"
+" Finalize vimrc settings
+"
+
+" This has to be last to enable all plugins
+filetype plugin indent on
+syntax on
+
+" Now do our highlighting
+highlight CursorLine cterm=NONE ctermbg=black
+highlight CursorLineNR cterm=underline ctermbg=black
+
+" Force line numbers
+set number
+
+" Maybe now do go formatting?  use 4-space tab width, while still using tabs
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
+
+"###
+"### End include from: base/vim
+"###
+"###*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
