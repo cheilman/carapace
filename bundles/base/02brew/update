@@ -17,6 +17,9 @@ mkdir -p "${tmpdir}"
 # Update brew
 brew update
 
+# Upgrade brew installs
+brew upgrade
+
 # Get a list of the currently installed brew leaves
 cur_leaves="${tmpdir}/cur-brew-leaves"
 brew leaves | sort > ${cur_leaves}
