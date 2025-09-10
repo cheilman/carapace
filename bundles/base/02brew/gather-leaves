@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Gather installed information
+#
+
+brew leaves --installed-on-request | sort > brew-leaves
+
+

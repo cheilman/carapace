@@ -12,6 +12,7 @@ dateutils
 diff-so-fancy
 diffutils
 docutils
+duf
 entr
 eza
 fasttext
@@ -22,6 +23,7 @@ findutils
 fortune
 fzf
 gawk
+gcc
 git
 gnu-indent
 gnu-sed
@@ -39,10 +41,12 @@ hugo
 icu4c@75
 icu4c@76
 imagemagick
-lazygit
 jid
 jq
 languagetool
+lazygit
+libgit2@1.8
+llvm
 lzip
 make
 meson
@@ -50,6 +54,7 @@ ncdu
 noti
 openjdk@11
 pandoc
+perl
 pillow
 powerline-go
 protoc-gen-go
@@ -57,10 +62,10 @@ protoc-gen-go-grpc
 protolint
 pv
 pyenv
-python@3.11
-python@3.12
 python-packaging
 python-setuptools
+python@3.11
+python@3.12
 rbenv
 rust
 scons
