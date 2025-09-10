@@ -3,6 +3,6 @@
 # Gather installed information
 #
 
-brew leaves --installed-on-request | sort > brew-leaves
+brew leaves --installed-on-request | grep -v terminal-notifier | sort > brew-leaves
 
 
