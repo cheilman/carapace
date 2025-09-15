@@ -23,7 +23,6 @@ findutils
 fortune
 fzf
 gawk
-gcc
 git
 gnu-indent
 gnu-sed
@@ -46,15 +45,14 @@ jq
 languagetool
 lazygit
 libgit2@1.8
-llvm
 lzip
 make
+md5sha1sum
 meson
 ncdu
 noti
 openjdk@11
 pandoc
-perl
 pillow
 powerline-go
 protoc-gen-go
@@ -62,10 +60,10 @@ protoc-gen-go-grpc
 protolint
 pv
 pyenv
-python-packaging
-python-setuptools
 python@3.11
 python@3.12
+python-packaging
+python-setuptools
 rbenv
 rust
 scons
