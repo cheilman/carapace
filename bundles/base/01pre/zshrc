@@ -92,7 +92,9 @@ add_path_front ()
 brewcmds=("brew" "/opt/homebrew/bin/brew" "${HOME}/homebrew/bin/brew" "/home/linuxbrew/.linuxbrew/bin/brew" )
 for brewcmd in ${brewcmds}; do
   if [ -x "${brewcmd}" ]; then
-    eval "$(${brewcmd} shellenv)"
+    export CARAPACE_BREW_CMD="${brewcmd}"
+    eval "$(${CARAPACE_BREW_CMD} shellenv)"
+    break
   fi
 done
 
