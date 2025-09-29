@@ -50,6 +50,7 @@ make
 md5sha1sum
 meson
 ncdu
+nmap
 noti
 openjdk@11
 pandoc
@@ -60,10 +61,10 @@ protoc-gen-go-grpc
 protolint
 pv
 pyenv
-python@3.11
-python@3.12
 python-packaging
 python-setuptools
+python@3.11
+python@3.12
 rbenv
 rust
 scons
@@ -80,6 +81,7 @@ util-macros
 vim
 watch
 wget
+wtfutil
 xtrans
 yazi
 zsh
