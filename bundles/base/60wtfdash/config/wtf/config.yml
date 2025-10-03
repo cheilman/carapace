@@ -66,10 +66,19 @@ wtf:
       enabled: true
       position:
         top: 0
-        left: 3
+        left: 2
         height: 1
         width: 1
       refreshInterval: 15s
+    security:
+      enabled: true
+      type: security
+      position:
+        top: 0
+        left: 3
+        height: 1
+        width: 1
+      refreshInterval: 30m
     resources:
       type: resourceusage
       enabled: true
