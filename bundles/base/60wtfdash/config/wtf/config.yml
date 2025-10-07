@@ -18,9 +18,9 @@ wtf:
     shortcuts: false
   grid:
     # How _wide_ the columns are, in terminal characters.
-    columns: [-1, -1, -1, -1, -1]
+    columns: [-1, -1, -1, -1]
     # How _high_ the rows are, in terminal lines.
-    rows: [-1, -4]
+    rows: [-3, -2, -2, -2, -2]
   refreshInterval: 1s
   openFileUtil: "open"
   mods:
@@ -83,9 +83,9 @@ wtf:
       type: resourceusage
       enabled: true
       position:
-        top: 0
-        left: 4
-        height: 2
+        top: 1
+        left: 3
+        height: 4
         width: 1
       refreshInterval: 1s
       #cpuCombined: true
@@ -95,10 +95,10 @@ wtf:
       type: cmdrunner
       enabled: true
       position:
-        top: 1
+        top: 4
         left: 0
         height: 1
-        width: 4
+        width: 3
       refreshInterval: 15s
       args: ['hello', 'world', '!']
       cmd: 'echo'
