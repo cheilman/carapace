@@ -5,7 +5,6 @@ bind
 bison
 bottom
 clang-format
-coreutils
 daemonize
 dash-shell
 dateutils
@@ -52,6 +51,7 @@ lzip
 make
 md5sha1sum
 meson
+michaeldfallen/formula/git-radar
 ncdu
 nmap
 noti
