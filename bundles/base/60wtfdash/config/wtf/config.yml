@@ -91,14 +91,25 @@ wtf:
       #cpuCombined: true
       cpuCombined: false
       graphIcon: "█"
-    carapaceUtilDash:
+    carapaceGitDash:
       type: cmdrunner
       enabled: true
       position:
-        top: 4
+        top: 1
         left: 0
-        height: 1
+        height: 2
         width: 3
-      refreshInterval: 15s
-      args: ['hello', 'world', '!']
-      cmd: 'echo'
+      refreshInterval: 60s
+      args: []
+      cmd: 'git-dashboard'
+    carapaceHgDash:
+      type: cmdrunner
+      enabled: true
+      position:
+        top: 3
+        left: 0
+        height: 2
+        width: 3
+      refreshInterval: 60s
+      args: []
+      cmd: 'hg-dashboard'

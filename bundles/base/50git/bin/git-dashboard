@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+for i in $(findGitRepos); do
+  (
+    cd "${i}" && gitshortstatus
+  ) || :
+done
+
