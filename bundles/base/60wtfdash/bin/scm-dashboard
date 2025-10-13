@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git-dashboard || true
+hg-dashboard || true
+

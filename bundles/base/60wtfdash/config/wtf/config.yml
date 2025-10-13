@@ -79,37 +79,26 @@ wtf:
         height: 1
         width: 1
       refreshInterval: 30m
-    resources:
-      type: resourceusage
-      enabled: true
-      position:
-        top: 1
-        left: 3
-        height: 4
-        width: 1
-      refreshInterval: 1s
-      #cpuCombined: true
-      cpuCombined: false
-      graphIcon: "█"
-    carapaceGitDash:
+    carapaceSCMDash:
       type: cmdrunner
       enabled: true
       position:
         top: 1
         left: 0
-        height: 2
-        width: 3
+        height: 1
+        width: 4
       refreshInterval: 60s
       args: []
-      cmd: 'git-dashboard'
-    carapaceHgDash:
+      cmd: 'scm-dashboard'
+    carapaceBtm:
       type: cmdrunner
       enabled: true
       position:
-        top: 3
+        top: 2
         left: 0
-        height: 2
-        width: 3
-      refreshInterval: 60s
+        height: 3
+        width: 4
+      refreshInterval: 15m
+      pty: true
       args: []
-      cmd: 'hg-dashboard'
+      cmd: 'btm'
