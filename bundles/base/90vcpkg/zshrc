@@ -1,0 +1,11 @@
+#!zsh
+#
+# VCPkg c++ package management
+#
+
+for i in "${HOME}/projects/vcpkg" "${HOME}/vcpkg"; do
+  if [ -d "$i" ]; then
+    export VCPKG_ROOT="$i"
+  fi
+done
+
