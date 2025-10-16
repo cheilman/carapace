@@ -2,6 +2,9 @@
     name = Chris Heilman
     email = chris.heilman@gmail.com
 
+[init]
+  defaultBranch = main
+
 [color]
     ui = auto
 
@@ -57,7 +60,7 @@
 
 [commit]
     verbose = true
-    
+
 [alias]
     st = status
     ts = status
