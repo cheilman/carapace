@@ -5,8 +5,10 @@
 
 brew leaves --installed-on-request | \
   grep -v gcc | \
+  grep -v gemini | \
   grep -v llvm | \
   grep -v perl | \
+  grep -v 'steveyegge/beads/bd' | \
   grep -v terminal-notifier | \
   sort > brew-leaves
 
