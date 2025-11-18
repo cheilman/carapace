@@ -10,5 +10,8 @@ brew leaves --installed-on-request | \
   grep -v perl | \
   grep -v 'steveyegge/beads/bd' | \
   grep -v terminal-notifier | \
+  grep -v fasttext | \
+  grep -v icu4c\@ | \
+  grep -v lsusb | \
   sort > brew-leaves
 

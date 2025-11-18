@@ -17,7 +17,6 @@ dust
 entr
 eza
 fastfetch
-fasttext
 fd
 feh
 ffmpeg
@@ -39,8 +38,6 @@ groff
 gzip
 htop
 hugo
-icu4c@75
-icu4c@76
 imagemagick
 jid
 jq
@@ -48,7 +45,6 @@ just
 languagetool
 lazygit
 libgit2@1.8
-lsusb
 lzip
 make
 md5sha1sum
@@ -66,10 +62,10 @@ protoc-gen-go-grpc
 protolint
 pv
 pyenv
-python-packaging
-python-setuptools
 python@3.11
 python@3.12
+python-packaging
+python-setuptools
 rbenv
 rust
 scons
