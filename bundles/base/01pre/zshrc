@@ -89,7 +89,7 @@ add_path_front ()
 }
 
 # Homebrew variables
-brewcmds=("brew" "/opt/homebrew/bin/brew" "${HOME}/homebrew/bin/brew" "/home/linuxbrew/.linuxbrew/bin/brew" )
+brewcmds=("brew" "/opt/homebrew/bin/brew" "${HOME}/homebrew/bin/brew" "/home/linuxbrew/.linuxbrew/bin/brew" "${HOME}/.brew/bin/brew" )
 for brewcmd in ${brewcmds}; do
   if [ -x "${brewcmd}" ]; then
     export CARAPACE_BREW_CMD="${brewcmd}"
