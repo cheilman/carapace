@@ -16,10 +16,8 @@ source "${HOME}/bin/carapace/goenv-cache"
 
 # Install a bunch of go repos
 repos=(
-  "github.com/Feh/guess@latest"
   "github.com/evanmiller/hecate@latest"
   "github.com/maxzender/jv@latest"
-  "github.com/pranavraja/tldr@latest"
   )
 
 if [ -d "$GOPATH" -a -x "$(which go 2> /dev/null)" ]; then

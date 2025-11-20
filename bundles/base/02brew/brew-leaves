@@ -62,10 +62,10 @@ protoc-gen-go-grpc
 protolint
 pv
 pyenv
-python@3.11
-python@3.12
 python-packaging
 python-setuptools
+python@3.11
+python@3.12
 rbenv
 rust
 scons
@@ -76,6 +76,7 @@ swig
 tcl-tk
 texinfo
 the_silver_searcher
+tlrc
 tmux
 tree
 util-macros
