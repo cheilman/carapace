@@ -50,6 +50,7 @@ make
 md5sha1sum
 meson
 michaeldfallen/formula/git-radar
+mq
 ncdu
 nmap
 noti
