@@ -16,6 +16,13 @@ fi
 # Idle
 #
 
+# Let's just use btm for now...
+which btm &>/dev/null
+if [ $? -eq 0 ]; then
+  btm
+  exit $?
+fi
+
 # If we have wtfutil installed, use that
 which wtfutil &>/dev/null
 if [ $? -eq 0 ]; then
