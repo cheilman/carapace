@@ -26,7 +26,6 @@ fzf
 gawk
 git
 gnu-indent
-gnu-sed
 gnu-tar
 gnu-time
 gnu-which
@@ -53,6 +52,7 @@ michaeldfallen/formula/git-radar
 mq
 ncdu
 nmap
+nnn
 noti
 openjdk@11
 pandoc
