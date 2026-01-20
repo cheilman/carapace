@@ -153,6 +153,29 @@ alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\
 # TODO: This almost never guesses the running command correctly
 alias autoalert='alert "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*autoalert$//'\'')"'
 
+# simple calculator
+calc_f() {
+        local result=""
+        result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
+        #                                               └─ default (when `--mathlib` is used) is 20
+
+        if [[ "$result" == *.* ]]; then
+                # improve the output for decimal numbers
+                # add "0" for cases like ".5"
+                # add "0" for cases like "-.5"
+                # remove trailing zeros
+                printf "%s" "$result" |
+                sed -e 's/^\./0./'  \
+                        -e 's/^-\./-0./' \
+                        -e 's/0*$//;s/\.$//'
+        else
+                printf "%s" "$result"
+        fi
+        printf "\n"
+}
+
+alias calc='noglob calc_f'
+
 #
 # Extract Function
 #
@@ -196,31 +219,4 @@ function man() {
                 PATH="$HOME/bin:$PATH" \
                         man "$@"
 }
-
-#
-# Lots of things stolen from @jessfraz -- https://github.com/jessfraz/dotfiles/blob/master/.aliases
-#
-
-# simple calculator
-calc_f() {
-        local result=""
-        result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
-        #                                               └─ default (when `--mathlib` is used) is 20
-
-        if [[ "$result" == *.* ]]; then
-                # improve the output for decimal numbers
-                # add "0" for cases like ".5"
-                # add "0" for cases like "-.5"
-                # remove trailing zeros
-                printf "%s" "$result" |
-                sed -e 's/^\./0./'  \
-                        -e 's/^-\./-0./' \
-                        -e 's/0*$//;s/\.$//'
-        else
-                printf "%s" "$result"
-        fi
-        printf "\n"
-}
-
-alias calc='noglob calc_f'
 
