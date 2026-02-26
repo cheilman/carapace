@@ -4,14 +4,6 @@
 #
 
 brew leaves --installed-on-request | \
-  grep -v gcc | \
-  grep -v gemini | \
-  grep -v llvm | \
-  grep -v perl | \
-  grep -v 'steveyegge/beads/bd' | \
-  grep -v terminal-notifier | \
-  grep -v fasttext | \
-  grep -v icu4c\@ | \
-  grep -v lsusb | \
+  grep -v -f exclude-leaves | \
   sort > brew-leaves
 
