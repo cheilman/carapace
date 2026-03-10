@@ -1,3 +1,4 @@
+allegro
 aspell
 bat
 bazelisk
@@ -5,12 +6,14 @@ bind
 bison
 bottom
 clang-format
+cmake
 daemonize
 dash-shell
 dateutils
 diff-so-fancy
 diffutils
 docutils
+dos2unix
 dua-cli
 duf
 dust
@@ -25,6 +28,7 @@ fortune
 fzf
 gawk
 git
+git-filter-repo
 gnu-indent
 gnu-tar
 gnu-time
@@ -38,6 +42,7 @@ gzip
 htop
 hugo
 imagemagick
+include-what-you-use
 jid
 jq
 just
@@ -82,6 +87,8 @@ tlrc
 tmux
 tree
 util-macros
+uv
+vcpkg
 vim
 watch
 wget
