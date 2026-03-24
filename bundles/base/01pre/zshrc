@@ -135,6 +135,7 @@ add_path_back "/usr/X11/bin"
 add_path_back "$HOME/programs/games"
 add_path_back "/usr/games"
 add_path_back "/usr/local/games"
+add_path_back "/Applications/Docker.app/Contents/Resources/bin"
 
 #
 # Colors
