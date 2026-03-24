@@ -1,4 +1,5 @@
 aribb24
+docker
 fasttext
 frei0r
 gcc
@@ -23,6 +24,7 @@ snappy
 speex
 srt
 steveyegge/beads/bd
+telnet
 terminal-notifier
 theora
 xvid
