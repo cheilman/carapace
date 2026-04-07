@@ -6,3 +6,8 @@
 # Quieter!
 HOMEBREW_NO_ENV_HINTS=1
 
+# Homebrew Perl on Linux complains about locale
+if [[ "$(which perl)" == *".brew/bin/perl"* ]]; then
+  export PERL_BADLANG=0
+fi
+
