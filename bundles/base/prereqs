@@ -1,4 +1,3 @@
-ag
 awk
 basename
 curl
@@ -13,9 +12,9 @@ locate
 nice
 perl
 ping
-powerline
 pv
 python3
+rg
 scp
 sed
 sha1sum
