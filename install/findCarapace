@@ -7,21 +7,21 @@
 zshrc="${HOME}/.zshrc"
 if [ -h "$zshrc" ]; then
   # zshrc is a link into carapace
-  carapace="${zshrc:A:h}"
+  carapace="$(dirname "$(readlink -f "$zshrc")")"
   if [ -f "${carapace}/CARAPACE" ]; then
     readlink -f "${carapace}"
     exit 0
   fi
-else
-  # zshrc is a plain file, or missing...
-  # try to guess where carapace is
-  for i in "${HOME}/.carapace" "${HOME}/carapace"; do
-    if [ -f "${i}/CARAPACE" ]; then
-      readlink -f "${i}"
-      exit 0
-    fi
-  done
 fi
+
+# zshrc is a plain file, or missing...
+# try to guess where carapace is
+for i in "${HOME}/.carapace" "${HOME}/carapace"; do
+  if [ -f "${i}/CARAPACE" ]; then
+    readlink -f "${i}"
+    exit 0
+  fi
+done
 
 exit 1
 
