@@ -71,7 +71,7 @@ toyboxCheckAndAlias() {
 }
 
 # Adds a lot of shit
-for c in `toybox --list`; do
+for c in `toybox`; do
     toyboxCheckAndAlias $c
 done
 
