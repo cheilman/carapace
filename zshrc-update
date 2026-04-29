@@ -22,7 +22,7 @@ fi
 # Execute
 #
 
-. $CARAPACE/generated/generated-zshrc
+[ -d "$CARAPACE" ] && source "${CARAPACE}/generated/generated-zshrc"
 
 # Profiling support
 if [[ "$ZPROF" = true ]]; then
