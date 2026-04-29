@@ -34,6 +34,6 @@ brew_count=$(cat "${needed_leaves}" | wc -l)
 
 if [ $brew_count -gt 0 ]; then
   carapace-message "cyan" "Need to install ${brew_count} brew leaves..."
-  cat "${needed_leaves}" | xargs brew install
+  cat "${needed_leaves}" | xargs -n 1 brew install
 fi
 
