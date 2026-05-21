@@ -52,6 +52,7 @@ rbenv
 rubberband
 rust
 scons
+shared-mime-info
 snappy
 speex
 srt
@@ -61,8 +62,8 @@ tcl-tk
 telnet
 terminal-notifier
 texinfo
-theora
 the_silver_searcher
+theora
 util-macros
 vcpkg
 xtrans
