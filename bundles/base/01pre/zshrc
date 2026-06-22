@@ -56,11 +56,6 @@ if [ -f /etc/environment ]; then
 fi
 
 #
-# Autoload Functions
-#
-autoload -U is-at-least
-
-#
 # Path Helper Functions
 #
 
@@ -97,6 +92,47 @@ for brewcmd in ${brewcmds}; do
     break
   fi
 done
+
+#
+# Zsh Functions
+#
+
+# Add to the end of the fpath.  Doesn't check for duplicates
+add_fpath_back ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$FPATH" ]]; then
+            export FPATH="$FPATH:$*"
+        else
+            export FPATH="$*"
+        fi
+    fi
+}
+
+# Add to the beginning of the fpath.  Doesn't check for duplicates
+add_fpath_front ()
+{
+    if [[ -d "$*" ]]; then
+        if [[ -n "$FPATH" ]]; then
+            export FPATH="$*:$FPATH"
+        else
+            export FPATH="$*"
+        fi
+    fi
+}
+
+# Update function search path
+func_candidates=("$(dirname $(which zsh))/../share/zsh" "${HOMEBREW_PREFIX}/share/zsh" "/usr/share/zsh")
+for f in ${func_candidates}; do
+  for d in "functions" "site-functions"; do
+    if [ -d "${f}/${d}" ]; then
+      add_fpath_back "${f}/${d}"
+    fi
+  done
+done
+
+# Autoloads
+autoload -U is-at-least
 
 #
 # Set up some paths
