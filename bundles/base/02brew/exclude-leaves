@@ -6,6 +6,7 @@ bison
 clang-format
 dash-shell
 docker
+docker-completion
 docutils
 fastfetch
 fasttext
@@ -14,6 +15,7 @@ ffmpeg
 frei0r
 gcc
 gemini
+gemini-cli
 gobject-introspection
 groff
 htop
@@ -39,6 +41,7 @@ meson
 nmap
 opencore-amr
 openjdk
+openjdk@11
 perl
 pillow
 protoc-gen-go
