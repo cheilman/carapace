@@ -29,5 +29,3 @@ if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
-# Google Drive auto-mount (managed by gdrive-mount plugin)
-[ -f ~/.claude/gdrive-mount-scripts/auto-mount.sh ] && ( source ~/.claude/gdrive-mount-scripts/auto-mount.sh ) &>/dev/null & disown
