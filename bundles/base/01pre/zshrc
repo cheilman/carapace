@@ -191,6 +191,8 @@ add_path_back "${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
 add_path_back "${HOMEBREW_PREFIX}/bin"
 add_path_back "${HOMEBREW_PREFIX}/sbin"
 
+add_path_back "/Users/cheilman/.opencode/bin"
+
 add_path_back "/snap/bin"
 add_path_back "/usr/local/bin"
 add_path_back "/usr/bin"
