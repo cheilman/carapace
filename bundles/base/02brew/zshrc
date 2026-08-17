@@ -11,3 +11,9 @@ if [[ "$(which perl)" == *".brew/bin/perl"* ]]; then
   export PERL_BADLANG=0
 fi
 
+# Meta Devservers need proxy config
+hostname | grep 'dev.*facebook.com' &> /dev/null
+if [[ $? -eq 0 ]]; then
+  alias brew="ALL_PROXY=fwdproxy:8080 brew"
+fi
+
