@@ -8,15 +8,21 @@
 # Grc plugin
 # Uses config from ~/.grc
 # vim:ft=zsh
+# NOTE: this widget runs on every Enter.  It used to fork `ls ~/.grc/conf*`
+# each time and then walk ~74 configs.  Build the list once, at startup.
+typeset -ga _grc_progs=( ~/.grc/conf*(N:e) )
+
 _grc_injector(){
   if (( ! ${+DISABLE_GRC} )); then
-    for f in $(ls ~/.grc/conf*); do
-      local prog=${f:e}
-      if [[ "$BUFFER" =~ "(^|[/\w\.]+/|sudo\s+)$prog\s" && ! "$BUFFER" =~ "grcat conf*" ]]; then
-        BUFFER=$BUFFER" | grcat conf.$prog"
-        break
-      fi
-    done
+    if [[ ! "$BUFFER" =~ "grcat conf*" ]]; then
+      local prog
+      for prog in $_grc_progs; do
+        if [[ "$BUFFER" =~ "(^|[/\w\.]+/|sudo\s+)$prog\s" ]]; then
+          BUFFER=$BUFFER" | grcat conf.$prog"
+          break
+        fi
+      done
+    fi
   fi
   zle .accept-line
 }

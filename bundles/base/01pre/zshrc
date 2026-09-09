@@ -1,23 +1,31 @@
 #!zsh
 
 #
-# We're going to track our path in a temporary file, and then save it to a well-known location
+# We build the path over the course of startup and write it to a well-known
+# location at the end (99post), so non-shell things can source a valid PATH.
+#
+# NOTE: this used to mktemp at the top of every shell and cat into it.  Both
+# were forks on the critical path; zsh can do all of it in-process.
 #
 
-pathCache="$(mktemp)"
+zmodload -F zsh/datetime b:strftime
 
 save_path_to_cache ()
 {
-    /bin/cat >$pathCache <<EOF
-#
+    local dest="$HOME/.path-carapace"
+    local tmp="${dest}.$$"
+    local now
+
+    TZ=UTC strftime -s now "%a %b %e %H:%M:%S UTC %Y" $EPOCHSECONDS
+
+    print -r -- "#
 # Path cache file
 #
-# Generated: $(/bin/date -u)
+# Generated: ${now}
 #
 
-export PATH="$PATH"
-
-EOF
+export PATH=\"$PATH\"
+" > "$tmp" && mv -f "$tmp" "$dest"
 }
 
 #
@@ -49,10 +57,15 @@ fi
 # Load system-level environment stuff
 #
 
-if [ -f /etc/environment ]; then
-    for line in $( cat /etc/environment ) ; do
-        export $line
-    done
+# NOTE: read in-process rather than forking cat.  Skips comments and blanks;
+# the old version exported them and anything else on the line.
+if [ -r /etc/environment ]; then
+    while IFS= read -r line; do
+        case "$line" in
+            ''|'#'*) continue ;;
+            *=*)     export "$line" ;;
+        esac
+    done < /etc/environment
 fi
 
 #
@@ -84,11 +97,30 @@ add_path_front ()
 }
 
 # Homebrew variables
-brewcmds=("brew" "/opt/homebrew/bin/brew" "${HOME}/homebrew/bin/brew" "/home/linuxbrew/.linuxbrew/bin/brew" "${HOME}/.brew/bin/brew" )
+#
+# NOTE: the first candidate used to be the bare word "brew", which `[ -x ]`
+# resolves as a relative path, not a $PATH search -- it never matched.
+#
+# `brew shellenv` is a bash script that takes ~80ms to print eight exports that
+# only change when Homebrew itself moves.  Cache it, and regenerate when the
+# brew executable is newer than the cache.
+brewcmds=( ${commands[brew]} /opt/homebrew/bin/brew "${HOME}/homebrew/bin/brew" /home/linuxbrew/.linuxbrew/bin/brew "${HOME}/.brew/bin/brew" )
 for brewcmd in ${brewcmds}; do
   if [ -x "${brewcmd}" ]; then
     export CARAPACE_BREW_CMD="${brewcmd}"
-    eval "$(${CARAPACE_BREW_CMD} shellenv)"
+
+    _brew_env_cache="${HOME}/.cache/carapace/brew-shellenv.zsh"
+    if [[ ! -r $_brew_env_cache || $CARAPACE_BREW_CMD -nt $_brew_env_cache ]]; then
+      mkdir -p "${_brew_env_cache:h}" 2>/dev/null || :
+      "$CARAPACE_BREW_CMD" shellenv > "$_brew_env_cache" 2>/dev/null || :
+    fi
+    if [[ -s $_brew_env_cache ]]; then
+      source "$_brew_env_cache"
+    else
+      eval "$(${CARAPACE_BREW_CMD} shellenv)"
+    fi
+    unset _brew_env_cache
+
     break
   fi
 done

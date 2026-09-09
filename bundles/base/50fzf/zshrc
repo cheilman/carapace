@@ -13,5 +13,14 @@ add_path_back "${CARAPACE_CURRENT_MODULE_PATH}/fzf/bin"
 
 # Setup fzf
 # ---------
-source <(fzf --zsh)
+# Cache the shell integration rather than forking fzf on every startup.
+if (( $+commands[fzf] )); then
+  _fzf_init_cache="${HOME}/.cache/carapace/fzf-init.zsh"
+  if [[ ! -r $_fzf_init_cache || ${commands[fzf]} -nt $_fzf_init_cache ]]; then
+    mkdir -p "${_fzf_init_cache:h}" 2>/dev/null || :
+    fzf --zsh > "$_fzf_init_cache" 2>/dev/null || :
+  fi
+  [[ -s $_fzf_init_cache ]] && source "$_fzf_init_cache"
+  unset _fzf_init_cache
+fi
 

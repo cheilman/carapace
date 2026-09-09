@@ -74,6 +74,8 @@ setopt NO_SHARE_HISTORY
 #
 # Save the final path to the cache file and finalize
 #
+# (save_path_to_cache now writes ~/.path-carapace directly, via a temp file in
+# the same directory, so there is nothing left to copy.)
+#
 save_path_to_cache
-cp -f "$pathCache" "$HOME/.path-carapace"
 

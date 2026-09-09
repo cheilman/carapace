@@ -3,6 +3,10 @@
 # Show a fortune
 #
 
-timed-fortune "${CARAPACE_CURRENT_MODULE_PATH}/dotfiles/fortunes" "fortune" "1 day" "Fortune"
+# run-infrequently forks touch three times even when it decides not to run.
+# Do the freshness check in-process first; only shell out when it's due.
+if [[ -z ${CARAPACE}/generated/fortune-timestamp(#qN.mh-24) ]]; then
+  timed-fortune "${CARAPACE_CURRENT_MODULE_PATH}/dotfiles/fortunes" "fortune" "1 day" "Fortune"
+fi
 
 
