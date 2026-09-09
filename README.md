@@ -3,55 +3,36 @@ Carapace
 
 Modular shell/dotfiles infrastructure.
 
-See [full documentation](docs/Carapace.md) for more details.
+Install:
 
+    git clone https://github.com/cheilman/carapace.git ~/.carapace
+    ~/.carapace/install/carapace-install
 
-To-Do
------
+Update:
 
-- [X] Basic implementation
-- [X] Update support
-- [X] Add pre/post configuration from base module
-- [X] Finish adding base module content
-- Work on migrating existing modules:
-    - [X] amazon
-    - [X] ansi
-    - [X] ansiweather
-    - [-] atom              # Not continuing with atom, as I use vscode now
-    - [-] chime             # Have a better chime option now
-    - [X] clog
-    - [X] docker            # Only docker scripts, none of the stuff from the dockerfiles repo
-    - [ ] docker-files
-    - [X] font              # never used this font anyway
-    - [X] fortunes
-    - [X] fzf
-    - [X] git
-    - [X] git1.7.10         # rolled into git
-    - [X] go                # Semi-dynamic installs, no existance check
-    - [X] hhighlighter
-    - [X] i3
-    - [X] images
-    - [X] is
-    - [-] kitty             # Didn't like it, don't need this
-    - [X] latex
-    - [ ] lyntin
-    - [-] presentations     # Was entirely commented out in cahhome
-    - [X] prompt
-    - [-] rainbowstream     # Not using this twitter thing anymore
-    - [-] recoll            # Not migrating this for now.  Ag works pretty well
-    - [-] restic            # Not migrating
-    - [-] screen            # Not migrating
-    - [X] souls
-    - [X] sysdash
-    - [X] taskwarrior
-    - [X] technic
-    - [-] tinycareterminal  # Replaced by sysdash
-    - [X] tmux
-    - [X] vis
-    - [X] vscode            # Not sure if this is going to work right or not
-    - [X] z
-    - [X] zgen
-    - [X] zz_busybox
-- [X] Add installation/modules for handy go utilities (that are in go/bin right now)
-- [ ] Fix cahhome-limited
+    carapace-update --install
 
+See [full documentation](docs/Carapace.md).  Working on this with an AI agent?
+Start at [AGENTS.md](AGENTS.md).
+
+Layout
+------
+
+| Path | What |
+|------|------|
+| `bundles/` | Content, grouped into bundles of modules.  `base/` ships with Carapace; others are cloned in per-host. |
+| `modules/` | Generated symlinks — do not put anything here by hand. |
+| `install/` | The installer and its helpers. |
+| `generated/` | Built config files.  Do not edit; edit the module and reinstall. |
+| `docs/` | System documentation, plus the templates that head each generated file. |
+| `prereqs/` | Per-platform package manifests (Homebrew leaves, casks). |
+| `tests/` | Dockerfiles for exercising a clean install. |
+
+Docs
+----
+
+- [Carapace](docs/Carapace.md) — the system as a whole
+- [Bundle](docs/Bundle.md) — how bundles work
+- [Module](docs/Module.md) — how to write a module
+- [Host](docs/Host.md) / [Host Config](docs/Host-Config.md) — per-host overrides
+- [TODO](docs/TODO.md) — known gaps

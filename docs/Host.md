@@ -14,6 +14,13 @@ per-host settings that are not managed by the global repository.
     |- timezone
 ```
 
+Nothing in here is tracked by Carapace, which makes it the right home for
+machine-specific or private content.
+
+`carapace-install` creates the directories above if they're missing, and seeds
+`~/.host/README.md` and `~/.host/config/README.md` as symlinks to this file and
+to [Host Config](Host-Config.md).  Edit the originals in `docs/`, not the copies.
+
 Components
 ----------
 
@@ -31,7 +38,7 @@ Options are described in the [Host Config Readme](Host-Config.md).
 
 ### modules
 
-Host-specific modules can be created here according to the [Module Documentation](Module.md), and will be linked in accordingly (as if `~/.host/` were a bundle).
+Host-specific modules can be created here according to the [Module Documentation](Module.md).  `~/.host/modules` is treated as a bundle named `HOST`, so its contents are linked and ordered exactly like any other bundle's — see [Bundle Documentation](Bundle.md).
 
 ### pretty-hostname
 
@@ -40,7 +47,14 @@ Allows most of the Carapace systems to display a nicer hostname than `hostname -
 - If this is an executable file, the file will be run and the first line of output used as the hostname.
 - If this file is readable, the file will be read and the first line used as the hostname.
 
+The consumer is `30base/bin/pretty-hostname`.
+
 ### timezone
 
-If this file exists, it will override the timezone set in Carapace.
+If this file exists it is **sourced** by the shell instead of Carapace setting
+its default (`America/New_York`).  It must therefore contain shell code, not a
+bare zone name:
 
+```sh
+export TZ='Europe/Berlin'
+```

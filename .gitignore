@@ -4,3 +4,4 @@ backup/[^.]*
 generated/[^.]*
 minimal/*
 
+proposed-changes/
