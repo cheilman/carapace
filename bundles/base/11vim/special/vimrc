@@ -21,7 +21,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'powerman/ansiesc.vim'
-Plugin 'vim-syntastic/syntastic'
+" NOTE: syntastic was removed -- running it alongside ale means two linting
+" engines fighting over the same buffers, which is a documented conflict.
+" ale is the one that stays.
 Plugin 'dense-analysis/ale'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-endwise'

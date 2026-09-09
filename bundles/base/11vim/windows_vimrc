@@ -34,7 +34,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'powerman/ansiesc.vim'
-Plugin 'vim-syntastic/syntastic'
+" NOTE: syntastic removed; it conflicts with ale.  See special/vimrc.
 Plugin 'dense-analysis/ale'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-endwise'

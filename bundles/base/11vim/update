@@ -16,8 +16,15 @@ if [ -d "${moduledir}/${repodir}" ]; then
     # Assume the repo exists, update it
     ( cd "${moduledir}/${repodir}" && git pull -q --recurse-submodules )
 else
-    # Assume the repo does not exist
-    ( cd "${moduledir}" && git clone --recurse-submodules "${repo}" ./${repodir} )
+    # Assume the repo does not exist.
+    # Shallow: we never need Vundle's history, and this module is already the
+    # heaviest in the bundle.
+    ( cd "${moduledir}" && git clone --depth 1 --recurse-submodules --shallow-submodules "${repo}" ./${repodir} )
 fi
+
+# NOTE: the plugins themselves are cloned by Vundle (from post-install), which
+# has no shallow-clone option.  ale alone carries ~20MB of test fixtures for
+# languages we don't use.  Switching plugin managers would fix that; see
+# docs/TODO.md.
 
 

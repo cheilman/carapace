@@ -72,6 +72,15 @@ Also deferred, for reasons other than cross-host uncertainty:
       0.3 ms so the behavioural risk outweighs the win.  `ssh-agent` has already
       been dropped (it fought with `50ssh`).
 
+Weight
+------
+
+- [ ] **`11vim` is 26 MB**, most of it `ale`'s `test/test-files/` — fixtures for
+      elixir, racket, puppet, drush, swift and other languages that aren't in
+      use.  Vundle has no shallow-clone option, so fixing this properly means
+      moving to a plugin manager that does (vim-plug, packer, or vim 8 native
+      packages).  `Vundle.vim` itself is now cloned `--depth 1`.
+
 Other
 -----
 

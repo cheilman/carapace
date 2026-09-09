@@ -10,14 +10,17 @@ generateddir="${2:-/dev/null}"
 #
 # Figure out which toybox to use
 #
+# NOTE: arch-bin only carries x86_64 and aarch64 -- the other 16 architectures
+# were 13MB of binaries for machines that don't exist.  Grab a build from
+# https://landley.net/toybox/bin/ and drop it in if you need another.
+#
+# macOS reports arm64, but these are static *Linux* builds, so it deliberately
+# does not map to toybox-aarch64.
 machine="$(uname -m)"
 if [ -x "${moduledir}/arch-bin/toybox-${machine}" ]; then
   carapace-redirect "${moduledir}/arch-bin/toybox-${machine}" "${moduledir}/bin/toybox"
-elif [ "${machine}" = "arm64" ]; then
-  # TODO: Figure out how to get mac support...
-  carapace-message "brown" "Did not find toybox-${machine}..."
 else
-  carapace-message "brown" "Did not find toybox-${machine}..."
+  carapace-message "brown" "No toybox build for ${machine} in arch-bin/."
 fi
 
 if [ ! -x "${moduledir}/bin/toybox" ]; then
