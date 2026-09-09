@@ -120,6 +120,38 @@ done
 )
 
 #
+# Clear out links left behind by modules that no longer exist
+#
+# carapace-install-module prunes broken links pointing into *its own* module,
+# which cannot catch a module that has been deleted outright -- those links
+# used to linger forever.  ~/bin/carapace is wholly owned by Carapace, so any
+# broken link in it is ours to remove.  Elsewhere, only remove broken links
+# that point back into the Carapace tree or into ~/.host/modules.
+#
+(
+    carapace-message "cyan" "cleaning up links from removed modules"
+    export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
+
+    for i in $HOME/bin/carapace/*(N-@); do
+        if [ ! -e "$i" ]; then
+            carapace-message "magenta" "- $i"
+            rm -f "$i"
+        fi
+    done
+
+    for i in $HOME/*(N-@) $HOME/.*(N-@) $HOME/.config/*(N-@) $HOME/.config/*/*(N-@); do
+        if [ ! -e "$i" ]; then
+            case "$(readlink "$i")" in
+                ${CARAPACE}/*|${HOME}/.host/modules/*)
+                    carapace-message "magenta" "- $i"
+                    rm -f "$i"
+                    ;;
+            esac
+        fi
+    done
+)
+
+#
 # Run through the bundles and link their modules
 #
 (

@@ -236,7 +236,9 @@ What does the module installation process look like?
 11. Add the module name to the list of installed modules (see [Environment Variables](Carapace.md#environment-variables) section in the [Carapace documentation](Carapace.md))
 
 The pruning steps (4, 6, 7) are why renaming or deleting a file inside a module
-cleans up after itself, and why a module can't leave stale links behind.
+cleans up after itself.  They only cover modules that still exist, so
+`carapace-install` additionally sweeps up links belonging to modules that have
+been deleted outright -- see [Installation Order](Carapace.md#installation-order).
 
 A module script that exists but is **not executable** is skipped with a warning.
 `chmod +x` is part of creating one.

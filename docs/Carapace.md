@@ -144,7 +144,10 @@ Installation
 2. Seed `~/.host/README.md` and `~/.host/config/README.md` from `docs/`.
 3. Link the install scripts into `~/bin/carapace/`.
 4. Copy each `docs/templates/*-template` into `generated/intermediate/generated-*` and stamp it with a UTC build date.
-5. Remove broken symlinks from `modules/`.
+5. Remove broken symlinks from `modules/`, then sweep up links left behind by
+   modules that have been deleted outright: any broken link in `~/bin/carapace`,
+   plus broken links in `$HOME`, `$HOME/.config` and one level below it that
+   point back into the Carapace tree or `~/.host/modules`.
 6. For each directory in `bundles/`, then `~/.host/modules` (as bundle `HOST`): link its modules into `modules/` as `<modulename>-<bundlename>`, and check the bundle's `prereqs` file.
 7. For each directory in `modules/` in lexicographic order: run `carapace-install-module`.
 8. Append the trailer to `generated-zshrc` and clear the module variables.
