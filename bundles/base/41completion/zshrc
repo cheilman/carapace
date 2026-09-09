@@ -1,0 +1,54 @@
+#!zsh
+#
+# Completion system.
+#
+# This is the ONLY place Carapace should call compinit.  It runs after 40zgenom
+# so that plugin completion directories (oh-my-zsh, zsh-completions, ...) are
+# already on $fpath.  Anything that contributes to $fpath must be numbered
+# below 41.
+#
+# zgenom and oh-my-zsh are told to keep their hands off compinit in 30base,
+# which has to happen before 40zgenom loads.
+#
+
+#
+# Completion configuration
+#
+
+zstyle ':completion:*' completer _expand _complete _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' use-compctl true
+
+setopt COMPLETE_IN_WORD
+
+#
+# Initialise, reusing the cached dump if it is still fresh.
+#
+# Rebuilding the dump costs ~1.3s on a host with a large $fpath, and a bare
+# `compinit` did it on every single shell start.  Reusing a cached dump costs
+# ~7ms.
+#
+#   (#qN.mh-24)  glob qualifier: exists, regular file, modified < 24h ago
+#   -C           skip the security audit and the $fpath rescan
+#   -u           accept group-writable completion dirs (Homebrew ships one)
+#                instead of prompting
+#
+# Run `carapace-recompletion` to force a rebuild before the 24h window is up.
+#
+
+_carapace_zcompdump="${HOME}/.zcompdump-carapace-${ZSH_VERSION}"
+
+autoload -Uz compinit
+if [[ -n ${_carapace_zcompdump}(#qN.mh-24) ]]; then
+  compinit -C -d "$_carapace_zcompdump"
+else
+  compinit -u -d "$_carapace_zcompdump"
+  # Byte-compile in the background; the next shell reads the .zwc.
+  { zcompile -R -- "${_carapace_zcompdump}.zwc" "$_carapace_zcompdump" } &!
+fi
+
+unset _carapace_zcompdump

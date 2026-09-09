@@ -246,6 +246,13 @@ if [ $? -eq 0 ]; then
 fi
 
 #
+# Drop the completion cache -- a reinstall can change $fpath, and 41completion
+# would otherwise reuse a stale dump for up to 24 hours.
+#
+
+rm -f "$HOME"/.zcompdump-carapace-*(N) &> /dev/null || :
+
+#
 # Should be all good!
 #
 

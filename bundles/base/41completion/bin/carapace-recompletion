@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+#
+# Force the completion cache to be rebuilt.
+#
+# 41completion reuses a cached dump for 24 hours, so a newly installed tool's
+# completions can take up to a day to show up.  Run this to pick them up now.
+#
+
+rm -f "${HOME}"/.zcompdump-carapace-*(N) || :
+
+if [ -t 0 ]; then
+  echo "Completion cache cleared.  Starting a fresh login shell..."
+  exec zsh -l
+else
+  echo "Completion cache cleared.  It will rebuild on your next shell."
+fi
