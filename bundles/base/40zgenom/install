@@ -64,10 +64,10 @@ zgenom ohmyzsh plugins/gnu-utils
 
 zgenom ohmyzsh plugins/safe-paste
 
-zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent quiet yes
-zstyle :omz:plugins:ssh-agent lazy yes
-zgenom ohmyzsh plugins/ssh-agent
+# NOTE: oh-my-zsh's ssh-agent plugin is deliberately NOT loaded.  The 50ssh
+# module does its own agent discovery (ssh-find-agent, plus the
+# ~/.ssh/ssh_auth_sock symlink), and running both meant two agent managers
+# fighting over SSH_AUTH_SOCK for ~26ms of startup.
 
 zgenom ohmyzsh plugins/tmux
 

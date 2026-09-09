@@ -8,7 +8,8 @@ source "${CARAPACE_CURRENT_MODULE_PATH}/ssh-find-agent.sh"
 
 # Check if the agent is valid/running
 function check-ssh-agent() {
-  ssh-add -l >&/dev/null
+  # `command` so this still works when the lazy wrappers below are in place.
+  command ssh-add -l >&/dev/null
   result=$?
 
   # 0:  Everything is okay
@@ -51,5 +52,38 @@ function ssh-setup() {
 
 alias ssh-prep='ssh-setup && ssh-add-my-keys'
 
-ssh-setup
+#
+# Agent discovery is deferred.
+#
+# ssh-setup runs ssh-add -l, sometimes ssh_find_agent, and sometimes spawns an
+# agent -- ~20ms on every shell start, for something most shells never use.
+# Instead, adopt an already-running agent cheaply if the well-known socket is
+# there, and otherwise do the full discovery the first time an ssh-ish command
+# is actually run.
+#
+# If you need SSH_AUTH_SOCK set unconditionally (a non-interactive script, say),
+# call ssh-setup yourself.
+#
+
+if [[ -z "$SSH_AUTH_SOCK" && -S "$HOME/.ssh/ssh_auth_sock" ]]; then
+  # Cheap: no forks, no agent spawn.  If the socket is stale the lazy wrapper
+  # below will notice and redo the discovery properly.
+  export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+fi
+
+_carapace_ssh_lazy_setup() {
+  # Drop the wrappers first, so discovery below runs against the real binaries
+  # and we only pay for it once per shell.
+  unfunction ssh scp sftp ssh-add 2>/dev/null
+
+  check-ssh-agent || ssh-setup
+}
+
+# NOTE: assign through $functions rather than `eval "ssh() { ... }"`.  30base
+# aliases both ssh and scp, and an alias is expanded while the function
+# definition is being parsed, so the eval form silently defines nothing.
+for _cmd in ssh scp sftp ssh-add; do
+  functions[$_cmd]="_carapace_ssh_lazy_setup; command $_cmd \"\$@\""
+done
+unset _cmd
 
