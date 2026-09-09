@@ -48,6 +48,37 @@ feature is not implemented.  Each is described in more detail where it lives.
       (`40p10k` + `40zgenom`).  Either drop them or port `login_certs` to a p10k
       custom segment.  See [Host-Config.md](Host-Config.md#not-currently-implemented).
 
-- [ ] **`60sysdash` does not load its host config.**  The body of
-      `60sysdash/zshrc` is commented out with a `TODO`.  The only live reader of
-      `~/.host/config/sysdash` is `30base/bin/idle`.
+Candidates for removal
+----------------------
+
+Zero usage in ~16k lines of shell history on the Linux devserver, but plausibly
+still used on a Mac or the WSL host.  Check on those machines, then delete.
+
+- [ ] `40powerline` — tmux-powerline; superseded by `40p10k` for the shell prompt,
+      but the tmux status line may still use it.
+- [ ] `50stormy` — `~/.config/stormy`.
+- [ ] `50taskwarrior` — taskrc plus `mytasks`, `tasksync`, `watchmytasks`.
+- [ ] `70conky` — conky config; desktop only.
+- [ ] `50neofetch` — 4 uses; cheap to keep, listed for completeness.
+
+Also deferred, for reasons other than cross-host uncertainty:
+
+- [ ] `70grc` — zero usage, but deleting it was not authorised.  Its
+      `accept-line` widget has been optimised instead (the config glob is
+      hoisted out of the hot path).
+- [ ] `90mist`, `90wreck`, `90nethack`, `50souls` — personal, not "standard
+      functionality", and `bundles/base` is published.  `90mist/special/ssh_config`
+      contains port-forward topology for a personal host.  Moving them to a
+      separate bundle would break the other machines that expect them in `base`,
+      so this needs a plan rather than a delete.
+- [ ] Trim the `40zgenom` plugin list.  `z`, `bgnotify`, `copybuffer`,
+      `copypath`, `copyfile` and `colorize` are unused, but each costs under
+      0.3 ms so the behavioural risk outweighs the win.  `ssh-agent` has already
+      been dropped (it fought with `50ssh`).
+
+Other
+-----
+
+- [ ] **`60sysdash` was deleted**; its `zshrc` body had been commented out with a
+      `TODO` since 2023.  `~/.host/config/sysdash` is still read by
+      `30base/bin/idle`, which is the only live consumer.

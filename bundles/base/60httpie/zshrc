@@ -1,7 +1,0 @@
-#!zsh
-#
-# Set up alias
-#
-
-alias https='http --default-scheme=https'
-
