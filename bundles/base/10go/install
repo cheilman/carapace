@@ -59,7 +59,7 @@ if [ -d "${found_goroot}" -a -x "${found_goroot}/bin/go" ]; then
       sed -e 's;https://proxy.golang.org,;;' -i "${goenv_cache}"
     fi
 else
-    carapace-message "boldred" "Failed to find an approprite go installation under '${found_goroot}'!"
-    exit 1
+    carapace-message "brown" "No suitable go installation found (wanted >= ${desired_version})."
+    exit ${CARAPACE_SKIP:-42}
 fi
 

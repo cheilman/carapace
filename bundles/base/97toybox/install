@@ -21,8 +21,8 @@ else
 fi
 
 if [ ! -x "${moduledir}/bin/toybox" ]; then
-  carapace-message "red" "Failed to find appropriate architecture for toybox (${machine})..."
-  exit
+  carapace-message "brown" "No toybox binary for this architecture (${machine})."
+  exit ${CARAPACE_SKIP:-42}
 fi
 
 #

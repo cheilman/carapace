@@ -20,6 +20,12 @@ bundlename="$(echo ${modulefullname} | cut -d- -f2)"
 
 modulename="${bundlename}/${module}"
 
+# Exit code a module's install/post-install script may use to mean "this module
+# does not apply on this host".  Skipped quietly; anything else non-zero is a
+# failure.  Set here as well as in carapace-install so this script still works
+# when invoked directly.
+: ${CARAPACE_SKIP:=42}
+
 carapace-message "boldblue" "processing module [${modulepriority}] ${modulename}"
 
 export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
@@ -147,11 +153,17 @@ remove_broken_symlink_to_this_module() {
 #
 
 if [ -x "${moduledir}/install" ]; then
-    ${moduledir}/install "$moduledir" "$generated"
-    err=$?
+    # NOTE: `|| err=$?` is required.  This script runs under `set -e`, so a bare
+    # call would abort before we could tell "not applicable here" apart from
+    # "broken", and every opt-out would be reported as a failure.
+    err=0
+    ${moduledir}/install "$moduledir" "$generated" || err=$?
 
-    if [ $err -ne 0 ]; then
-        carapace-message "boldbrown" "Skipping '$modulename' becase of install check: $err"
+    if [ $err -eq $CARAPACE_SKIP ]; then
+        carapace-message "boldbrown" "Skipping '$modulename' (not applicable on this host)"
+        exit 0
+    elif [ $err -ne 0 ]; then
+        carapace-message "boldred" "'$modulename' install script failed: $err"
         exit $err
     fi
 elif [ -e "${moduledir}/install" ]; then
@@ -282,10 +294,13 @@ fi
 #
 
 if [ -x "${moduledir}/post-install" ]; then
-    ${moduledir}/post-install "$moduledir" "$generated"
-    err=$?
+    err=0
+    ${moduledir}/post-install "$moduledir" "$generated" || err=$?
 
-    if [ $err -ne 0 ]; then
+    if [ $err -eq $CARAPACE_SKIP ]; then
+        carapace-message "boldbrown" "'$modulename' post-install opted out"
+        exit 0
+    elif [ $err -ne 0 ]; then
         carapace-message "red" "'$modulename' had an error in the post-install script: $err"
         exit $err
     fi

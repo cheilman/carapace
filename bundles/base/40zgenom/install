@@ -11,8 +11,10 @@ moduledir="${1:-${0:a:h}}"
 #
 
 unset ZGEN_DIR
+# The checkout lives inside the module.  Falling back to ~/.zgenom only works
+# once `update` has created that symlink, which is not true on a fresh host.
 if [ -z "${ZGENOM_DIR}" ]; then
-  ZGENOM_DIR="${HOME}/.zgenom/"
+  ZGENOM_DIR="${moduledir}/zgenom"
 fi
 ZGEN_DIR="${ZGENOM_DIR}/sources"
 ZGEN_INIT="${ZGENOM_DIR}/init.zsh"

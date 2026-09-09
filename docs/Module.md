@@ -130,7 +130,19 @@ An optional script that is executed on Carapace installations or upgrades.  It s
 
 - It serves as a test to see if this module should be installed or not.  A non-zero return value means that this module will not be processed further (during this installation).
 
-    **NOTE:** at present a non-zero `install` exit is also counted as a module *failure* — it is printed in red, listed in the failure summary, and makes `carapace-install` exit 1.  There is currently no way for a module to opt out quietly.  Because `carapace-install-module` runs under `set -e`, the script's own "Skipping ..." branch is never reached.  See [TODO](TODO.md).
+    Two kinds of non-zero exit are distinguished:
+
+    - **`$CARAPACE_SKIP` (42)** — "this module does not apply on this host".  The module is skipped quietly, and the install is still considered successful.  Use this for a missing toolchain, an unsupported architecture, or a host-config opt-out flag.
+    - **any other non-zero value** — a genuine failure.  Reported in red, listed in the failure summary, and `carapace-install` exits 1.
+
+    `CARAPACE_SKIP` is exported by `carapace-install`; fall back to the literal in case your script is run standalone:
+
+    ```zsh
+    if ! command -v mytool > /dev/null 2>&1; then
+      carapace-message "brown" "mytool not installed here."
+      exit ${CARAPACE_SKIP:-42}
+    fi
+    ```
 
 - It allows configuration/setup/dependency/etc. processing that Carapace does not support by default.  For example:
     - Cloning/updating a git repo for a dependency
@@ -160,8 +172,10 @@ cached artifact.
 Unlike `install`, it receives only the module directory.  It must be idempotent
 and safe to run on a machine where the dependency has never been installed.
 
-A non-zero exit marks the module as failed for this update pass and is reported
-at the end of `carapace-update` (with the same caveat as `install`, above).
+Exits are interpreted as for `install`: `$CARAPACE_SKIP` (42) means "not
+applicable here" and is skipped quietly, any other non-zero value marks the
+module as failed for this update pass and is reported at the end of
+`carapace-update`.
 
 #### Usage:
 

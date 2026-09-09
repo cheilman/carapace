@@ -9,8 +9,11 @@ repo="https://github.com/junegunn/fzf.git"
 moduledir="${1:-${0:a:h}}"
 generated="${2:-/dev/null}"
 
-# See if we're already installed
-if [ ! which fzf &>/dev/null ]; then
+# See if we're already installed.
+# NOTE: this was previously `[ ! which fzf &>/dev/null ]`, which is not a valid
+# test -- it always took the install branch, so the full fzf source tree was
+# cloned and built even on hosts that already had fzf from a package manager.
+if ! command -v fzf > /dev/null 2>&1; then
   carapace-message "blue" "Installing fzf..."
   if [ -d "${moduledir}/${repodir}" ]; then
       # Assume the repo exists, update it

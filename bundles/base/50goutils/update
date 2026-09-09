@@ -8,7 +8,7 @@ generateddir="${2:-/dev/null}"
 
 if [ -r "$HOME/.host/config/skip_goutils" ]; then
   carapace-message "magenta" "Skipping all go utilities due to host config flag."
-  exit
+  exit ${CARAPACE_SKIP:-42}
 fi
 
 # Load go environment

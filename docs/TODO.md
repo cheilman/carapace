@@ -27,14 +27,10 @@ feature is not implemented.  Each is described in more detail where it lives.
       `carapace-install` and emit an `export` line into `generated-zshrc`, or
       remove the concept.  See [Carapace.md](Carapace.md#environment-variables).
 
-- [ ] **A module's `install` script cannot opt out quietly.**
-      `carapace-install-module` runs under `set -e`, so a non-zero exit from
-      `install` aborts the wrapper before its "Skipping ..." branch can run.
-      The module is skipped, but it is reported as a *failure* and
-      `carapace-install` exits 1.  A dedicated "not applicable" exit code
-      (checked with `|| err=$?` so `set -e` doesn't intercept it) would
-      separate "doesn't apply here" from "broken".  Affects `post-install` and
-      `update` the same way.  See [Module.md](Module.md#install).
+- [x] ~~**A module's `install` script cannot opt out quietly.**~~  Fixed: module
+      scripts may exit `$CARAPACE_SKIP` (42) to mean "not applicable on this
+      host", which is skipped quietly.  Any other non-zero exit is a real
+      failure.  `10go`, `97toybox` and `50goutils` now use it.
 
 - [ ] **`auto_update_carapace` is documented but not implemented.**  Nothing
       reads the flag, and `generated/carapace-update-timestamp` has been a

@@ -19,6 +19,9 @@ bundlename="$(echo ${modulefullname} | cut -d- -f2)"
 
 modulename="${bundlename}/${module}"
 
+# See carapace-install-module.
+: ${CARAPACE_SKIP:=42}
+
 carapace-message "boldblue" "processing module [${modulepriority}] ${modulename}"
 
 export CARAPACE_INDENT="  ${CARAPACE_INDENT}"
@@ -32,11 +35,16 @@ TRAPEXIT() {
 #
 
 if [ -x "${moduledir}/update" ]; then
-    ${moduledir}/update "$moduledir"
-    err=$?
+    # See the note in carapace-install-module: `|| err=$?` keeps `set -e` from
+    # swallowing the distinction between "not applicable" and "broken".
+    err=0
+    ${moduledir}/update "$moduledir" || err=$?
 
-    if [ $err -ne 0 ]; then
-        carapace-message "boldbrown" "Skipping '$modulename' becase of update check: $err"
+    if [ $err -eq $CARAPACE_SKIP ]; then
+        carapace-message "boldbrown" "Skipping '$modulename' (not applicable on this host)"
+        exit 0
+    elif [ $err -ne 0 ]; then
+        carapace-message "boldred" "'$modulename' update script failed: $err"
         exit $err
     fi
 elif [ -e "${moduledir}/update" ]; then

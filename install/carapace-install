@@ -28,6 +28,8 @@ export CARAPACE_GENERATED="$CARAPACE/generated"
 export CARAPACE_GENERATED_INTERMEDIATE="$CARAPACE/generated/intermediate"
 export CARAPACE_MODULES=""
 export CARAPACE_INDENT=""
+# Exit code a module script may use to mean "not applicable on this host".
+export CARAPACE_SKIP=42
 
 carapace-message "boldcyan" "Carapace Installation Starting..."
 export CARAPACE_INDENT=" >"
