@@ -34,8 +34,14 @@ export PATH=\"$PATH\"
 
 . "$HOME/.profile"
 
-# Disable ^S/^Q flow control
-[[ $- == *i* ]] && stty -ixon
+# Disable ^S/^Q flow control.
+#
+# Talk to $TTY rather than stdin.  stty(1) acts on its standard input, and in a
+# startup file stdin is not reliably the terminal -- `zsh -i -c ...` and any
+# wrapper that redirects stdin both leave it pointing elsewhere, which makes
+# this print "Inappropriate ioctl for device" and silently leave ^S bound to
+# XOFF.  $TTY is set by zsh itself and is always the real terminal.
+[[ -o interactive && -c "$TTY" ]] && stty -ixon <"$TTY"
 
 #
 # Set umask

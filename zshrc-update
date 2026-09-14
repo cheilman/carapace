@@ -8,20 +8,6 @@ if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
 fi
 
-#
-# Powerlevel10k instant prompt.
-#
-# Must come before anything that writes to the terminal or reads stdin, which
-# is why it lives here rather than in the 40p10k module -- module fragments are
-# concatenated well after this point.  Configured as "quiet" so the modules
-# that do print at login (97fortunes) don't produce a warning.
-#
-# Disable by setting POWERLEVEL9K_INSTANT_PROMPT=off in ~/.p10k.zsh.
-#
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 if which findCarapace &>/dev/null; then
   export CARAPACE="$(findCarapace)"
 elif [ -x "${HOME}/bin/carapace/findCarapace" ]; then

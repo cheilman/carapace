@@ -1,10 +1,14 @@
 #!zsh
 
 #
-# Disable ctrl-s flow control
+# Disable ctrl-s flow control, again.
+#
+# 01pre already did this, but plugins loaded in between (oh-my-zsh, anything
+# that pokes the terminal) can put -ixon back.  See 01pre for why this reads
+# $TTY instead of stdin.
 #
 
-[[ $- == *i* ]] && stty -ixon
+[[ -o interactive && -c "$TTY" ]] && stty -ixon <"$TTY"
 
 #
 # Force my bin folders to be first

@@ -34,8 +34,10 @@ EOF
 
 . "$HOME/.profile"
 
-# Disable ^S/^Q flow control
-[[ $- == *i* ]] && stty -ixon
+# Disable ^S/^Q flow control.
+# bash has no $TTY, so check that stdin really is the terminal before calling
+# stty -- otherwise this prints "Inappropriate ioctl for device".
+[[ $- == *i* && -t 0 ]] && stty -ixon
 
 #
 # Set umask
@@ -351,7 +353,7 @@ fi
 # Disable ctrl-s flow control (again)
 #
 
-[[ $- == *i* ]] && stty -ixon
+[[ $- == *i* && -t 0 ]] && stty -ixon
 
 #
 # Force my bin folders to be first
