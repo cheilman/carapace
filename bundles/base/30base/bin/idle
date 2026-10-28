@@ -19,7 +19,7 @@ fi
 # Let's just use btm for now...
 which btm &>/dev/null
 if [ $? -eq 0 ]; then
-  btm --disable_click --default_time_value 5m --rate 1s --retention 30m --read_only --hide_k_threads --fahrenheit --battery
+  btm --disable_click --default_time_value 5m --rate 1s --retention 30m --read_only --fahrenheit --battery
   exit $?
 fi
 
