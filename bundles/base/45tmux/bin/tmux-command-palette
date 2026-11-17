@@ -1,0 +1,106 @@
+#!/usr/bin/env zsh
+#
+# Fuzzy command palette for common tmux actions.
+#
+# Run in a popup with the pane that was active when it opened, for example:
+#   bind Space display-popup -E -w 72% -h 72% "tmux-command-palette '#{pane_id}'"
+#
+
+set -euo pipefail
+
+target_pane="${1:-${TMUX_PANE:-}}"
+
+if ! command -v fzf >/dev/null 2>&1; then
+  tmux display-message "tmux command palette requires fzf"
+  exit 0
+fi
+
+pane_data="$(tmux display-message -p -t "$target_pane" \
+  $'#{pane_id}\t#{pane_index}\t#{window_id}\t#{window_name}\t#{session_id}\t#{session_name}\t#{pane_current_path}' \
+  2>/dev/null)" || {
+  tmux display-message "command palette target pane is no longer available"
+  exit 0
+}
+IFS=$'\t' read -r pane_id pane_index window_id window_name session_id session_name current_path <<<"$pane_data"
+
+entries=(
+  $'split-right\tPane > Split right (side by side)  (C-w, |)'
+  $'split-below\tPane > Split below (stacked)  (C-w, -)'
+  $'zoom-pane\tPane > Zoom or unzoom  (C-w, z)'
+  $'copy-mode\tPane > Scroll and copy mode  (C-w, [)'
+  $'swap-up\tPane > Swap upward  (C-w, {)'
+  $'swap-down\tPane > Swap downward  (C-w, })'
+  $'break-pane\tPane > Move into a new window  (C-w, !)'
+  $'kill-pane\tPane > Close pane...  (C-w, x)'
+  $'new-window\tWindow > New window  (C-w, c)'
+  $'rename-window\tWindow > Rename window...  (C-w, ,)'
+  $'next-window\tWindow > Next window  (C-w, n)'
+  $'previous-window\tWindow > Previous window  (C-w, p)'
+  $'last-window\tWindow > Last active window  (C-w, C-w)'
+  $'renumber-windows\tWindow > Renumber windows  (C-w, C-r)'
+  $'kill-window\tWindow > Close window...  (C-w, &)'
+  $'choose-tree\tNavigate > Choose window in this session  (C-w, w)'
+  $'choose-session\tNavigate > Choose session  (C-w, s)'
+  $'layout-even-horizontal\tLayout > Even horizontal  (C-w, M-1)'
+  $'layout-even-vertical\tLayout > Even vertical  (C-w, M-2)'
+  $'layout-main-horizontal\tLayout > Main horizontal  (C-w, M-3)'
+  $'layout-main-vertical\tLayout > Main vertical  (C-w, M-4)'
+  $'layout-tiled\tLayout > Tiled  (C-w, M-5)'
+  $'raw-command\tTmux > Run a tmux command...  (C-w, :)'
+  $'show-keys\tTmux > Show all key bindings  (C-w, ?)'
+  $'reload-config\tTmux > Reload configuration  (C-w, r)'
+  $'detach-client\tTmux > Detach client  (C-w, d)'
+)
+
+selection="$(printf '%s\n' "${entries[@]}" | fzf \
+  --height=100% \
+  --no-border \
+  --delimiter=$'\t' \
+  --with-nth=2 \
+  --prompt='tmux> ' \
+  --header='Type to filter commands; Enter runs the selected command' \
+  --layout=reverse \
+  --info=inline \
+  --no-multi)" || exit 0
+
+case "${selection%%$'\t'*}" in
+  split-right) tmux split-window -h -p 50 -t "$pane_id" -c "$current_path" ;;
+  split-below) tmux split-window -v -p 50 -t "$pane_id" -c "$current_path" ;;
+  zoom-pane) tmux resize-pane -Z -t "$pane_id" ;;
+  copy-mode) tmux copy-mode -t "$pane_id" ;;
+  swap-up) tmux swap-pane -U -t "$pane_id" ;;
+  swap-down) tmux swap-pane -D -t "$pane_id" ;;
+  break-pane) tmux break-pane -d -s "$pane_id" ;;
+  kill-pane)
+    tmux confirm-before -b -p "Close pane $pane_index? (y/n)" "kill-pane -t $pane_id"
+    ;;
+  new-window) tmux new-window -t "${session_id}:" ;;
+  rename-window)
+    tmux command-prompt -b -I "$window_name" -p 'rename window:' \
+      "rename-window -t \"$window_id\" \"%%\""
+    ;;
+  next-window) tmux next-window -t "$session_id" ;;
+  previous-window) tmux previous-window -t "$session_id" ;;
+  last-window) tmux last-window -t "$session_id" ;;
+  renumber-windows) tmux move-window -r -t "$session_id" ;;
+  kill-window)
+    tmux confirm-before -b -p "Close window $window_name? (y/n)" "kill-window -t $window_id"
+    ;;
+  choose-tree)
+    tmux choose-tree -t "$pane_id" -wf"#{==:#{session_name},$session_name}" \
+      -F "#{window_name} {#{pane_current_command}} #{pane_current_path}"
+    ;;
+  choose-session) tmux choose-tree -t "$pane_id" -Zs ;;
+  layout-even-horizontal) tmux select-layout -t "$pane_id" even-horizontal ;;
+  layout-even-vertical) tmux select-layout -t "$pane_id" even-vertical ;;
+  layout-main-horizontal) tmux select-layout -t "$pane_id" main-horizontal ;;
+  layout-main-vertical) tmux select-layout -t "$pane_id" main-vertical ;;
+  layout-tiled) tmux select-layout -t "$pane_id" tiled ;;
+  raw-command) tmux command-prompt -b -p 'tmux command:' ;;
+  show-keys) tmux list-keys | less -S ;;
+  reload-config)
+    tmux source-file "$HOME/.tmux.conf"
+    tmux display-message "Config reloaded"
+    ;;
+  detach-client) tmux detach-client ;;
+esac
