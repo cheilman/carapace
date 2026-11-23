@@ -1,5 +1,6 @@
 aspell
 bat
+berkeley-db@5
 bottom
 cmake
 daemonize
@@ -31,6 +32,7 @@ imagemagick
 jq
 just
 lazygit
+magic-wormhole
 make
 md5sha1sum
 michaeldfallen/formula/git-radar
@@ -45,14 +47,15 @@ pv
 python-packaging
 python-setuptools
 ripgrep
+ruby
 sevenzip
-shared-mime-info
 shellcheck
 stormy
 swig
 tlrc
 tmux
 tree
+unbound
 uv
 vim
 watch
